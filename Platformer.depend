@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1374480858 source:/home/marcus/Programming/Platformer/main.cpp
+	<cstdlib>
+	<stdlib.h>
+	<SDL/SDL.h>
+	"Window.h"
+	<GL/glu.h>
+	<GL/gl.h>
+
+1374479623 /home/marcus/Programming/Platformer/Window.h
+	<cstdlib>
+	<SDL/SDL.h>
+	<string>
+
+1374480312 source:/home/marcus/Programming/Platformer/Window.cpp
+	"Window.h"
+	<GL/glu.h>
+	<GL/gl.h>
+
