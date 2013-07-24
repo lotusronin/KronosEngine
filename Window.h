@@ -1,3 +1,5 @@
+#ifndef WINDOW_H
+#define WINDOW_H
 #include <cstdlib>
 #include <SDL/SDL.h>
 #include <string>
@@ -9,3 +11,5 @@ public:
     ~Window();
 
 };
+
+#endif

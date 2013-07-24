@@ -16,7 +16,7 @@ Window::Window(int width, int height, std::string title){
 
     // create a new window
     SDL_Surface* screen = SDL_SetVideoMode(width, height, 16,
-                                           SDL_HWSURFACE|SDL_GL_DOUBLEBUFFER|SDL_OPENGL);
+                                           SDL_HWSURFACE|SDL_OPENGL);
     if ( !screen )
     {
         printf("Unable to set 640x480 video: %s\n", SDL_GetError());
@@ -24,6 +24,7 @@ Window::Window(int width, int height, std::string title){
     }
 
     SDL_WM_SetCaption(title.c_str(),title.c_str());
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
     glClearColor(0,0,0,0);
 
