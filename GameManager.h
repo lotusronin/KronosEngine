@@ -9,6 +9,7 @@ public:
     Window* win_main;
     KeyListener* listener;
     Object* triangle;
+    immobileObject* ground;
     Vec2* gravity;
     GameManager();
     ~GameManager();

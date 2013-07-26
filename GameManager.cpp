@@ -12,6 +12,7 @@ void GameManager::init(){
     win_main = new Window(640, 480, "Platform");
     listener = new KeyListener();
     triangle = new Object();
+    ground = new immobileObject();
     gravity = new Vec2(0, 5);
 }
 
@@ -28,6 +29,7 @@ int GameManager::run(){
         glLoadIdentity();
 
         triangle->draw();
+        ground->draw();
 
         SDL_GL_SwapBuffers();
     } // end main loop

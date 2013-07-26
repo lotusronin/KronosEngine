@@ -112,3 +112,33 @@ void Object::moveobj(int dir){
 //        break;
 //    }
 }
+
+immobileObject::immobileObject(){
+    vec = new Vec2(0,0);
+    verts[0] = 0;
+    verts[1] = 200;
+    verts[2] = 100;
+    verts[3] = 200;
+    verts[4] = 100;
+    verts[5] = 300;
+    verts[6] = 0;
+    verts[7] = 300;
+}
+
+immobileObject::~immobileObject(){
+
+}
+
+void immobileObject::draw(){
+    /*
+    Place Holder Draw Function, Will be replaced with Rectangles and Textures Later
+*/
+    glBegin(GL_QUADS);
+        glColor3f(0,.5,0);
+        glVertex3f(verts[0],verts[1],0);
+        glVertex3f(verts[2],verts[3],0);
+        glColor3f(.55,.27,.07);
+        glVertex3f(verts[4],verts[5],0);
+        glVertex3f(verts[6],verts[7],0);
+    glEnd();
+}

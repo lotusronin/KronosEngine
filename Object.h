@@ -16,4 +16,14 @@ public:
     void moveobj(int dir);
 };
 
+class immobileObject{
+private:
+    int verts[8];
+    Vec2* vec;
+public:
+    immobileObject();
+    ~immobileObject();
+    void draw();
+};
+
 #endif
