@@ -2,15 +2,13 @@
 #define GAMEMANAGER_H
 #include "Window.h"
 #include "KeyListener.h"
-#include "Object.h"
+#include "EntityManager.h"
 
 class GameManager{
 public:
     Window* win_main;
     KeyListener* listener;
-    Object* triangle;
-    immobileObject* ground;
-    Vec2* gravity;
+    EntityManager* Einstein;
     GameManager();
     ~GameManager();
     void init();

@@ -9,6 +9,10 @@ public:
     Vec2(int a, int b);
     int getx();
     int gety();
+    void negx();
+    void negy();
+    void zeroy();
+    void zerox();
     void add(int a, int b);
 };
 

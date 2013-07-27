@@ -5,14 +5,17 @@
 
 class Object{
 private:
-    int verts[6];
+    int verts[8];
     Vec2* vec;
-    int hspeed, vspeed;
+    int hspeed, vspeed, xcent, ycent;
 public:
     Object();
     ~Object();
     void draw();
     void addForce(Vec2 *pvec);
+    void stop(bool x, bool y);
+    Vec2* getSpeed();
+    int* getVerts();
     void moveobj(int dir);
 };
 
@@ -23,6 +26,8 @@ private:
 public:
     immobileObject();
     ~immobileObject();
+    Vec2* getSpeed();
+    int* getVerts();
     void draw();
 };
 
