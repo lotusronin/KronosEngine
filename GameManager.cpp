@@ -12,6 +12,7 @@ void GameManager::init(){
     win_main = new Window(640, 480, "Platform");
     listener = new KeyListener();
     Einstein = new EntityManager();
+    resMan  = new ResourceManager();
 }
 
 int GameManager::run(){

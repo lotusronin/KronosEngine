@@ -2,19 +2,19 @@
 #include <iostream>
 
 EntityManager::EntityManager(){
-    player = new Object();
+    player = new MobileObject();
     gravity = new Vec2(0, 5);
 }
 
 EntityManager::~EntityManager(){
-    player->~Object();
-    for(std::vector<immobileObject*>::iterator it = active_obj_list.begin(); it != active_obj_list.end(); it++){
-            (*it)->~immobileObject();
+    player->~MobileObject();
+    for(std::vector<Object*>::iterator it = active_obj_list.begin(); it != active_obj_list.end(); it++){
+            (*it)->~Object();
     }
 }
 
 void EntityManager::makeObj(){
-active_obj_list.push_back(new immobileObject());
+active_obj_list.push_back(new Object());
 }
 
 void EntityManager::draw(){
@@ -22,7 +22,7 @@ void EntityManager::draw(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
     player->draw();
-    for(std::vector<immobileObject*>::iterator it = active_obj_list.begin(); it != active_obj_list.end(); it++){
+    for(std::vector<Object*>::iterator it = active_obj_list.begin(); it != active_obj_list.end(); it++){
             (*it)->draw();
     }
 }
@@ -41,9 +41,9 @@ void EntityManager::applyPhysics(){
 
     //Check for collisions
     int x;
-    for(std::vector<immobileObject*>::iterator it = active_obj_list.begin(); it != active_obj_list.end(); it++){
+    for(std::vector<Object*>::iterator it = active_obj_list.begin(); it != active_obj_list.end(); it++){
             x = collide(player->getSpeed(), (*it)->getSpeed(), player->getVerts(), (*it)->getVerts() );
-            std::cout << x << "\n";
+            //std::cout << x << "\n";
 
             if(x == 1){
                 Vec2* normF = new Vec2(0, player->getSpeed()->gety());

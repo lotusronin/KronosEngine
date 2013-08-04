@@ -9,8 +9,8 @@
 
 class EntityManager{
 protected:
-    std::vector<immobileObject*> active_obj_list;
-    Object* player;
+    std::vector<Object*> active_obj_list;
+    MobileObject* player;
     Vec2* gravity;
 public:
     EntityManager();

@@ -3,7 +3,7 @@
 #include "Object.h"
 #include <stdio.h>
 
-Object::Object(){
+MobileObject::MobileObject(){
     vec = new Vec2(0,0);
     verts[0] = 0;
     verts[1] = 0;
@@ -15,18 +15,18 @@ Object::Object(){
     verts[7] = 64;
 }
 
-Object::~Object(){
+MobileObject::~MobileObject(){
 }
 
-Vec2* Object::getSpeed(){
+Vec2* MobileObject::getSpeed(){
     return vec;
 }
 
-int* Object::getVerts(){
+int* MobileObject::getVerts(){
     return verts;
 }
 
-void Object::draw(){
+void MobileObject::draw(){
 /*
     Place Holder Draw Function, Will be replaced with Rectangles and Textures Later
 */
@@ -42,12 +42,12 @@ void Object::draw(){
     glEnd();
 }
 
-void Object::addForce(Vec2 *pvec)
+void MobileObject::addForce(Vec2 *pvec)
 {
     vec->add(pvec->getx(), pvec->gety());
 }
 
-void Object::stop(bool x, bool y){
+void MobileObject::stop(bool x, bool y){
 if(x){
     vec->zerox();
 }
@@ -56,7 +56,7 @@ if(y){
 }
 }
 
-void Object::moveobj(int dir){
+void MobileObject::moveobj(int dir){
     int dx = vec->getx();
     int dy = vec->gety();
     verts[0] += dx;
@@ -97,7 +97,7 @@ void Object::moveobj(int dir){
 //    }
 }
 
-immobileObject::immobileObject(){
+Object::Object(){
     vec = new Vec2(0,0);
     verts[0] = 0;
     verts[1] = 200;
@@ -109,20 +109,20 @@ immobileObject::immobileObject(){
     verts[7] = 300;
 }
 
-immobileObject::~immobileObject(){
+Object::~Object(){
 
 }
 
-int* immobileObject::getVerts(){
+int* Object::getVerts(){
     return verts;
 }
 
-Vec2* immobileObject::getSpeed(){
+Vec2* Object::getSpeed(){
     Vec2* v = new Vec2(0,0);
     return v;
 }
 
-void immobileObject::draw(){
+void Object::draw(){
 /*
     Place Holder Draw Function, Will be replaced with Rectangles and Textures Later
 */

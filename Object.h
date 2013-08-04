@@ -4,13 +4,25 @@
 #include "Vector.h"
 
 class Object{
-private:
+protected:
+    int verts[8];
+    Vec2* vec;
+public:
+    Object();
+    ~Object();
+    Vec2* getSpeed();
+    int* getVerts();
+    void draw();
+};
+
+class MobileObject : public Object{
+protected:
     int verts[8];
     Vec2* vec;
     int hspeed, vspeed, xcent, ycent;
 public:
-    Object();
-    ~Object();
+    MobileObject();
+    ~MobileObject();
     void draw();
     void addForce(Vec2 *pvec);
     void stop(bool x, bool y);
@@ -19,16 +31,6 @@ public:
     void moveobj(int dir);
 };
 
-class immobileObject{
-private:
-    int verts[8];
-    Vec2* vec;
-public:
-    immobileObject();
-    ~immobileObject();
-    Vec2* getSpeed();
-    int* getVerts();
-    void draw();
-};
+
 
 #endif
