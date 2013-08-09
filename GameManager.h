@@ -4,18 +4,21 @@
 #include "KeyListener.h"
 #include "EntityManager.h"
 #include "ResourceManager.h"
+#include <time.h>
 
 class GameManager{
+private:
+    struct timeval t;
+    double t1, t2;
 public:
     Window* win_main;
     KeyListener* listener;
     EntityManager* Einstein;
-    ResourceManager* resMan;
     GameManager();
     ~GameManager();
     void init();
     int run();
-
+    void calcfps();
 };
 
 #endif

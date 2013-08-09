@@ -4,23 +4,33 @@
 EntityManager::EntityManager(){
     player = new MobileObject();
     gravity = new Vec2(0, 5);
+    cam = new Camera(320, 240);
+    resman = new ResourceManager();
+    resman->loadTexture();
 }
 
 EntityManager::~EntityManager(){
-    player->~MobileObject();
+    //player->~MobileObject();
+    delete player;
     for(std::vector<Object*>::iterator it = active_obj_list.begin(); it != active_obj_list.end(); it++){
-            (*it)->~Object();
+            /*(*it)->~Object();*/
+            delete (*it);
     }
 }
 
 void EntityManager::makeObj(){
 active_obj_list.push_back(new Object());
+(*active_obj_list.begin())->setTexture(resman->getTexture());
+}
+
+void EntityManager::updateCam(){
+//Update the camera here
+    cam->UpdateView(player->getCenterX(), player->getCenterY());
 }
 
 void EntityManager::draw(){
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glLoadIdentity();
     player->draw();
     for(std::vector<Object*>::iterator it = active_obj_list.begin(); it != active_obj_list.end(); it++){
             (*it)->draw();
@@ -28,14 +38,14 @@ void EntityManager::draw(){
 }
 
 void EntityManager::moveObjects(){
-    player->moveobj(0);
+    player->moveobj();
 }
 
     /*
     **  DO COLLISION DETECTION STUFF HERE!!!
     */
 
-void EntityManager::applyPhysics(){
+void EntityManager::applyPhysics(int dir){
     //Apply Grav. to all movable objects
     player->addForce(gravity);
 
@@ -49,6 +59,7 @@ void EntityManager::applyPhysics(){
                 Vec2* normF = new Vec2(0, player->getSpeed()->gety());
                 normF->negy();
                 player->addForce(normF);
+                player->setonground(true);
             }
             else if(x == 3){
                 int ydiff = (*(player->getVerts()+5) + player->getSpeed()->gety() - *((*it)->getVerts()+1) ) + 1;
@@ -59,6 +70,18 @@ void EntityManager::applyPhysics(){
             else{
                 std::cout<< "Not implemented yet! \n";
             }
+    }
+
+    player->stop(true, false);
+    if(dir && player->isonground()){
+        if(dir == 1){
+            Vec2* run = new Vec2(-2, 0);
+            player->addForce(run);
+        }
+        else if(dir == 2){
+            Vec2* run = new Vec2(2, 0);
+            player->addForce(run);
+        }
     }
 }
 

@@ -2,6 +2,7 @@
 #include <GL/gl.h>
 #include "Object.h"
 #include <stdio.h>
+#include <FreeImage.h>
 
 MobileObject::MobileObject(){
     vec = new Vec2(0,0);
@@ -13,9 +14,11 @@ MobileObject::MobileObject(){
     verts[5] = 64;
     verts[6] = 0;
     verts[7] = 64;
+    onground = false;
 }
 
 MobileObject::~MobileObject(){
+    delete vec;
 }
 
 Vec2* MobileObject::getSpeed(){
@@ -56,7 +59,7 @@ if(y){
 }
 }
 
-void MobileObject::moveobj(int dir){
+void MobileObject::moveobj(){
     int dx = vec->getx();
     int dy = vec->gety();
     verts[0] += dx;
@@ -67,34 +70,22 @@ void MobileObject::moveobj(int dir){
     verts[3] += dy;
     verts[5] += dy;
     verts[7] += dy;
+}
 
-    //printf("%d\n", dir);
-//    switch(dir)
-//    {
-//    case 1:
-//        verts[0] -= 6;
-//        verts[2] -= 6;
-//        verts[4] -= 6;
-//        break;
-//    case 3:
-//        verts[1] -= 6;
-//        verts[3] -= 6;
-//        verts[5] -= 6;
-//        break;
-//    case 5:
-//        verts[0] += 6;
-//        verts[2] += 6;
-//        verts[4] += 6;
-//        break;
-//    case 7:
-//        //y
-//        verts[1] += 6;
-//        verts[3] += 6;
-//        verts[5] += 6;
-//        break;
-//    default:
-//        break;
-//    }
+void MobileObject::setonground(bool b){
+onground = b;
+}
+
+bool MobileObject::isonground(){
+return onground;
+}
+
+int MobileObject::getCenterX(){
+return (verts[2] - verts[0])/2 + verts[0];
+}
+
+int MobileObject::getCenterY(){
+return (verts[5] - verts[3])/2 + verts[3];
 }
 
 Object::Object(){
@@ -110,7 +101,7 @@ Object::Object(){
 }
 
 Object::~Object(){
-
+    delete vec;
 }
 
 int* Object::getVerts(){
@@ -134,4 +125,8 @@ void Object::draw(){
         glVertex3f(verts[4],verts[5],0);
         glVertex3f(verts[6],verts[7],0);
     glEnd();
+}
+
+void Object::setTexture(FIBITMAP* img){
+    texture = img;
 }

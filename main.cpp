@@ -12,6 +12,7 @@ int main ( int argc, char** argv )
 
     gman->init();
     int x = gman->run();
+    delete gman;
 
     if(!x){
         // all is well ;)

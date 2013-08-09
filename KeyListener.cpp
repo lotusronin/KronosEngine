@@ -36,34 +36,27 @@ int KeyListener::query(){
 int KeyListener::getKeys(){
     Uint8 *keys = SDL_GetKeyState(NULL);
      // Handle input
-        if (keys[SDLK_LEFT])
-
-            if (keys[SDLK_DOWN] && !keys[SDLK_UP])
-                return 8;
-            else if (!keys[SDLK_DOWN] && keys[SDLK_UP])
-                return 2;
-            else
-                return 1;
-
-        else if (keys[SDLK_RIGHT])
-
-            if (keys[SDLK_DOWN] && !keys[SDLK_UP])
-                return 6;
-            else if (!keys[SDLK_DOWN] && keys[SDLK_UP])
-                return 4;
-            else
-                return 5;
-
-        else if (keys[SDLK_DOWN])
-        {
-            if (!keys[SDLK_UP])
-                return 7;
-        }
-        else if (keys[SDLK_UP])
-        {
-            if (!keys[SDLK_DOWN])
-                return 3;
-        }
+        if (keys[SDLK_LEFT] && !keys[SDLK_RIGHT])
+            return 1;
+        else if (keys[SDLK_RIGHT] && !keys[SDLK_LEFT])
+            return 2;
         else
             return 0;
+
+//SDL_Event keyevent;
+//
+//  if (keyevent.type == SDL_KEYDOWN)
+//  {
+//      if (keyevent.key.keysym.sym == SDLK_LEFT && keyevent.key.keysym.sym != SDLK_RIGHT){
+//        return 1;
+//      }
+//      else if (keyevent.key.keysym.sym == SDLK_RIGHT && keyevent.key.keysym.sym != SDLK_LEFT){
+//        return 2;
+//      }
+//      else
+//        return 0;
+//  }
+//  else
+//    return 0;
+
 }
