@@ -13,6 +13,7 @@ Texture::Texture(){
         texture = FreeImage_Load(fif, "res/tex_ground.xpm");
         int imgWidth = FreeImage_GetWidth(texture);
         int imgHeight = FreeImage_GetHeight(texture);
+
         //std::cout << imgWidth << " "<< imgHeight <<"\n";
 
         glGenTextures( 1, &t );
