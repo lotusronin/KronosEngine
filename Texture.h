@@ -1,13 +1,15 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 #include <FreeImage.h>
+#include <GL/glu.h>
+#include <GL/gl.h>
 
 class Texture{
 protected:
-    FIBITMAP* texture;
+    GLuint t;
 public:
     Texture();
-    FIBITMAP* getTexture();
+    GLuint getTexture();
 };
 
 #endif // TEXTURE_H

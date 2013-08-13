@@ -1,20 +1,20 @@
 #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 
-/* Various #include statements to go here for needed libs... currently thinking of FreeImage, wolfire uses it... */
 #include <vector>
-#include <FreeImage.h>
 #include "Texture.h"
+#include <GL/glu.h>
+#include <GL/gl.h>
 
 class ResourceManager {
 protected:
 //thinking of vectors for images, music, and sound effects here
-std::vector<Texture*> textures_vec;
+std::vector<Texture*> tvec;
 public:
     ResourceManager();
     ~ResourceManager();
     void loadTexture();
-    FIBITMAP* getTexture();
+    GLuint getTexture();
     void loadMusic();
     void getMusic();
     void loadSFX();

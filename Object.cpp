@@ -2,23 +2,22 @@
 #include <GL/gl.h>
 #include "Object.h"
 #include <stdio.h>
-#include <FreeImage.h>
+#include <iostream>
 
-MobileObject::MobileObject(){
+MobileObject::MobileObject(int x, int y, int sz) : Object(x,y,sz){
     vec = new Vec2(0,0);
-    verts[0] = 0;
-    verts[1] = 0;
-    verts[2] = 64;
-    verts[3] = 0;
-    verts[4] = 64;
-    verts[5] = 64;
-    verts[6] = 0;
-    verts[7] = 64;
+    verts[0] = x;
+    verts[1] = y;
+    verts[2] = x+sz;
+    verts[3] = y;
+    verts[4] = x+sz;
+    verts[5] = y+sz;
+    verts[6] = x;
+    verts[7] = y+sz;
     onground = false;
 }
 
 MobileObject::~MobileObject(){
-    delete vec;
 }
 
 Vec2* MobileObject::getSpeed(){
@@ -88,16 +87,28 @@ int MobileObject::getCenterY(){
 return (verts[5] - verts[3])/2 + verts[3];
 }
 
-Object::Object(){
+
+
+
+
+
+
+
+
+
+
+
+
+Object::Object(int x, int y, int sz){
     vec = new Vec2(0,0);
-    verts[0] = 0;
-    verts[1] = 200;
-    verts[2] = 100;
-    verts[3] = 200;
-    verts[4] = 100;
-    verts[5] = 300;
-    verts[6] = 0;
-    verts[7] = 300;
+    verts[0] = x;
+    verts[1] = y;
+    verts[2] = x+sz;
+    verts[3] = y;
+    verts[4] = x+sz;
+    verts[5] = y+sz;
+    verts[6] = x;
+    verts[7] = y+sz;
 }
 
 Object::~Object(){
@@ -114,19 +125,25 @@ Vec2* Object::getSpeed(){
 }
 
 void Object::draw(){
-/*
-    Place Holder Draw Function, Will be replaced with Rectangles and Textures Later
-*/
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture( GL_TEXTURE_2D, texture);
+
     glBegin(GL_QUADS);
-        glColor3f(0,.5,0);
+
+        glTexCoord2d(0.0, 1.0);
         glVertex3f(verts[0],verts[1],0);
+        glTexCoord2d(1.0, 1.0);
         glVertex3f(verts[2],verts[3],0);
-        glColor3f(.55,.27,.07);
+        glTexCoord2d(1.0, 0.0);
         glVertex3f(verts[4],verts[5],0);
+        glTexCoord2d(0.0, 0.0);
         glVertex3f(verts[6],verts[7],0);
+
     glEnd();
+    glDisable(GL_TEXTURE_2D);
 }
 
-void Object::setTexture(FIBITMAP* img){
+void Object::setTexture(GLuint img){
     texture = img;
 }

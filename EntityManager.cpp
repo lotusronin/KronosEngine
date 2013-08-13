@@ -1,26 +1,31 @@
 #include "EntityManager.h"
 #include <iostream>
+#include <cstring>
+#include <string>
+#include <fstream>
 
 EntityManager::EntityManager(){
-    player = new MobileObject();
+    //player = new MobileObject();
     gravity = new Vec2(0, 5);
     cam = new Camera(320, 240);
     resman = new ResourceManager();
     resman->loadTexture();
+    mapman = new MapManager();
+    //mapman->newMap("Debug");
 }
 
 EntityManager::~EntityManager(){
-    //player->~MobileObject();
-    delete player;
     for(std::vector<Object*>::iterator it = active_obj_list.begin(); it != active_obj_list.end(); it++){
-            /*(*it)->~Object();*/
             delete (*it);
     }
+    delete resman;
+    delete player;
+    delete mapman;
 }
 
-void EntityManager::makeObj(){
-active_obj_list.push_back(new Object());
-(*active_obj_list.begin())->setTexture(resman->getTexture());
+void EntityManager::makeObj(int x, int y, int sz){
+active_obj_list.push_back(new Object(x, y, sz));
+(active_obj_list.back())->setTexture(resman->getTexture());
 }
 
 void EntityManager::updateCam(){
@@ -40,6 +45,60 @@ void EntityManager::draw(){
 void EntityManager::moveObjects(){
     player->moveobj();
 }
+
+void EntityManager::saveMap(){
+    mapman->saveMap("debug.map");
+}
+
+void EntityManager::loadMap(){
+    mapman->loadMap("debug.map");
+    //mapman->showMap();
+    std::vector<std::string>* currentMap = mapman->getMapData();
+
+    //Parse the String
+    std::vector<std::string>::iterator it = (*currentMap).begin();
+    std::cout << "Map Name: "<< mapman->getMapName() << "\n";
+    //it++;
+    for(it; it != (*currentMap).end(); it++){
+        //std::cout << (*it) << "\n";
+        char *cstr = new char[(*it).length() + 1];
+        std::strcpy (cstr, (*it).c_str());
+        char * p = std::strtok (cstr,",");
+        std::cout << p << "\n";
+        int x = atoi(p);
+
+        p = std::strtok(NULL,",");
+        std::cout << p << "\n";
+        int y = atoi(p);
+
+        p = std::strtok(NULL,",");
+        std::cout << p << "\n";
+        if(!strcmp(p,"player"))
+        {
+            player = new MobileObject(x,y,64);
+        }
+        else if(!strcmp(p,"ground"))
+        {
+            makeObj(x,y,100);
+        }
+        //const char* f = *p+".dat";
+        //std::ifstream ifs(f);
+        //File IO with the data file
+
+
+        delete[] cstr;
+    }
+}
+
+
+
+
+
+
+
+
+
+
 
     /*
     **  DO COLLISION DETECTION STUFF HERE!!!
@@ -68,7 +127,7 @@ void EntityManager::applyPhysics(int dir){
                 player->addForce(slow);
             }
             else{
-                std::cout<< "Not implemented yet! \n";
+                //std::cout<< "Not implemented yet! \n";
             }
     }
 

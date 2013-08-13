@@ -2,20 +2,22 @@
 #define OBJECT_H
 #include <cstdlib>
 #include "Vector.h"
-#include <FreeImage.h>
+#include <GL/glu.h>
+#include <GL/gl.h>
 
 class Object{
 protected:
     int verts[8];
     Vec2* vec;
-    FIBITMAP* texture;
+    GLuint texture;
+
 public:
-    Object();
-    ~Object();
+    Object(int x, int y, int sz);
+    virtual ~Object();
     Vec2* getSpeed();
     int* getVerts();
     void draw();
-    void setTexture(FIBITMAP* img);
+    void setTexture(GLuint img);
 };
 
 class MobileObject : public Object{
@@ -23,8 +25,8 @@ protected:
     int hspeed, vspeed, xcent, ycent;
     bool onground;
 public:
-    MobileObject();
-    ~MobileObject();
+    MobileObject(int x, int y, int sz);
+    virtual ~MobileObject();
     void draw();
     void addForce(Vec2 *pvec);
     void stop(bool x, bool y);

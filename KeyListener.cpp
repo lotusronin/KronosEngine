@@ -43,20 +43,17 @@ int KeyListener::getKeys(){
         else
             return 0;
 
-//SDL_Event keyevent;
-//
-//  if (keyevent.type == SDL_KEYDOWN)
-//  {
-//      if (keyevent.key.keysym.sym == SDLK_LEFT && keyevent.key.keysym.sym != SDLK_RIGHT){
-//        return 1;
-//      }
-//      else if (keyevent.key.keysym.sym == SDLK_RIGHT && keyevent.key.keysym.sym != SDLK_LEFT){
-//        return 2;
-//      }
-//      else
-//        return 0;
-//  }
-//  else
-//    return 0;
+}
 
+int KeyListener::save(){
+
+    SDL_Event event;
+    if (event.type == SDL_KEYDOWN)
+    {
+        if (event.key.keysym.sym == SDLK_s)
+            return 1;
+        else if(event.key.keysym.sym == SDLK_l)
+            return 2;
+    }
+    return 0;
 }

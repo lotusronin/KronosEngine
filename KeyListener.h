@@ -10,6 +10,7 @@ public:
     ~KeyListener();
     int query();
     int getKeys();
+    int save();
 
 };
 

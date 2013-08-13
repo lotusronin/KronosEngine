@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1374548614 source:/home/marcus/Programming/Platformer/main.cpp
+1375733885 source:/home/marcus/Programming/Platformer/main.cpp
 	<cstdlib>
 	<stdlib.h>
 	"GameManager.h"
@@ -23,41 +23,119 @@
 	<cstdlib>
 	<SDL/SDL.h>
 
-1374540575 source:/home/marcus/Programming/Platformer/KeyListener.cpp
+1376342157 source:/home/marcus/Programming/Platformer/KeyListener.cpp
 	<cstdlib>
 	<SDL/SDL.h>
 	"KeyListener.h"
 
-1374548364 /home/marcus/Programming/Platformer/KeyListener.h
+1376336767 /home/marcus/Programming/Platformer/KeyListener.h
 	<cstdlib>
 	<SDL/SDL.h>
 
-1374688452 /home/marcus/Programming/Platformer/Object.h
+1376342461 /home/marcus/Programming/Platformer/Object.h
 	<cstdlib>
 	"Vector.h"
+	<GL/glu.h>
+	<GL/gl.h>
 
-1374688975 source:/home/marcus/Programming/Platformer/Object.cpp
+1376342886 source:/home/marcus/Programming/Platformer/Object.cpp
 	<GL/glu.h>
 	<GL/gl.h>
 	"Object.h"
 	<stdio.h>
+	<iostream>
 
-1374689032 source:/home/marcus/Programming/Platformer/GameManager.cpp
+1376344014 source:/home/marcus/Programming/Platformer/GameManager.cpp
 	"GameManager.h"
 	<SDL/SDL.h>
 	"Window.h"
 	"KeyListener.h"
+	"EntityManager.h"
+	<GL/glu.h>
+	<GL/gl.h>
+	<iostream>
+	<sys/time.h>
+
+1376020473 /home/marcus/Programming/Platformer/GameManager.h
+	"Window.h"
+	"KeyListener.h"
+	"EntityManager.h"
+	"ResourceManager.h"
+	<time.h>
+
+1374892659 /home/marcus/Programming/Platformer/Vector.h
+
+1374892703 source:/home/marcus/Programming/Platformer/Vector.cpp
+	"Vector.h"
+
+1376344763 /home/marcus/Programming/Platformer/EntityManager.h
 	"Object.h"
+	"Vector.h"
+	"Camera.h"
+	"ResourceManager.h"
+	"MapManager.h"
+	<GL/glu.h>
+	<GL/gl.h>
+	<vector>
+
+1376345747 source:/home/marcus/Programming/Platformer/EntityManager.cpp
+	"EntityManager.h"
+	<iostream>
+	<cstring>
+	<string>
+	<fstream>
+
+1376074567 /home/marcus/Programming/Platformer/ResourceManager.h
+	<vector>
+	"Texture.h"
 	<GL/glu.h>
 	<GL/gl.h>
 
-1374689010 /home/marcus/Programming/Platformer/GameManager.h
-	"Window.h"
-	"KeyListener.h"
-	"Object.h"
+1376074920 source:/home/marcus/Programming/Platformer/ResourceManager.cpp
+	"ResourceManager.h"
+	"Texture.h"
+	<iostream>
 
-1374624199 /home/marcus/Programming/Platformer/Vector.h
+1375996655 /home/marcus/Programming/Platformer/Camera.h
+	<GL/glu.h>
+	<GL/gl.h>
 
-1374623739 source:/home/marcus/Programming/Platformer/Vector.cpp
-	"Vector.h"
+1376000040 source:/home/marcus/Programming/Platformer/Camera.cpp
+	"Camera.h"
+	<GL/glu.h>
+	<GL/gl.h>
+	<iostream>
+
+1376074183 /home/marcus/Programming/Platformer/Texture.h
+	<FreeImage.h>
+	<GL/glu.h>
+	<GL/gl.h>
+
+1376074371 source:/home/marcus/Programming/Platformer/Texture.cpp
+	"Texture.h"
+	<FreeImage.h>
+	<iostream>
+	<stdlib.h>
+
+1376343859 /home/marcus/Programming/Platformer/MapManager.h
+	"Map.h"
+	<vector>
+
+1376343746 /home/marcus/Programming/Platformer/Map.h
+	<vector>
+	<string>
+
+1376344957 source:/home/marcus/Programming/Platformer/Map.cpp
+	<vector>
+	<string>
+	"Map.h"
+	<iostream>
+
+1376345041 source:/home/marcus/Programming/Platformer/MapManager.cpp
+	"MapManager.h"
+	"Map.h"
+	<vector>
+	<string>
+	<fstream>
+	<iostream>
 

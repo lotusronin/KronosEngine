@@ -1,17 +1,18 @@
 #include "ResourceManager.h"
-#include <FreeImage.h>
 #include "Texture.h"
+#include <iostream>
 
 ResourceManager::ResourceManager(){
-    FreeImage_Initialise();
 }
 
 ResourceManager::~ResourceManager(){
-    FreeImage_DeInitialise();
+    for(std::vector<Texture*>::iterator it = tvec.begin(); it != tvec.end(); it++){
+            delete (*it);
+    }
 }
 
 void ResourceManager::loadTexture(){
-    textures_vec.push_back(new Texture());
+    tvec.push_back(new Texture());
 }
 
 void ResourceManager::loadMusic(){
@@ -26,8 +27,9 @@ void ResourceManager::getMusic(){
 
 }
 
-FIBITMAP* ResourceManager::getTexture(){
-    return (*textures_vec.begin())->getTexture();
+GLuint ResourceManager::getTexture(){
+    return (*tvec.begin())->getTexture();
+
 }
 
 void ResourceManager::getSFX(){
