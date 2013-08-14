@@ -11,6 +11,7 @@ EntityManager::EntityManager(){
     resman = new ResourceManager();
     resman->loadTexture();
     mapman = new MapManager();
+    parser = new DataReader();
     //mapman->newMap("Debug");
 }
 
@@ -21,6 +22,7 @@ EntityManager::~EntityManager(){
     delete resman;
     delete player;
     delete mapman;
+    delete parser;
 }
 
 void EntityManager::makeObj(int x, int y, int sz){
@@ -58,9 +60,8 @@ void EntityManager::loadMap(){
     //Parse the String
     std::vector<std::string>::iterator it = (*currentMap).begin();
     std::cout << "Map Name: "<< mapman->getMapName() << "\n";
-    //it++;
+
     for(it; it != (*currentMap).end(); it++){
-        //std::cout << (*it) << "\n";
         char *cstr = new char[(*it).length() + 1];
         std::strcpy (cstr, (*it).c_str());
         char * p = std::strtok (cstr,",");
@@ -73,18 +74,22 @@ void EntityManager::loadMap(){
 
         p = std::strtok(NULL,",");
         std::cout << p << "\n";
-        if(!strcmp(p,"player"))
-        {
-            player = new MobileObject(x,y,64);
-        }
-        else if(!strcmp(p,"ground"))
-        {
-            makeObj(x,y,100);
-        }
-        //const char* f = *p+".dat";
-        //std::ifstream ifs(f);
-        //File IO with the data file
 
+        std::string pstring = p;
+        parser->loadObj(pstring);
+        pstring = parser->getValue("size");
+        int sz = atoi(pstring.c_str());
+        pstring = parser->getValue("entity_type");
+        parser->closeObj();
+
+        if(!strcmp(pstring.c_str(),"MobileObject"))
+        {
+            player = new MobileObject(x,y,sz);
+        }
+        else if(!strcmp(pstring.c_str(),"Object"))
+        {
+            makeObj(x,y,sz);
+        }
 
         delete[] cstr;
     }

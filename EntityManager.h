@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "ResourceManager.h"
 #include "MapManager.h"
+#include "DataReader.h"
 #include <GL/glu.h>
 #include <GL/gl.h>
 #include <vector>
@@ -18,6 +19,7 @@ protected:
     Camera* cam;
     ResourceManager* resman;
     MapManager* mapman;
+    DataReader* parser;
 
 public:
     EntityManager();
