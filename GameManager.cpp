@@ -12,14 +12,14 @@ GameManager::GameManager(){}
 
 GameManager::~GameManager(){
 delete listener;
-delete Einstein;
+delete entityman;
 delete win_main;
 }
 
 void GameManager::init(){
     win_main = new Window(640, 480, "Platform");
     listener = new KeyListener();
-    Einstein = new EntityManager();
+    entityman = new EntityManager();
 }
 
 int GameManager::run(){
@@ -27,8 +27,8 @@ int GameManager::run(){
     int done = 0;
     int save = 0;
     int loaded = 0;
-    //Einstein->loadMap();
-    //Einstein->makeObj();
+    //entityman->loadMap();
+    //entityman->makeObj();
 
     while (!done)
     {
@@ -38,25 +38,26 @@ int GameManager::run(){
         save = listener->save();
         if(save == 1)
         {
-            Einstein->saveMap();
+            entityman->saveMap();
             save = 0;
         }
         else if(save == 2)
         {
-            Einstein->loadMap();
+            entityman->loadMap();
             save = 0;
             loaded = 1;
         }
 
         if(loaded){
-        Einstein->applyPhysics(listener->getKeys());
-        Einstein->moveObjects();
+        //entityman->applyPhysics(listener->getKeys());
+        //entityman->moveObjects();
 
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //glLoadIdentity();
 
-        Einstein->updateCam();
-        Einstein->draw();
+        entityman->applyPhysics();
+        entityman->updateCam();
+        entityman->draw();
 
 
 

@@ -13,7 +13,7 @@ private:
 public:
     Window* win_main;
     KeyListener* listener;
-    EntityManager* Einstein;
+    EntityManager* entityman;
     GameManager();
     ~GameManager();
     void init();

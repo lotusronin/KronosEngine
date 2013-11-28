@@ -9,8 +9,10 @@ DataReader::~DataReader(){};
 
 void DataReader::loadObj(std::string obj)
 {
+    //fix the path
     obj += ".dat";
     obj = "data/"+obj;
+    //open file
     ifs.open((obj).c_str(),std::ifstream::in);
     if(ifs.good()){
         std::cout << "File: " << obj << " Opened Successfully\n";
