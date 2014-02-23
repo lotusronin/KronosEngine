@@ -6,9 +6,16 @@
 
 #include "GameManager.h"
 
-int main ( int argc, char** argv )
+int main ( int argc, char* argv[] )
 {
     GameManager* gman = new GameManager();
+
+    if(argc > 2)
+    {
+        std::string str1 = std::string(argv[2]);
+        str1 += ".map";
+        gman->setMap(str1);
+    }
 
     gman->init();
     int x = gman->run();

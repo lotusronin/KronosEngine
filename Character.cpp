@@ -59,11 +59,11 @@ void Character::update()
     verts.at(5) = (*pCoords).at(5);
     verts.at(6) = (*pCoords).at(6);
     verts.at(7) = (*pCoords).at(7);
-    verts.push_back(x+sz);
-    verts.push_back(y+sz);
-    verts.push_back(x);
-    verts.push_back(y+sz);
-    stats.push_back(sz);
+//    verts.push_back(x+sz);
+//    verts.push_back(y+sz);
+//    verts.push_back(x);
+//    verts.push_back(y+sz);
+//    stats.push_back(sz);
 
 
 }

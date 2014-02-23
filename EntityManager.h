@@ -28,6 +28,7 @@ protected:
     PhysicsManager* einstein;
 
 public:
+    std::string mapname;
     EntityManager();
     ~EntityManager();
     void makeObj(int x, int y, int sz);
@@ -44,6 +45,7 @@ public:
     void updateCam();
     void loadMap();
     void saveMap();
+    void setMap(std::string arr);
 };
 
 

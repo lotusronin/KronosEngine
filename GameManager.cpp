@@ -16,10 +16,21 @@ delete entityman;
 delete win_main;
 }
 
+void GameManager::setMap(std::string arr)
+{
+    //std::cout << arr << '\n';
+    //entityman->setMap(arr);
+    s += arr;
+}
 void GameManager::init(){
     win_main = new Window(640, 480, "Platform");
     listener = new KeyListener();
     entityman = new EntityManager();
+    if(s != "")
+    {
+        //std::cout << s << "\n";
+        entityman->mapname = s;
+    }
 }
 
 int GameManager::run(){

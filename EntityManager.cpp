@@ -12,6 +12,7 @@ EntityManager::EntityManager(){
     mapman = new MapManager();
     parser = new DataReader();
     einstein = new PhysicsManager();
+    mapname = "";
     //mapman->newMap("Debug");
 }
 
@@ -28,6 +29,12 @@ EntityManager::~EntityManager(){
     delete resman;
     delete mapman;
     delete parser;
+}
+
+void EntityManager::setMap(std::string arr)
+{
+    //std::cout << arr << '\n';
+    mapname = arr;
 }
 
 void EntityManager::clearObjects()
@@ -81,7 +88,18 @@ void EntityManager::saveMap(){
 
 void EntityManager::loadMap(){
     clearObjects();
-    mapman->loadMap("debug.map");
+
+    if(mapname != "")
+    {
+        //std::cout << mapname << '\n';
+        mapman->loadMap(mapname.c_str());
+
+    }
+    else
+    {
+        mapman->loadMap("debug.map");
+    }
+
     //mapman->showMap();
     std::vector<std::string>* currentMap = mapman->getMapData();
 
