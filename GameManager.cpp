@@ -1,5 +1,5 @@
 #include "GameManager.h"
-#include <SDL/SDL.h>
+#include <SDL2/SDL.h>
 #include "Window.h"
 #include "KeyListener.h"
 #include "EntityManager.h"
@@ -72,7 +72,8 @@ int GameManager::run(){
 
 
 
-        SDL_GL_SwapBuffers();
+        //SDL_GL_SwapBuffers();
+        SDL_GL_SwapWindow(win_main->screen);
         gettimeofday(&t, NULL);
         t2 = t.tv_sec + t.tv_usec/1000000.00;
         //calcfps();

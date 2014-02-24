@@ -1,18 +1,19 @@
 # depslib dependency file v1.0
-1375733885 source:/home/marcus/Programming/Platformer/main.cpp
+1391122332 source:/home/marcus/Programming/Platformer/main.cpp
 	<cstdlib>
 	<stdlib.h>
 	"GameManager.h"
 
-1374548386 /home/marcus/Programming/Platformer/Window.h
+1393268538 /home/marcus/Programming/Platformer/Window.h
 	<cstdlib>
-	<SDL/SDL.h>
+	<SDL2/SDL.h>
 	<string>
 
-1374513863 source:/home/marcus/Programming/Platformer/Window.cpp
+1393270488 source:/home/marcus/Programming/Platformer/Window.cpp
 	"Window.h"
 	<GL/glu.h>
 	<GL/gl.h>
+	<SDL2/SDL.h>
 
 1374514365 source:/home/marcus/Programming/Platformer/KeyboardListener.cpp
 	<cstdlib>
@@ -23,14 +24,14 @@
 	<cstdlib>
 	<SDL/SDL.h>
 
-1376342157 source:/home/marcus/Programming/Platformer/KeyListener.cpp
+1393268195 source:/home/marcus/Programming/Platformer/KeyListener.cpp
 	<cstdlib>
-	<SDL/SDL.h>
+	<SDL2/SDL.h>
 	"KeyListener.h"
 
-1376336767 /home/marcus/Programming/Platformer/KeyListener.h
+1393267782 /home/marcus/Programming/Platformer/KeyListener.h
 	<cstdlib>
-	<SDL/SDL.h>
+	<SDL2/SDL.h>
 
 1376342461 /home/marcus/Programming/Platformer/Object.h
 	<cstdlib>
@@ -45,9 +46,9 @@
 	<stdio.h>
 	<iostream>
 
-1376344014 source:/home/marcus/Programming/Platformer/GameManager.cpp
+1393268224 source:/home/marcus/Programming/Platformer/GameManager.cpp
 	"GameManager.h"
-	<SDL/SDL.h>
+	<SDL2/SDL.h>
 	"Window.h"
 	"KeyListener.h"
 	"EntityManager.h"
@@ -56,7 +57,7 @@
 	<iostream>
 	<sys/time.h>
 
-1376020473 /home/marcus/Programming/Platformer/GameManager.h
+1391122583 /home/marcus/Programming/Platformer/GameManager.h
 	"Window.h"
 	"KeyListener.h"
 	"EntityManager.h"
@@ -68,17 +69,22 @@
 1374892703 source:/home/marcus/Programming/Platformer/Vector.cpp
 	"Vector.h"
 
-1376344763 /home/marcus/Programming/Platformer/EntityManager.h
+1391121849 /home/marcus/Programming/Platformer/EntityManager.h
 	"Object.h"
+	"Entity.h"
+	"Character.h"
+	"Ground.h"
 	"Vector.h"
 	"Camera.h"
 	"ResourceManager.h"
+	"PhysicsManager.h"
 	"MapManager.h"
+	"DataReader.h"
 	<GL/glu.h>
 	<GL/gl.h>
 	<vector>
 
-1376345747 source:/home/marcus/Programming/Platformer/EntityManager.cpp
+1391123810 source:/home/marcus/Programming/Platformer/EntityManager.cpp
 	"EntityManager.h"
 	<iostream>
 	<cstring>
@@ -111,7 +117,7 @@
 	<GL/glu.h>
 	<GL/gl.h>
 
-1376074371 source:/home/marcus/Programming/Platformer/Texture.cpp
+1376353761 source:/home/marcus/Programming/Platformer/Texture.cpp
 	"Texture.h"
 	<FreeImage.h>
 	<iostream>
@@ -138,4 +144,72 @@
 	<string>
 	<fstream>
 	<iostream>
+
+1376457055 /home/marcus/Programming/Platformer/DataReader.h
+	<string>
+	<fstream>
+	<iostream>
+
+1379879237 source:/home/marcus/Programming/Platformer/DataReader.cpp
+	"DataReader.h"
+	<string>
+	<fstream>
+	<iostream>
+
+1391119066 source:/home/marcus/Programming/Platformer/Character.cpp
+	"Character.h"
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdio.h>
+
+1382553711 /home/marcus/Programming/Platformer/Character.h
+	"Entity.h"
+	"PhysicsSquare.h"
+	<cstdlib>
+	<vector>
+	<GL/glu.h>
+	<GL/gl.h>
+
+1382553615 /home/marcus/Programming/Platformer/Entity.h
+	<cstdlib>
+	<vector>
+	<GL/glu.h>
+	<GL/gl.h>
+
+1382553746 source:/home/marcus/Programming/Platformer/Entity.cpp
+	"Entity.h"
+	<GL/gl.h>
+	<GL/glu.h>
+
+1382554289 /home/marcus/Programming/Platformer/Ground.h
+	"Entity.h"
+	"PhysicsSquare.h"
+	<cstdlib>
+	<vector>
+	<GL/glu.h>
+	<GL/gl.h>
+
+1382555473 source:/home/marcus/Programming/Platformer/Ground.cpp
+	"Ground.h"
+
+1382556247 /home/marcus/Programming/Platformer/PhysicsSquare.h
+	<vector>
+	<cstdlib>
+	"Vector.h"
+
+1382556254 source:/home/marcus/Programming/Platformer/PhysicsSquare.cpp
+	"PhysicsSquare.h"
+	"Vector.h"
+	<math.h>
+
+1379905420 /home/marcus/Programming/Platformer/PhysicsManager.h
+	<vector>
+	"Character.h"
+	"Ground.h"
+
+1379906656 source:/home/marcus/Programming/Platformer/PhysicsManager.cpp
+	"Character.h"
+	"Ground.h"
+	"PhysicsManager.h"
+	<vector>
 

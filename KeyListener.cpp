@@ -1,5 +1,5 @@
 #include <cstdlib>
-#include <SDL/SDL.h>
+#include <SDL2/SDL.h>
 #include "KeyListener.h"
 
 KeyListener::KeyListener(){}
@@ -24,7 +24,7 @@ int KeyListener::query(){
             case SDL_KEYDOWN:
             {
                     // exit if ESCAPE is pressed
-                if (event.key.keysym.sym == SDLK_ESCAPE)
+                if (event.key.keysym.sym == SDL_SCANCODE_ESCAPE)
                         return 1;
                 break;
             }
@@ -34,11 +34,11 @@ int KeyListener::query(){
 }
 
 int KeyListener::getKeys(){
-    Uint8 *keys = SDL_GetKeyState(NULL);
+    const Uint8 *keys = SDL_GetKeyboardState(NULL);
      // Handle input
-        if (keys[SDLK_LEFT] && !keys[SDLK_RIGHT])
+        if (keys[SDL_SCANCODE_LEFT] && !keys[SDL_SCANCODE_RIGHT])
             return 1;
-        else if (keys[SDLK_RIGHT] && !keys[SDLK_LEFT])
+        else if (keys[SDL_SCANCODE_RIGHT] && !keys[SDL_SCANCODE_LEFT])
             return 2;
         else
             return 0;
@@ -50,9 +50,9 @@ int KeyListener::save(){
     SDL_Event event;
     if (event.type == SDL_KEYDOWN)
     {
-        if (event.key.keysym.sym == SDLK_s)
+        if (event.key.keysym.sym == SDL_SCANCODE_L)
             return 1;
-        else if(event.key.keysym.sym == SDLK_l)
+        else if(event.key.keysym.sym == SDL_SCANCODE_L)
             return 2;
     }
     return 0;
