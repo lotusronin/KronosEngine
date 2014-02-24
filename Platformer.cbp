@@ -15,7 +15,7 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<-- Add option="-lSDL2 -lGL" />
+					<!-- Add option="-lSDL2 -lGL" /-->
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -34,7 +34,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-I/usr/include/SDL2" />
-			<-- Add option="`sdl-config --cflags`" />
+			<!-- Add option="`sdl-config --cflags`" / -->
 		</Compiler>
 		<Linker>
 			<Add option="-lSDL2" />

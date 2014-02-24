@@ -24,8 +24,7 @@ Window::Window(int width, int height, std::string title){
     // create a new window
     const char* name = title.c_str();
     screen = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
-    /*SDL_Window* screen = SDL_CreateWind(width, height, 16,
-                                           SDL_HWSURFACE|SDL_OPENGL);*/
+
     if ( !screen )
     {
         printf("Unable to set 640x480 video: %s\n", SDL_GetError());
@@ -33,11 +32,13 @@ Window::Window(int width, int height, std::string title){
         exit(1);
     }
 
-    SDL_GLContext context = SDL_GL_CreateContext(screen);
+    context = SDL_GL_CreateContext(screen);
     //SDL_WM_SetCaption(title.c_str(),title.c_str());
 
 
-    glClearColor(0,0,0,0);
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT);
+    SDL_GL_SwapWindow(screen);
 
     glViewport(0, 0, width, height);
 

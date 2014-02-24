@@ -50,7 +50,7 @@ int KeyListener::save(){
     SDL_Event event;
     if (event.type == SDL_KEYDOWN)
     {
-        if (event.key.keysym.sym == SDL_SCANCODE_L)
+        if (event.key.keysym.sym == SDL_SCANCODE_S)
             return 1;
         else if(event.key.keysym.sym == SDL_SCANCODE_L)
             return 2;

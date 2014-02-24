@@ -10,6 +10,7 @@ public:
     Window(int width, int height, std::string title);
     ~Window();
     SDL_Window* screen;
+    SDL_GLContext context;
 
 };
 
