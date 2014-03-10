@@ -9,9 +9,9 @@
 	<SDL2/SDL.h>
 	<string>
 
-1393276488 source:/home/marcus/Programming/Platformer/Window.cpp
+1394341609 source:/home/marcus/Programming/Platformer/Window.cpp
 	"Window.h"
-	<GL/glu.h>
+	<GL/glew.h>
 	<GL/gl.h>
 	<SDL2/SDL.h>
 
@@ -24,7 +24,7 @@
 	<cstdlib>
 	<SDL/SDL.h>
 
-1393268195 source:/home/marcus/Programming/Platformer/KeyListener.cpp
+1393285066 source:/home/marcus/Programming/Platformer/KeyListener.cpp
 	<cstdlib>
 	<SDL2/SDL.h>
 	"KeyListener.h"
@@ -33,26 +33,26 @@
 	<cstdlib>
 	<SDL2/SDL.h>
 
-1376342461 /home/marcus/Programming/Platformer/Object.h
+1394341959 /home/marcus/Programming/Platformer/Object.h
 	<cstdlib>
 	"Vector.h"
-	<GL/glu.h>
+	<GL/glew.h>
 	<GL/gl.h>
 
-1376342886 source:/home/marcus/Programming/Platformer/Object.cpp
-	<GL/glu.h>
+1394341779 source:/home/marcus/Programming/Platformer/Object.cpp
+	<GL/glew.h>
 	<GL/gl.h>
 	"Object.h"
 	<stdio.h>
 	<iostream>
 
-1393268224 source:/home/marcus/Programming/Platformer/GameManager.cpp
+1394342599 source:/home/marcus/Programming/Platformer/GameManager.cpp
 	"GameManager.h"
 	<SDL2/SDL.h>
 	"Window.h"
 	"KeyListener.h"
 	"EntityManager.h"
-	<GL/glu.h>
+	<GL/glew.h>
 	<GL/gl.h>
 	<iostream>
 	<sys/time.h>
@@ -69,7 +69,7 @@
 1374892703 source:/home/marcus/Programming/Platformer/Vector.cpp
 	"Vector.h"
 
-1391121849 /home/marcus/Programming/Platformer/EntityManager.h
+1394341933 /home/marcus/Programming/Platformer/EntityManager.h
 	"Object.h"
 	"Entity.h"
 	"Character.h"
@@ -80,21 +80,22 @@
 	"PhysicsManager.h"
 	"MapManager.h"
 	"DataReader.h"
-	<GL/glu.h>
+	"Shader.h"
+	<GL/glew.h>
 	<GL/gl.h>
 	<vector>
 
-1391123810 source:/home/marcus/Programming/Platformer/EntityManager.cpp
+1394348727 source:/home/marcus/Programming/Platformer/EntityManager.cpp
 	"EntityManager.h"
 	<iostream>
 	<cstring>
 	<string>
 	<fstream>
 
-1376074567 /home/marcus/Programming/Platformer/ResourceManager.h
+1394341968 /home/marcus/Programming/Platformer/ResourceManager.h
 	<vector>
 	"Texture.h"
-	<GL/glu.h>
+	<GL/glew.h>
 	<GL/gl.h>
 
 1376074920 source:/home/marcus/Programming/Platformer/ResourceManager.cpp
@@ -102,19 +103,19 @@
 	"Texture.h"
 	<iostream>
 
-1375996655 /home/marcus/Programming/Platformer/Camera.h
-	<GL/glu.h>
+1394341897 /home/marcus/Programming/Platformer/Camera.h
+	<GL/glew.h>
 	<GL/gl.h>
 
-1376000040 source:/home/marcus/Programming/Platformer/Camera.cpp
+1394341734 source:/home/marcus/Programming/Platformer/Camera.cpp
 	"Camera.h"
-	<GL/glu.h>
+	<GL/glew.h>
 	<GL/gl.h>
 	<iostream>
 
-1376074183 /home/marcus/Programming/Platformer/Texture.h
+1394341978 /home/marcus/Programming/Platformer/Texture.h
 	<FreeImage.h>
-	<GL/glu.h>
+	<GL/glew.h>
 	<GL/gl.h>
 
 1376353761 source:/home/marcus/Programming/Platformer/Texture.cpp
@@ -156,37 +157,39 @@
 	<fstream>
 	<iostream>
 
-1391119066 source:/home/marcus/Programming/Platformer/Character.cpp
+1394341758 source:/home/marcus/Programming/Platformer/Character.cpp
 	"Character.h"
+	<GL/glew.h>
 	<GL/gl.h>
-	<GL/glu.h>
 	<stdio.h>
 
-1382553711 /home/marcus/Programming/Platformer/Character.h
+1394341907 /home/marcus/Programming/Platformer/Character.h
 	"Entity.h"
 	"PhysicsSquare.h"
 	<cstdlib>
 	<vector>
-	<GL/glu.h>
+	<GL/glew.h>
 	<GL/gl.h>
 
-1382553615 /home/marcus/Programming/Platformer/Entity.h
+1394341927 /home/marcus/Programming/Platformer/Entity.h
 	<cstdlib>
 	<vector>
-	<GL/glu.h>
+	<GL/glew.h>
 	<GL/gl.h>
+	"Shader.h"
 
-1382553746 source:/home/marcus/Programming/Platformer/Entity.cpp
+1394348975 source:/home/marcus/Programming/Platformer/Entity.cpp
 	"Entity.h"
+	<GL/glew.h>
 	<GL/gl.h>
-	<GL/glu.h>
+	"Shader.h"
 
-1382554289 /home/marcus/Programming/Platformer/Ground.h
+1394341942 /home/marcus/Programming/Platformer/Ground.h
 	"Entity.h"
 	"PhysicsSquare.h"
 	<cstdlib>
 	<vector>
-	<GL/glu.h>
+	<GL/glew.h>
 	<GL/gl.h>
 
 1382555473 source:/home/marcus/Programming/Platformer/Ground.cpp
@@ -212,4 +215,16 @@
 	"Ground.h"
 	"PhysicsManager.h"
 	<vector>
+
+1394341115 /home/marcus/Programming/Platformer/Shader.h
+	<iostream>
+	<string>
+	<GL/glew.h>
+	<GL/gl.h>
+
+1394342417 source:/home/marcus/Programming/Platformer/Shader.cpp
+	"Shader.h"
+	<string.h>
+	<GL/glew.h>
+	<GL/gl.h>
 

@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "Texture.h"
-#include <GL/glu.h>
+#include <GL/glew.h>
 #include <GL/gl.h>
 
 class ResourceManager {

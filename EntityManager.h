@@ -11,7 +11,8 @@
 #include "PhysicsManager.h"
 #include "MapManager.h"
 #include "DataReader.h"
-#include <GL/glu.h>
+#include "Shader.h"
+#include <GL/glew.h>
 #include <GL/gl.h>
 #include <vector>
 
@@ -26,6 +27,7 @@ protected:
     MapManager* mapman;
     DataReader* parser;
     PhysicsManager* einstein;
+    Shader* shader;
 
 public:
     std::string mapname;

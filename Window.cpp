@@ -1,5 +1,5 @@
 #include "Window.h"
-#include <GL/glu.h>
+#include <GL/glew.h>
 #include <GL/gl.h>
 #include <SDL2/SDL.h>
 
@@ -49,11 +49,14 @@ Window::Window(int width, int height, std::string title){
 
     glMatrixMode(GL_MODELVIEW);
 
-    glEnable(GL_TEXTURE_2D);
+    //glEnable(GL_TEXTURE_2D);
 
     glLoadIdentity();
 
 }
 
 Window::~Window(){
+    SDL_GL_DeleteContext(context);
+    SDL_DestroyWindow(screen);
+    SDL_Quit();
 }

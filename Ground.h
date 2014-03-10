@@ -5,7 +5,7 @@
 #include "PhysicsSquare.h"
 #include <cstdlib>
 #include <vector>
-#include <GL/glu.h>
+#include <GL/glew.h>
 #include <GL/gl.h>
 
 /*

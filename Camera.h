@@ -1,7 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include <GL/glu.h>
+#include <GL/glew.h>
 #include <GL/gl.h>
 
 class Camera{

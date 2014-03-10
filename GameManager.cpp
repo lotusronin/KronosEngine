@@ -3,7 +3,7 @@
 #include "Window.h"
 #include "KeyListener.h"
 #include "EntityManager.h"
-#include <GL/glu.h>
+#include <GL/glew.h>
 #include <GL/gl.h>
 #include <iostream>
 #include <sys/time.h>
@@ -24,6 +24,7 @@ void GameManager::setMap(std::string arr)
 }
 void GameManager::init(){
     win_main = new Window(640, 480, "Platform");
+    glewInit();
     listener = new KeyListener();
     entityman = new EntityManager();
     if(s != "")

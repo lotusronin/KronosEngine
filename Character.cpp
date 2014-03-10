@@ -1,6 +1,6 @@
 #include "Character.h"
+#include <GL/glew.h>
 #include <GL/gl.h>
-#include <GL/glu.h>
 #include <stdio.h>
 
 //10px / m

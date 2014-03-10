@@ -1,19 +1,43 @@
 #include "Entity.h"
+#include <GL/glew.h>
 #include <GL/gl.h>
-#include <GL/glu.h>
+#include "Shader.h"
 
 Entity::Entity(float x, float y, float sz)
 {
     //initial values
+    float u=0, v=0;
     verts.push_back(x);
     verts.push_back(y);
+    verts.push_back(0);
+    verts.push_back(u);
+    verts.push_back(v);
     verts.push_back(x+sz);
     verts.push_back(y);
+    verts.push_back(0);
+    verts.push_back(u+1);
+    verts.push_back(v);
     verts.push_back(x+sz);
     verts.push_back(y+sz);
+    verts.push_back(0);
+    verts.push_back(u+1);
+    verts.push_back(v+1);
     verts.push_back(x);
     verts.push_back(y+sz);
+    verts.push_back(0);
+    verts.push_back(u);
+    verts.push_back(v+1);
     stats.push_back(sz);
+
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, verts.size()*sizeof(float), &verts.front(), GL_STATIC_DRAW);
+
+    GLenum e = glGetError();
+    if(e != GL_NO_ERROR)
+    {
+        std::cout << "There was an error binding the data!!!!!\n" << e << "\n";
+    }
 }
 
 void Entity::setTexture(GLuint img)
@@ -21,24 +45,18 @@ void Entity::setTexture(GLuint img)
     texture = img;
 }
 
-void Entity::draw()
+void Entity::draw(Shader* s)
 {
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture( GL_TEXTURE_2D, texture);
 
-    glBegin(GL_QUADS);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    s->enable();
+    GLint loc = glGetUniformLocation(s->shaderProgram, "myTexture");
 
-        glTexCoord2d(0.0, 1.0);
-        glVertex3f(verts.at(0),verts.at(1),0);
-        glTexCoord2d(1.0, 1.0);
-        glVertex3f(verts.at(2),verts.at(3),0);
-        glTexCoord2d(1.0, 0.0);
-        glVertex3f(verts.at(4),verts.at(5),0);
-        glTexCoord2d(0.0, 0.0);
-        glVertex3f(verts.at(6),verts.at(7),0);
+    glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glUniform1f(loc, 0);
 
-    glEnd();
-    glDisable(GL_TEXTURE_2D);
+	glDrawArrays(GL_QUADS, 0, 4);
 }
 
 Entity::~Entity()

@@ -3,8 +3,9 @@
 
 #include <cstdlib>
 #include <vector>
-#include <GL/glu.h>
+#include <GL/glew.h>
 #include <GL/gl.h>
+#include "Shader.h"
 /*
     This is the generic entity class. All other entity types (item, ground, character, decal) will be derived from this one.
     Never instantiate Entity objects!!! Always use a subclass.
@@ -15,10 +16,10 @@ class Entity{
 protected:
     std::vector<float> verts; //Will be either 6 or 8 verts (triangle or square)
     std::vector<float> stats; //Will contain: size, radius, mass, hspeed, vspeed etc
-    GLuint texture;
+    GLuint texture, vbo;
 public:
     void setTexture(GLuint img);
-    void draw();
+    void draw(Shader* s);
     Entity(float x, float y, float sz);
     virtual ~Entity();
 };
