@@ -4,7 +4,7 @@
 #include <GL/gl.h>
 
 Shader::Shader(){
-    std::string vs =
+    vs =
     "#version 120\n"
 	"attribute vec3 pos;\n"
 	"attribute vec2 texCoord;\n"
@@ -14,7 +14,7 @@ Shader::Shader(){
 	"	gl_Position = vec4(pos, 1.0);\n"
 	"}";
 
-	std::string fs =
+	fs =
 	"#version 120\n"
 	"uniform sampler2D myTexture;\n"
 	"varying vec2 vTexCoord;\n"

@@ -12,6 +12,8 @@ public:
     ~Shader();
     const char* vert_src;
     const char* frag_src;
+    std::string vs;
+    std::string fs;
     //const unsigned int shaderAttribute = 0;
     void enable();
     void disable();

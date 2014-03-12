@@ -31,7 +31,7 @@ Entity::Entity(float x, float y, float sz)
 
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, verts.size()*sizeof(float), &verts.front(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, verts.size()*sizeof(float), &verts[0], GL_STATIC_DRAW);
 
     GLenum e = glGetError();
     if(e != GL_NO_ERROR)
@@ -53,8 +53,8 @@ void Entity::draw(Shader* s)
     GLint loc = glGetUniformLocation(s->shaderProgram, "myTexture");
 
     glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glUniform1f(loc, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glUniform1f(loc, texture); //location of uniform, value (texture?)
 
 	glDrawArrays(GL_QUADS, 0, 4);
 }

@@ -17,12 +17,13 @@ Texture::Texture(){
         //std::cout << imgWidth << " "<< imgHeight <<"\n";
 
         glGenTextures( 1, &t );
+        glActiveTexture(GL_TEXTURE0);
         glBindTexture( GL_TEXTURE_2D, t );
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imgWidth, imgHeight, 0, GL_BGR, GL_UNSIGNED_BYTE, (void*)FreeImage_GetBits(texture));
         FreeImage_Unload(texture);
-        std::cout << "File is good\n";
+        std::cout << "Image file is good\n";
     }
     else
     {
