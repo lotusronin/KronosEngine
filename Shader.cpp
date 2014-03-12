@@ -6,12 +6,12 @@
 Shader::Shader(){
     vs =
     "#version 120\n"
-	"attribute vec3 pos;\n"
+	"attribute vec2 pos;\n"
 	"attribute vec2 texCoord;\n"
 	"varying vec2 vTexCoord;\n"
 	"void main(){\n"
 	"	vTexCoord = texCoord;\n"
-	"	gl_Position = vec4(pos, 1.0);\n"
+	"	gl_Position = vec4(pos, 0.0, 1.0);\n"
 	"}";
 
 	fs =

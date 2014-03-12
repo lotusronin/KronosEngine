@@ -69,8 +69,8 @@ void EntityManager::draw(){
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	shader->enable();
-	std::cout << "Beginning to draw entities...\n";
+	//shader->enable();
+	//std::cout << "Beginning to draw entities...\n";
     //player->draw();
     /*for(std::vector<Object*>::iterator it = active_obj_list.begin(); it != active_obj_list.end(); it++){
             (*it)->draw();
@@ -78,6 +78,7 @@ void EntityManager::draw(){
     for(std::vector<Character*>::iterator it = characterList.begin(); it != characterList.end(); it++){
             (*it)->draw();
     }
+    shader->enable();
     for(std::vector<Ground*>::iterator it = groundList.begin(); it != groundList.end(); it++){
             (*it)->draw(shader);
     }

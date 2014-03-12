@@ -18,15 +18,16 @@ Character::~Character()
 
 void Character::draw()
 {
+    glUseProgram(0);
      glBegin(GL_QUADS);
         glColor3f(0,1,0);
-        glVertex3f(verts.at(0),verts.at(1),0);
+        glVertex3f(verts.at(0)*5,verts.at(1)*5,0);
         glColor3f(1,0,0);
-        glVertex3f(verts.at(2),verts.at(3),0);
+        glVertex3f(verts.at(2)*5,verts.at(3)*5,0);
         glColor3f(0,0,1);
-        glVertex3f(verts.at(4),verts.at(5),0);
+        glVertex3f(verts.at(4)*5,verts.at(5)*5,0);
         glColor3f(1,1,1);
-        glVertex3f(verts.at(6),verts.at(7),0);
+        glVertex3f(verts.at(6)*5,verts.at(7)*5,0);
     glEnd();
 }
 

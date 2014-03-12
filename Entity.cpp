@@ -33,6 +33,7 @@ Entity::Entity(float x, float y, float sz)
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, verts.size()*sizeof(float), &verts[0], GL_STATIC_DRAW);
 
+
     GLenum e = glGetError();
     if(e != GL_NO_ERROR)
     {
@@ -49,6 +50,12 @@ void Entity::draw(Shader* s)
 {
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat), 0);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat), (void*)(sizeof(GLfloat)*2));
+
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+
     s->enable();
     GLint loc = glGetUniformLocation(s->shaderProgram, "myTexture");
 
