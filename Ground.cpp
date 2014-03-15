@@ -1,8 +1,8 @@
 #include "Ground.h"
 
-#define M2PIX 10
+#define M2PIX 5
 
-Ground::Ground(float x, float y, float sz) : Entity(x*M2PIX, y*M2PIX, sz*M2PIX)
+Ground::Ground(float x, float y, float sz) : Entity(x, y, sz*M2PIX)
 {
     pSquare = new PhysicsSquare(x, y, sz);
 }

@@ -22,15 +22,15 @@ void Character::draw()
     glBegin(GL_QUADS);
         glColor3f(0,1,0);
         glVertex3f(verts.at(0)*5,verts.at(1)*5,0);
-        //std::cout << verts.at(0) << " =x " << verts.at(1) << " =y\n";
         glColor3f(1,0,0);
         glVertex3f(verts.at(4)*5,verts.at(5)*5,0);
-        //std::cout << verts.at(4) << " =x " << verts.at(5) << " =y\n";
         glColor3f(0,0,1);
         glVertex3f(verts.at(8)*5,verts.at(9)*5,0);
-        //std::cout << verts.at(8) << " =x " << verts.at(9) << " =y\n";
         glColor3f(1,1,1);
         glVertex3f(verts.at(12)*5,verts.at(13)*5,0);
+        //std::cout << verts.at(0) << " =x " << verts.at(1) << " =y\n";
+        //std::cout << verts.at(4) << " =x " << verts.at(5) << " =y\n";
+        //std::cout << verts.at(8) << " =x " << verts.at(9) << " =y\n";
         //std::cout << verts.at(12) << " =x " << verts.at(13) << " =y\n";
     glEnd();
 }
