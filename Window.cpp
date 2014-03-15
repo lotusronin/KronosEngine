@@ -50,7 +50,6 @@ Window::Window(int width, int height, std::string title){
     glMatrixMode(GL_MODELVIEW);
 
     //glEnable(GL_TEXTURE_2D);
-
     glLoadIdentity();
 
 }

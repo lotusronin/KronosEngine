@@ -57,7 +57,7 @@ void Entity::draw(Shader* s)
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 
-    s->enable();
+    //s->enable();
     GLint loc = glGetUniformLocation(s->shaderProgram, "myTexture");
 
     glActiveTexture(GL_TEXTURE0);

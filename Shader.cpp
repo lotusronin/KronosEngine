@@ -19,7 +19,7 @@ Shader::Shader(){
 	"uniform sampler2D myTexture;\n"
 	"varying vec2 vTexCoord;\n"
 	"void main(){\n"
-	"	gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);\n"
+	"	gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n"
 	"}";
 	//"	gl_FragColor = texture2D(myTexture, vTexCoord);\n"
 

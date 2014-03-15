@@ -18,10 +18,6 @@ Character::~Character()
 
 void Character::draw()
 {
-    //G
-
-
-    //W        B
     glUseProgram(0);
     glBegin(GL_QUADS);
         glColor3f(0,1,0);
