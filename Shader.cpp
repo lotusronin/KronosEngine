@@ -1,28 +1,18 @@
 #include "Shader.h"
 #include <string.h>
+#include <iostream>
+#include <fstream>
 #include <GL/glew.h>
 #include <GL/gl.h>
 
 Shader::Shader(){
-    vs =
-    "#version 120\n"
-	"attribute vec2 pos;\n"
-	"attribute vec2 texCoord;\n"
-	"varying vec2 vTexCoord;\n"
-	"void main(){\n"
-	"	vTexCoord = texCoord;\n"
-	"	gl_Position = vec4(pos, 0.0, 1.0);\n"
-	"}";
 
-	fs =
-	"#version 120\n"
-	"uniform sampler2D myTexture;\n"
-	"varying vec2 vTexCoord;\n"
-	"void main(){\n"
-	"	gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n"
-	"}";
-	//"	gl_FragColor = texture2D(myTexture, vTexCoord);\n"
-
+    vs ="";
+	fs = "";
+    //Load vertex shader
+    vs = load("simpleshader.vert");
+    //Load fragment shader
+    fs = load("simpleshader.frag");
 
 	vert_src = vs.c_str();
 	frag_src = fs.c_str();
@@ -60,6 +50,10 @@ void Shader::compile(){
         std::cout << "Error compiling vertex shader!!!!\n";
         std::cout << e;
     }
+    else
+    {
+        std::cout << "vertex shader compiled successfully!\n";
+    }
 
     error = 0;
     glGetShaderiv(fShader, GL_COMPILE_STATUS, &error);
@@ -70,6 +64,10 @@ void Shader::compile(){
         std::cout << "Error compiling fragment shader!!!!\n";
         std::cout << e;
     }
+    else
+    {
+        std::cout << "fragment shader compiled successfully!\n";
+    }
 
     shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vShader);
@@ -79,4 +77,22 @@ void Shader::compile(){
     glBindAttribLocation(shaderProgram, 1, "texCoord");
 
     glLinkProgram(shaderProgram);
+}
+
+std::string Shader::load(std::string filename)
+{
+    std::string s, temp;
+    std::ifstream vsf (filename);
+	if(vsf.is_open()){
+		while(getline(vsf, temp))
+		{
+			s = s + temp + '\n';
+		}
+		vsf.close();
+		std::cout << "Shader " << filename << " loaded...\n";
+	}
+	else{
+		std::cout << "error opening shader file: " << filename << "\n";
+	}
+	return s;
 }

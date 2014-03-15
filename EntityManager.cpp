@@ -84,7 +84,7 @@ void EntityManager::draw(){
             (*it)->draw(shader);
     }
 
-    shader->disable();
+    //shader->disable();
 }
 
 void EntityManager::moveObjects(){

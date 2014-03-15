@@ -15,6 +15,7 @@ public:
     std::string vs;
     std::string fs;
     //const unsigned int shaderAttribute = 0;
+    std::string load(std::string filename);
     void enable();
     void disable();
     void compile();
