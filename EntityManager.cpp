@@ -152,8 +152,8 @@ void EntityManager::loadMap(){
 
 void EntityManager::applyPhysics()
 {
-    einstein->applyPhysics(&characterList, &groundList);
-    updateObjs();
+    //einstein->applyPhysics(&characterList, &groundList);
+    //updateObjs();
 }
 
 void EntityManager::updateObjs()
