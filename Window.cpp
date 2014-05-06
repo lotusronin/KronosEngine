@@ -45,7 +45,7 @@ Window::Window(int width, int height, std::string title){
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    glOrtho(0, width, height, 0, 1, -1);
+    glOrtho(0, width, 0, height, 1, -1);
 
     glMatrixMode(GL_MODELVIEW);
 
