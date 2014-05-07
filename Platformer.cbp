@@ -38,6 +38,8 @@
 			<Add option="-lGL" />
 			<Add option="-lfreeimage" />
 			<Add option="-lGLEW" />
+			<Add option="-lalut" />
+			<Add option="-lopenal" />
 		</Linker>
 		<Unit filename="Camera.cpp" />
 		<Unit filename="Camera.h" />
@@ -71,6 +73,8 @@
 		<Unit filename="ResourceManager.h" />
 		<Unit filename="Shader.cpp" />
 		<Unit filename="Shader.h" />
+		<Unit filename="Sound.cpp" />
+		<Unit filename="Sound.h" />
 		<Unit filename="Texture.cpp" />
 		<Unit filename="Texture.h" />
 		<Unit filename="Vector.cpp" />

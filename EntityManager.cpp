@@ -9,6 +9,7 @@ EntityManager::EntityManager(){
     cam = new Camera(320, 240);
     resman = new ResourceManager();
     resman->loadTexture();
+    resman->loadMusic();
     mapman = new MapManager();
     parser = new DataReader();
     einstein = new PhysicsManager();
@@ -75,16 +76,16 @@ void EntityManager::draw(){
     /*for(std::vector<Object*>::iterator it = active_obj_list.begin(); it != active_obj_list.end(); it++){
             (*it)->draw();
     }*/
-    /*
+
     for(std::vector<Character*>::iterator it = characterList.begin(); it != characterList.end(); it++){
             (*it)->draw();
-    }*/
+    }
     shader->enable();
     for(std::vector<Ground*>::iterator it = groundList.begin(); it != groundList.end(); it++){
             (*it)->draw(shader);
     }
 
-    //shader->disable();
+    shader->disable();
 }
 
 void EntityManager::moveObjects(){
@@ -148,6 +149,7 @@ void EntityManager::loadMap(){
 
         delete[] cstr;
     }
+    resman->getMusic();
 }
 
 
