@@ -34,8 +34,8 @@ public:
     EntityManager();
     ~EntityManager();
     void makeObj(int x, int y, int sz);
-    void addChar(int x, int y, int sz);
-    void addGrd(int x, int y, int sz);
+    void addChar(float x, float y, float sz);
+    void addGrd(float x, float y, float sz);
     void clearObjects();
     void deleteObj();
     void draw();

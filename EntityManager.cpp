@@ -8,7 +8,7 @@ EntityManager::EntityManager(){
     gravity = new Vec2(0, 5);
     cam = new Camera(320, 240);
     resman = new ResourceManager();
-    resman->loadTexture("tex_ground.xpm");
+    //resman->loadTexture("tex_ground.xpm");
     resman->loadMusic("test.wav");
     mapman = new MapManager();
     parser = new DataReader();
@@ -52,12 +52,12 @@ void EntityManager::clearObjects()
     groundList.erase(groundList.begin(), groundList.end());
 }
 
-void EntityManager::addGrd(int x, int y, int sz){
+void EntityManager::addGrd(float x, float y, float sz){
 groundList.push_back(new Ground(x, y, sz));
 (groundList.back())->setTexture(resman->getTexture());
 }
 
-void EntityManager::addChar(int x, int y, int sz){
+void EntityManager::addChar(float x, float y, float sz){
 characterList.push_back(new Character(x, y, sz));
 }
 
@@ -122,11 +122,14 @@ void EntityManager::loadMap(){
         std::strcpy (cstr, (*it).c_str());
         char * p = std::strtok (cstr,",");
         std::cout << p << "\n";
-        int x = atoi(p);
+        float x = (float)atof(p);
+        std::cout << "The value of x is: " << x << "\n";
+
 
         p = std::strtok(NULL,",");
         std::cout << p << "\n";
-        int y = atoi(p);
+        float y = (float)atof(p);
+        std::cout << "The value of y is: " << y << "\n";
 
         p = std::strtok(NULL,",");
         std::cout << p << "\n";
@@ -144,6 +147,8 @@ void EntityManager::loadMap(){
         }
         else if(!strcmp(pstring.c_str(),"Ground"))
         {
+
+            resman->loadTexture("tex_ground.xpm");
             addGrd(x,y,sz);
         }
 

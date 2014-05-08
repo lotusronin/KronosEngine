@@ -82,3 +82,8 @@ bool Sound::isPlaying()
     else
         return false;
 }
+
+std::string Sound::getName()
+{
+    return name;
+}

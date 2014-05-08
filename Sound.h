@@ -28,6 +28,7 @@ public:
     void Pause();
     bool isPlaying();
     void setLoop(bool l);
+    std::string getName();
 };
 
 #endif

@@ -28,6 +28,7 @@ Texture::Texture(std::string texname){
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imgWidth, imgHeight, 0, GL_BGR, GL_UNSIGNED_BYTE, (void*)FreeImage_GetBits(texture));
         FreeImage_Unload(texture);
         std::cout << "Image file is good\n";
+        std::cout << "Loaded: " << texname << "\n";
     }
     else
     {

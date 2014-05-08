@@ -18,11 +18,33 @@ ResourceManager::~ResourceManager(){
 }
 
 void ResourceManager::loadTexture(std::string texname){
-    tvec.push_back(new Texture(texname));
+    bool exists = false;
+    for(std::vector<Texture*>::iterator it = tvec.begin(); it != tvec.end(); it++){
+            if((*it)->getName().compare(texname) == 0){
+                exists = true;
+            }
+    }
+
+    if(!exists){
+        tvec.push_back(new Texture(texname));
+    }else{
+        std::cout << "Texture Already loaded!\n";
+    }
 }
 
 void ResourceManager::loadMusic(std::string musname){
-    svec.push_back(new Sound(musname));
+    bool exists = false;
+    for(std::vector<Sound*>::iterator it = svec.begin(); it != svec.end(); it++){
+            if((*it)->getName().compare(musname) == 0){
+                exists = true;
+            }
+    }
+
+    if(!exists){
+        svec.push_back(new Sound(musname));
+    }else{
+        std::cout << "Sound Already loaded!\n";
+    }
 }
 
 void ResourceManager::loadSFX(){
