@@ -6,6 +6,7 @@
 #include "Sound.h"
 #include <GL/glew.h>
 #include <GL/gl.h>
+#include <string>
 
 class ResourceManager {
 protected:
@@ -15,9 +16,9 @@ std::vector<Sound*> svec;
 public:
     ResourceManager();
     ~ResourceManager();
-    void loadTexture();
+    void loadTexture(std::string texname);
     GLuint getTexture();
-    void loadMusic();
+    void loadMusic(std::string musname);
     void getMusic();
     void loadSFX();
     void getSFX();

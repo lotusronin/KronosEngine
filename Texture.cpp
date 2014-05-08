@@ -2,15 +2,19 @@
 #include <FreeImage.h>
 #include <iostream>
 #include <stdlib.h>
+#include <string>
 
-Texture::Texture(){
+Texture::Texture(std::string texname){
+    name = texname;
     FIBITMAP* texture;
     FREE_IMAGE_FORMAT fif;
 
-    fif = FreeImage_GetFileType("res/tex_ground.xpm",0);
+    const char* path = ("res/"+texname).c_str();
+
+    fif = FreeImage_GetFileType(path,0);
     if( FreeImage_FIFSupportsReading(fif))
     {
-        texture = FreeImage_Load(fif, "res/tex_ground.xpm");
+        texture = FreeImage_Load(fif, path);
         int imgWidth = FreeImage_GetWidth(texture);
         int imgHeight = FreeImage_GetHeight(texture);
 
@@ -33,4 +37,8 @@ Texture::Texture(){
 
 GLuint Texture::getTexture(){
     return t;
+}
+
+std::string Texture::getName(){
+    return name;
 }

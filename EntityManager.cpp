@@ -8,8 +8,8 @@ EntityManager::EntityManager(){
     gravity = new Vec2(0, 5);
     cam = new Camera(320, 240);
     resman = new ResourceManager();
-    resman->loadTexture();
-    resman->loadMusic();
+    resman->loadTexture("tex_ground.xpm");
+    resman->loadMusic("test.wav");
     mapman = new MapManager();
     parser = new DataReader();
     einstein = new PhysicsManager();

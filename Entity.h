@@ -17,6 +17,7 @@ protected:
     std::vector<float> verts; //Will be either 6 or 8 verts (triangle or square)
     std::vector<float> stats; //Will contain: size, radius, mass, hspeed, vspeed etc
     GLuint texture, vbo;
+    std::string texname;
 public:
     void setTexture(GLuint img);
     void draw(Shader* s);

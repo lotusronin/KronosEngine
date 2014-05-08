@@ -20,6 +20,7 @@ protected:
 	ALvoid* data;
 
 	bool Error;
+	std::string name;
 public:
     Sound(std::string fname);
     ~Sound();

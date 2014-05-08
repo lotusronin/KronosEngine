@@ -2,6 +2,7 @@
 #include "Texture.h"
 #include "Sound.h"
 #include <iostream>
+#include <string>
 
 ResourceManager::ResourceManager(){
 }
@@ -16,12 +17,12 @@ ResourceManager::~ResourceManager(){
     }
 }
 
-void ResourceManager::loadTexture(){
-    tvec.push_back(new Texture());
+void ResourceManager::loadTexture(std::string texname){
+    tvec.push_back(new Texture(texname));
 }
 
-void ResourceManager::loadMusic(){
-    svec.push_back(new Sound("test.wav"));
+void ResourceManager::loadMusic(std::string musname){
+    svec.push_back(new Sound(musname));
 }
 
 void ResourceManager::loadSFX(){
