@@ -37,6 +37,7 @@ void PhysicsManager::applyPhysics(std::vector<Character*> *cvect, std::vector<Gr
 
 int PhysicsManager::edgeCollide(std::vector<float>* p1, std::vector<float>* p2, float vx1, float vy1, float vx2, float vy2)
 {
+    //Check to see if already collided
     return 0;
 }
 
