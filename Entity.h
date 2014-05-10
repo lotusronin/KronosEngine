@@ -21,6 +21,8 @@ protected:
 public:
     void setTexture(GLuint img);
     void draw(Shader* s);
+    std::string getTexName();
+    void setTexName(std::string n);
     Entity(float x, float y, float sz);
     virtual ~Entity();
 };

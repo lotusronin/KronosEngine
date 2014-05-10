@@ -6,7 +6,7 @@
 //10px / m
 #define M2PIX 10
 
-Character::Character(float x, float y, float sz) : Entity(x, y, sz)
+Character::Character(float x, float y, float sz) : Entity(x*5, y*5, sz*5)
 {
     pSquare = new PhysicsSquare(x, y, sz);
 }
@@ -16,23 +16,24 @@ Character::~Character()
     delete pSquare;
 }
 
+void Character::draw(Shader* s)
+{
+    Entity::draw(s);
+}
+
 void Character::draw()
 {
-    glUseProgram(0);
+    /*glUseProgram(0);
     glBegin(GL_QUADS);
         glColor3f(0,1,0);
-        glVertex3f(verts.at(0)*5,verts.at(1)*5,0);
+        glVertex3f(verts.at(0),verts.at(1),0);
         glColor3f(1,0,0);
-        glVertex3f(verts.at(4)*5,verts.at(5)*5,0);
+        glVertex3f(verts.at(4),verts.at(5),0);
         glColor3f(0,0,1);
-        glVertex3f(verts.at(8)*5,verts.at(9)*5,0);
+        glVertex3f(verts.at(8),verts.at(9),0);
         glColor3f(1,1,1);
-        glVertex3f(verts.at(12)*5,verts.at(13)*5,0);
-        //std::cout << verts.at(0) << " =x " << verts.at(1) << " =y\n";
-        //std::cout << verts.at(4) << " =x " << verts.at(5) << " =y\n";
-        //std::cout << verts.at(8) << " =x " << verts.at(9) << " =y\n";
-        //std::cout << verts.at(12) << " =x " << verts.at(13) << " =y\n";
-    glEnd();
+        glVertex3f(verts.at(12),verts.at(13),0);
+    glEnd();*/
 }
 
 float Character::getCenterX()

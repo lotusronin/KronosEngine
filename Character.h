@@ -21,6 +21,7 @@ public:
     ~Character();
     PhysicsSquare* pSquare;
     void draw();
+    void draw(Shader* s);
     float getCenterX();
     float getCenterY();
     PhysicsSquare* getObj();

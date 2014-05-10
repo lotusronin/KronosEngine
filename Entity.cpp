@@ -25,10 +25,10 @@ Entity::Entity(float x, float y, float sz)
     verts.push_back(v+1);
     stats.push_back(sz);
 
-    std::cout << verts.at(0) << " =x " << verts.at(1) << " =y\n";
+    /*std::cout << verts.at(0) << " =x " << verts.at(1) << " =y\n";
     std::cout << verts.at(4) << " =x " << verts.at(5) << " =y\n";
     std::cout << verts.at(8) << " =x " << verts.at(9) << " =y\n";
-    std::cout << verts.at(12) << " =x " << verts.at(13) << " =y\n";
+    std::cout << verts.at(12) << " =x " << verts.at(13) << " =y\n";*/
 
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -44,11 +44,24 @@ Entity::Entity(float x, float y, float sz)
 
 void Entity::setTexture(GLuint img)
 {
+    //std::cout << "Setting TextureID to be: " << img+GL_TEXTURE0 << "\n";
     texture = img;
+}
+
+std::string Entity::getTexName()
+{
+    return texname;
+}
+
+void Entity::setTexName(std::string n)
+{
+    //std::cout << "Setting Texture name to be: " << n << "\n";
+    texname = n;
 }
 
 void Entity::draw(Shader* s)
 {
+    glActiveTexture(GL_TEXTURE0);
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat), 0);
@@ -60,9 +73,10 @@ void Entity::draw(Shader* s)
     //s->enable();
     GLint loc = glGetUniformLocation(s->shaderProgram, "myTexture");
 
-    glActiveTexture(GL_TEXTURE0);
+    //std::cout << "\nDrawing Entity...\nTexName: " << texname << "\nTextureID: " << texture << "\n";
+
 	glBindTexture(GL_TEXTURE_2D, texture);
-	glUniform1f(loc, texture); //location of uniform, value (texture?)
+	glUniform1f(loc, 0); //location of uniform, value (texture unit (GL_TEXTURE"0+n"))
 
 	glDrawArrays(GL_QUADS, 0, 4);
 }

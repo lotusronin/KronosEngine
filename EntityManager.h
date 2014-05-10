@@ -1,7 +1,7 @@
 #ifndef ENTITYMANAGER_H
 #define ENTITYMANAGER_H
 
-#include "Object.h"
+
 #include "Entity.h"
 #include "Character.h"
 #include "Ground.h"
@@ -33,7 +33,6 @@ public:
     std::string mapname;
     EntityManager();
     ~EntityManager();
-    void makeObj(int x, int y, int sz);
     void addChar(float x, float y, float sz);
     void addGrd(float x, float y, float sz);
     void clearObjects();
@@ -42,7 +41,6 @@ public:
     void applyPhysics();
     void applyPhysics(int dir);
     void moveObjects();
-    int collide(Vec2* spd1, Vec2* spd2, int* vert1, int* vert2);
     void updateObjs();
     void updateCam();
     void loadMap();

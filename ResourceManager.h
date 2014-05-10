@@ -17,7 +17,7 @@ public:
     ResourceManager();
     ~ResourceManager();
     void loadTexture(std::string texname);
-    GLuint getTexture();
+    GLuint getTexture(std::string texname);
     void loadMusic(std::string musname);
     void getMusic();
     void loadSFX();

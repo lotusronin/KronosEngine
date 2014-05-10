@@ -63,8 +63,8 @@
 		<Unit filename="Map.h" />
 		<Unit filename="MapManager.cpp" />
 		<Unit filename="MapManager.h" />
-		<Unit filename="Object.cpp" />
-		<Unit filename="Object.h" />
+		<Unit filename="Matrix.cpp" />
+		<Unit filename="Matrix.h" />
 		<Unit filename="PhysicsManager.cpp" />
 		<Unit filename="PhysicsManager.h" />
 		<Unit filename="PhysicsSquare.cpp" />

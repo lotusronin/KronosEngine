@@ -57,8 +57,14 @@ void ResourceManager::getMusic(){
     }
 }
 
-GLuint ResourceManager::getTexture(){
-    return (*tvec.begin())->getTexture();
+GLuint ResourceManager::getTexture(std::string texname){
+
+    for(std::vector<Texture*>::iterator it = tvec.begin(); it != tvec.end(); it++){
+            if((*it)->getName().compare(texname) == 0){
+                return (*it)->getTexture();
+            }
+    }
+    return 0;
 
 }
 

@@ -2,7 +2,7 @@
 
 #define M2PIX 5
 
-Ground::Ground(float x, float y, float sz) : Entity(x*M2PIX, y*M2PIX, sz*M2PIX)
+Ground::Ground(float x, float y, float sz) : Entity(x*5, y*5, sz*5)
 {
     pSquare = new PhysicsSquare(x, y, sz);
 }

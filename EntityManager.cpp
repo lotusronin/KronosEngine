@@ -8,7 +8,6 @@ EntityManager::EntityManager(){
     gravity = new Vec2(0, 5);
     cam = new Camera(320, 240);
     resman = new ResourceManager();
-    //resman->loadTexture("tex_ground.xpm");
     resman->loadMusic("test.wav");
     mapman = new MapManager();
     parser = new DataReader();
@@ -20,9 +19,7 @@ EntityManager::EntityManager(){
 }
 
 EntityManager::~EntityManager(){
-    /*for(std::vector<Object*>::iterator it = active_obj_list.begin(); it != active_obj_list.end(); it++){
-            delete (*it);
-    }*/
+
     for(std::vector<Character*>::iterator it = characterList.begin(); it != characterList.end(); it++){
             delete (*it);
     }
@@ -54,11 +51,16 @@ void EntityManager::clearObjects()
 
 void EntityManager::addGrd(float x, float y, float sz){
 groundList.push_back(new Ground(x, y, sz));
-(groundList.back())->setTexture(resman->getTexture());
+std::string s = "tex_ground.xpm";
+(groundList.back())->setTexName(s);
+(groundList.back())->setTexture(resman->getTexture((groundList.back())->getTexName()));
 }
 
 void EntityManager::addChar(float x, float y, float sz){
 characterList.push_back(new Character(x, y, sz));
+std::string s = "tex_potion.xpm";
+(characterList.back())->setTexName(s);
+(characterList.back())->setTexture(resman->getTexture((characterList.back())->getTexName()));
 }
 
 void EntityManager::updateCam(){
@@ -70,17 +72,14 @@ void EntityManager::draw(){
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//shader->enable();
+	shader->enable();
 	//std::cout << "Beginning to draw entities...\n";
     //player->draw();
-    /*for(std::vector<Object*>::iterator it = active_obj_list.begin(); it != active_obj_list.end(); it++){
-            (*it)->draw();
-    }*/
 
     for(std::vector<Character*>::iterator it = characterList.begin(); it != characterList.end(); it++){
-            (*it)->draw();
+            (*it)->draw(shader);
     }
-    shader->enable();
+    //shader->enable();
     for(std::vector<Ground*>::iterator it = groundList.begin(); it != groundList.end(); it++){
             (*it)->draw(shader);
     }
@@ -137,18 +136,20 @@ void EntityManager::loadMap(){
         std::string pstring = p;
         parser->loadObj(pstring);
         pstring = parser->getValue("size");
-        int sz = atoi(pstring.c_str());
+        float sz = (float)atof(pstring.c_str());
         pstring = parser->getValue("entity_type");
         parser->closeObj();
 
         if(!strcmp(pstring.c_str(),"Character"))
         {
+            std::string s = "tex_potion.xpm";
+            resman->loadTexture(s);
             addChar(x,y,sz);
         }
         else if(!strcmp(pstring.c_str(),"Ground"))
         {
-
-            resman->loadTexture("tex_ground.xpm");
+            std::string s = "tex_ground.xpm";
+            resman->loadTexture(s);
             addGrd(x,y,sz);
         }
 
@@ -160,7 +161,7 @@ void EntityManager::loadMap(){
 
 void EntityManager::applyPhysics()
 {
-    //einstein->applyPhysics(&characterList, &groundList);
+    einstein->applyPhysics(&characterList, &groundList);
     //updateObjs();
 }
 

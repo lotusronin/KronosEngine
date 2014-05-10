@@ -21,6 +21,7 @@ Texture::Texture(std::string texname){
         //std::cout << imgWidth << " "<< imgHeight <<"\n";
 
         glGenTextures( 1, &t );
+        std::cout << "\nACTIVE TEXTURE VALUE IS: " << GL_TEXTURE0+t << "\n";
         glActiveTexture(GL_TEXTURE0);
         glBindTexture( GL_TEXTURE_2D, t );
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
