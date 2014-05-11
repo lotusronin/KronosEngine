@@ -10,7 +10,7 @@ protected:
     GLuint t;
     std::string name;
 public:
-    Texture(std::string texname);
+    Texture(const std::string& texname);
     GLuint getTexture();
     std::string getName();
 };

@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string>
 
-Texture::Texture(std::string texname){
+Texture::Texture(const std::string& texname){
     name = texname;
     FIBITMAP* texture;
     FREE_IMAGE_FORMAT fif;

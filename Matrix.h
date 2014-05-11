@@ -1,12 +1,17 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+#include <iostream>
+
 class Matrix
 {
 public:
     float mat[16];
    Matrix();
    virtual ~Matrix();
+   Matrix operator*(const Matrix& other);
+   Matrix operator+(const Matrix& other);
+   Matrix operator=(const Matrix& other);
 };
 
 class RotationMatrix: public Matrix

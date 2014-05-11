@@ -155,7 +155,7 @@ void EntityManager::loadMap(){
 
         delete[] cstr;
     }
-    resman->getMusic();
+    //resman->getMusic();
 }
 
 

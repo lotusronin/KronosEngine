@@ -15,7 +15,7 @@ Character::~Character()
 {
     delete pSquare;
 }
-
+/*
 void Character::draw(Shader* s)
 {
     Entity::draw(s);
@@ -34,7 +34,7 @@ void Character::draw()
         glColor3f(1,1,1);
         glVertex3f(verts.at(12),verts.at(13),0);
     glEnd();*/
-}
+//}*/
 
 float Character::getCenterX()
 {

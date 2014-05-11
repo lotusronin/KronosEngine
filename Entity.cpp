@@ -53,7 +53,7 @@ std::string Entity::getTexName()
     return texname;
 }
 
-void Entity::setTexName(std::string n)
+void Entity::setTexName(const std::string& n)
 {
     //std::cout << "Setting Texture name to be: " << n << "\n";
     texname = n;

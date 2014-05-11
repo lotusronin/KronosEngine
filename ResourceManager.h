@@ -16,9 +16,9 @@ std::vector<Sound*> svec;
 public:
     ResourceManager();
     ~ResourceManager();
-    void loadTexture(std::string texname);
-    GLuint getTexture(std::string texname);
-    void loadMusic(std::string musname);
+    void loadTexture(const std::string& texname);
+    GLuint getTexture(const std::string& texname);
+    void loadMusic(const std::string& musname);
     void getMusic();
     void loadSFX();
     void getSFX();

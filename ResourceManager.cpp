@@ -17,7 +17,7 @@ ResourceManager::~ResourceManager(){
     }
 }
 
-void ResourceManager::loadTexture(std::string texname){
+void ResourceManager::loadTexture(const std::string& texname){
     bool exists = false;
     for(std::vector<Texture*>::iterator it = tvec.begin(); it != tvec.end(); it++){
             if((*it)->getName().compare(texname) == 0){
@@ -32,7 +32,7 @@ void ResourceManager::loadTexture(std::string texname){
     }
 }
 
-void ResourceManager::loadMusic(std::string musname){
+void ResourceManager::loadMusic(const std::string& musname){
     bool exists = false;
     for(std::vector<Sound*>::iterator it = svec.begin(); it != svec.end(); it++){
             if((*it)->getName().compare(musname) == 0){
@@ -57,7 +57,7 @@ void ResourceManager::getMusic(){
     }
 }
 
-GLuint ResourceManager::getTexture(std::string texname){
+GLuint ResourceManager::getTexture(const std::string& texname){
 
     for(std::vector<Texture*>::iterator it = tvec.begin(); it != tvec.end(); it++){
             if((*it)->getName().compare(texname) == 0){

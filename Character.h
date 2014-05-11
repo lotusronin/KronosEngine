@@ -20,8 +20,8 @@ public:
     Character(float x, float y, float sz);
     ~Character();
     PhysicsSquare* pSquare;
-    void draw();
-    void draw(Shader* s);
+    /*void draw();
+    void draw(Shader* s);*/
     float getCenterX();
     float getCenterY();
     PhysicsSquare* getObj();
