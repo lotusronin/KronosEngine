@@ -7,6 +7,8 @@ Entity::Entity(float x, float y, float sz)
 {
     //initial values
     float u=0, v=0;
+    ptransmat = new TranslationMatrix();
+
     verts.push_back(x); //0
     verts.push_back(y); //1
     verts.push_back(u);
@@ -72,8 +74,10 @@ void Entity::draw(Shader* s)
 
     //s->enable();
     GLint loc = glGetUniformLocation(s->shaderProgram, "myTexture");
-
+    GLint transloc = glGetUniformLocation(s->shaderProgram, "transformation");
     //std::cout << "\nDrawing Entity...\nTexName: " << texname << "\nTextureID: " << texture << "\n";
+
+    glUniformMatrix4fv(transloc, 1, GL_FALSE, ptransmat->mat);
 
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glUniform1f(loc, 0); //location of uniform, value (texture unit (GL_TEXTURE"0+n"))

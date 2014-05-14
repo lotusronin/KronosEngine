@@ -8,7 +8,7 @@
 
 Character::Character(float x, float y, float sz) : Entity(x*5, y*5, sz*5)
 {
-    pSquare = new PhysicsSquare(x, y, sz);
+    pSquare = new PhysicsSquare(x*5, y*5, sz*5);
 }
 
 Character::~Character()
@@ -53,6 +53,7 @@ PhysicsSquare* Character::getObj()
 
 void Character::update()
 {
+    std::cout << "\n\n\nI'm being called when I shouldn't be!!!!\n\n\n";
     pSquare->update();
     std::vector<float> *pCoords = pSquare->getCoords();
     float s = pSquare->getSize();

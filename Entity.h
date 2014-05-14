@@ -6,6 +6,8 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include "Shader.h"
+#include "Matrix.h"
+
 /*
     This is the generic entity class. All other entity types (item, ground, character, decal) will be derived from this one.
     Never instantiate Entity objects!!! Always use a subclass.
@@ -25,6 +27,9 @@ public:
     void setTexName(const std::string& n);
     Entity(float x, float y, float sz);
     virtual ~Entity();
+
+    //Translation Matrix
+    TranslationMatrix* ptransmat;
 };
 
 #endif // ENTITY_H

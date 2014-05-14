@@ -23,6 +23,8 @@ public:
     float getSize();
     float getVelx();
     float getVely();
+    void addVeloc(float vx, float vy);
+    void setVeloc(float vx, float vy);
     void addForce(float fx, float fy);
     void update();
 };

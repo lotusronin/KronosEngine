@@ -51,7 +51,7 @@ void EntityManager::clearObjects()
 
 void EntityManager::addGrd(float x, float y, float sz){
 groundList.push_back(new Ground(x, y, sz));
-std::string s = "tex_ground.xpm";
+std::string s = "ground.png";
 (groundList.back())->setTexName(s);
 (groundList.back())->setTexture(resman->getTexture((groundList.back())->getTexName()));
 }
@@ -148,14 +148,14 @@ void EntityManager::loadMap(){
         }
         else if(!strcmp(pstring.c_str(),"Ground"))
         {
-            std::string s = "tex_ground.xpm";
+            std::string s = "ground.png";
             resman->loadTexture(s);
             addGrd(x,y,sz);
         }
 
         delete[] cstr;
     }
-    //resman->getMusic();
+    resman->getMusic();
 }
 
 
