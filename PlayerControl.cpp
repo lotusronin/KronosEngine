@@ -18,7 +18,7 @@ void PlayerControl::moveCharacter()
 {
     int dir = klisten->getKeys();
     float vy = playerchar->pSquare->getVely();
-    float vx = 0.5f;
+    float vx = 1.0f;
 
     if(dir == 1)
     {

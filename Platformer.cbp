@@ -69,6 +69,8 @@
 		<Unit filename="PhysicsManager.h" />
 		<Unit filename="PhysicsSquare.cpp" />
 		<Unit filename="PhysicsSquare.h" />
+		<Unit filename="PlayerControl.cpp" />
+		<Unit filename="PlayerControl.h" />
 		<Unit filename="ResourceManager.cpp" />
 		<Unit filename="ResourceManager.h" />
 		<Unit filename="Shader.cpp" />
