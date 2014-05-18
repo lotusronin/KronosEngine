@@ -17,8 +17,20 @@ void PlayerControl::setCharacter(Character* pcharacter)
 void PlayerControl::moveCharacter()
 {
     int dir = klisten->getKeys();
+
+    if(dir >= 10)
+    {
+        //We are trying to jump
+        if(playerchar->pSquare->onGround == 1)
+        {
+            playerchar->pSquare->addVeloc(0.0f, 5.0f);
+            playerchar->pSquare->onGround = 0;
+        }
+        dir -= 10;
+    }
+
+    float vx = 2.0f;
     float vy = playerchar->pSquare->getVely();
-    float vx = 1.0f;
 
     if(dir == 1)
     {

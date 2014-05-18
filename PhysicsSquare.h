@@ -27,6 +27,7 @@ public:
     void setVeloc(float vx, float vy);
     void addForce(float fx, float fy);
     void update();
+    int onGround;
 };
 
 #endif // PHYSICSSQUARE_H

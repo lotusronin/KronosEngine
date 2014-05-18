@@ -33,6 +33,7 @@ void PhysicsSquare::init(float x, float y)
     forces[1] = 0;
     velocity[0] = 0;
     velocity[1] = 0;
+    onGround = 0;
 }
 
 std::vector<float>* PhysicsSquare::getCoords()

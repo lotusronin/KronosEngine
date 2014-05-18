@@ -81,11 +81,12 @@ void PhysicsManager::edgeCollide(std::vector<float>* EntityCoords1, std::vector<
     {
         //std::cout << "Horizontal Alignment pass!\n";
         //Check to see if already collided/on Ground
-        if((*EntityCoords1)[1] == (*EntityCoords2)[5])
+        if((*EntityCoords1)[1] == (*EntityCoords2)[5] && PhysicsBody1->getVely() <= 0)
         {
             //std::cout << "We are in case 1!!!!\n";
             //Set Velocity to 0
             PhysicsBody1->setVeloc(PhysicsBody1->getVelx(), 0.0f);
+            PhysicsBody1->onGround = 1;
         }
         //Else Check if they will collide with given trajectory
         else if( (*EntityCoords1)[1] > (*EntityCoords2)[5] && ((*EntityCoords1)[1]+PhysicsBody1->getVely()) < (*EntityCoords2)[5] )

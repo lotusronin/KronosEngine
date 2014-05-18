@@ -37,14 +37,21 @@ int KeyListener::query(){
 
 int KeyListener::getKeys(){
     const Uint8 *keys = SDL_GetKeyboardState(NULL);
+    int retval = 0;
 
     if (keys[SDL_SCANCODE_LEFT] && !keys[SDL_SCANCODE_RIGHT])
-            return 1;
+            retval = 1;
         else if (keys[SDL_SCANCODE_RIGHT] && !keys[SDL_SCANCODE_LEFT])
-            return 2;
+            retval = 2;
         else
-            return 0;
+            retval = 0;
 
+    if(keys[SDL_SCANCODE_UP])
+        retval += 10;
+
+    return retval;
+
+    //Don't
     SDL_Event event;
 
     while(SDL_PollEvent(&event)){
