@@ -22,6 +22,20 @@ void GameManager::setMap(std::string arr)
     //entityman->setMap(arr);
     s += arr;
 }
+
+void GameManager::LoadMap()
+{
+    s = "";
+    while(!s.compare(""))
+    {
+        std::cout << "Enter in a map you would like to load: ";
+        std::cin >> s;
+    }
+    std::cout << "The map name you entered is: " << s << "\n\n";
+    entityman->mapname = s + ".map";
+
+}
+
 void GameManager::init(){
     win_main = new Window(640, 480, "Platform");
     glewInit();
@@ -32,6 +46,7 @@ void GameManager::init(){
         //std::cout << s << "\n";
         entityman->mapname = s;
     }
+    entityman->setControllerListener(listener);
 }
 
 int GameManager::run(){
@@ -39,13 +54,13 @@ int GameManager::run(){
     int done = 0;
     int save = 0;
     int loaded = 0;
+    int i = 0;
     //entityman->loadMap();
     //entityman->makeObj();
 
     while (!done)
     {
-        gettimeofday(&t, NULL);
-        t1 = t.tv_sec + t.tv_usec/1000000.00;
+
         done = listener->query();
         save = listener->save();
         if(save == 1)
@@ -55,6 +70,7 @@ int GameManager::run(){
         }
         else if(save == 2)
         {
+            LoadMap();
             entityman->loadMap();
             save = 0;
             loaded = 1;
@@ -67,6 +83,12 @@ int GameManager::run(){
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //glLoadIdentity();
 
+        if(i == 100)
+        {
+            gettimeofday(&t, NULL);
+            t1 = t.tv_sec + t.tv_usec/1000000.00;
+        }
+
         entityman->applyPhysics();
         entityman->updateCam();
         entityman->draw();
@@ -75,9 +97,19 @@ int GameManager::run(){
 
         //SDL_GL_SwapBuffers();
         SDL_GL_SwapWindow(win_main->screen);
-        gettimeofday(&t, NULL);
-        t2 = t.tv_sec + t.tv_usec/1000000.00;
-        //calcfps();
+
+        if(i == 100)
+        {
+            gettimeofday(&t, NULL);
+            t2 = t.tv_sec + t.tv_usec/1000000.00;
+            //calcfps();
+            i = 0;
+        }
+        else
+        {
+            i++;
+        }
+
         }
     } // end main loop
     return 0;

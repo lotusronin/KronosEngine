@@ -15,7 +15,7 @@ PhysicsManager::~PhysicsManager()
 
 void PhysicsManager::applyPhysics(std::vector<Character*> *cvect, std::vector<Ground*> *gvect)
 {
-    std::cout << "Beginning Physics calculations...\n";
+    //std::cout << "Beginning Physics calculations...\n";
     //Apply Gravity to all character entities
     for(std::vector<Character*>::iterator it = (*cvect).begin(); it != (*cvect).end(); it++)
     {
@@ -74,39 +74,40 @@ void PhysicsManager::edgeCollide(std::vector<float>* EntityCoords1, std::vector<
     //Check to see if already collided
     //Check to see if going to collide
     //std::cout << PhysicsBody1 << "\n";
-    std::cout << "Beginning Collision Checks...\n";
+    //std::cout << "Beginning Collision Checks...\n";
     //Check to see if the X values match up
     // Ent1 x >= Ent2 x && Ent1 x <= Ent2 x+sz    ||   Ent1 x+sz >= Ent2 x && Ent1 x+sz <= Ent2 x+sz
     if( ((*EntityCoords1)[0] >= (*EntityCoords2)[0] && (*EntityCoords1)[0] <= (*EntityCoords2)[2]) || ((*EntityCoords1)[2] >= (*EntityCoords2)[0] && (*EntityCoords1)[2] <= (*EntityCoords2)[2]) )
     {
-        std::cout << "Horizontal Alignment pass!\n";
+        //std::cout << "Horizontal Alignment pass!\n";
         //Check to see if already collided/on Ground
         if((*EntityCoords1)[1] == (*EntityCoords2)[5])
         {
-            std::cout << "We are in case 1!!!!\n";
+            //std::cout << "We are in case 1!!!!\n";
             //Set Velocity to 0
             PhysicsBody1->setVeloc(PhysicsBody1->getVelx(), 0.0f);
         }
         //Else Check if they will collide with given trajectory
         else if( (*EntityCoords1)[1] > (*EntityCoords2)[5] && ((*EntityCoords1)[1]+PhysicsBody1->getVely()) < (*EntityCoords2)[5] )
         {
-            std::cout << "We are in case 2!!!!\n";
+            //std::cout << "We are in case 2!!!!\n";
             //Slow Down Entity
             float diffy;
-            std::cout << "Character y = " << (*EntityCoords1)[1] << " Ground y+sz = " << (*EntityCoords2)[5] << "\n";
+            //std::cout << "Character y = " << (*EntityCoords1)[1] << " Ground y+sz = " << (*EntityCoords2)[5] << "\n";
             diffy = (*EntityCoords2)[5] - (*EntityCoords1)[1];
-            std::cout << "Diffy is: " << diffy << "\n";
+            //diffy = (*EntityCoords1)[1] - (*EntityCoords2)[5];
+            //std::cout << "Diffy is: " << diffy << "\n";
             PhysicsBody1->setVeloc(PhysicsBody1->getVelx(), diffy);
             //float res = diffy + PhysicsBody1->getVely();
         }
         //Must be clear!
         else
         {
-            std::cout << "We are in case 3!!!!\n";
+            //std::cout << "We are in case 3!!!!\n";
             //Nothing to do.
         }
     }
-    std::cout << "Ending Collision Checks...\n";
+    //std::cout << "Ending Collision Checks...\n";
     //std::cout << "Ending Collision Checks...\n Velx: " << PhysicsBody1->getVelx() << " Vely: "<< PhysicsBody1->getVely() << "\n\n";
 
     //return retval;

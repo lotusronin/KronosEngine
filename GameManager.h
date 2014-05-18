@@ -19,6 +19,7 @@ public:
     ~GameManager();
     void setMap(std::string arr);
     void init();
+    void LoadMap();
     int run();
     void calcfps();
 };

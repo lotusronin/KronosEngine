@@ -87,4 +87,5 @@ void Entity::draw(Shader* s)
 
 Entity::~Entity()
 {
+    delete ptransmat;
 }

@@ -16,6 +16,7 @@ EntityManager::EntityManager(){
     //mapman->newMap("Debug");
     shader = new Shader();
     shader->compile();
+    controller = new PlayerControl();
 }
 
 EntityManager::~EntityManager(){
@@ -39,6 +40,7 @@ void EntityManager::setMap(std::string arr)
 
 void EntityManager::clearObjects()
 {
+    std::cout << "Clearing objects from map...\n";
     for(std::vector<Ground*>::iterator it = groundList.begin(); it != groundList.end(); it++){
             delete (*it);
     }
@@ -120,25 +122,29 @@ void EntityManager::loadMap(){
         char *cstr = new char[(*it).length() + 1];
         std::strcpy (cstr, (*it).c_str());
         char * p = std::strtok (cstr,",");
-        std::cout << p << "\n";
+        //std::cout << p << "\n";
         float x = (float)atof(p);
-        std::cout << "The value of x is: " << x << "\n";
+        //std::cout << "The value of x is: " << x << "\n";
 
 
         p = std::strtok(NULL,",");
-        std::cout << p << "\n";
+        //std::cout << p << "\n";
         float y = (float)atof(p);
-        std::cout << "The value of y is: " << y << "\n";
+        //std::cout << "The value of y is: " << y << "\n";
 
         p = std::strtok(NULL,",");
-        std::cout << p << "\n";
+        //std::cout << p << "\n";
 
         std::string pstring = p;
+        std::cout << "\n" << pstring << " at " << x << "," << y << "\n";
+
         parser->loadObj(pstring);
         pstring = parser->getValue("size");
         float sz = (float)atof(pstring.c_str());
         pstring = parser->getValue("entity_type");
         parser->closeObj();
+
+
 
         if(!strcmp(pstring.c_str(),"Character"))
         {
@@ -155,12 +161,14 @@ void EntityManager::loadMap(){
 
         delete[] cstr;
     }
-    resman->getMusic();
+    //resman->getMusic();
+    controller->setCharacter((*characterList.begin()));
 }
 
 
 void EntityManager::applyPhysics()
 {
+    controller->moveCharacter();
     einstein->applyPhysics(&characterList, &groundList);
     //updateObjs();
 }
@@ -170,5 +178,10 @@ void EntityManager::updateObjs()
     for(std::vector<Character*>::iterator it = characterList.begin(); it != characterList.end(); it++){
         (*it)->update();
     }
+}
+
+void EntityManager::setControllerListener(KeyListener* pkl)
+{
+    controller->setKeyListener(pkl);
 }
 

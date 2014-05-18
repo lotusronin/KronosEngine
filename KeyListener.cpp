@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <SDL2/SDL.h>
 #include "KeyListener.h"
+#include <iostream>
 
 KeyListener::KeyListener(){}
 
@@ -37,6 +38,13 @@ int KeyListener::query(){
 int KeyListener::getKeys(){
     const Uint8 *keys = SDL_GetKeyboardState(NULL);
 
+    if (keys[SDL_SCANCODE_LEFT] && !keys[SDL_SCANCODE_RIGHT])
+            return 1;
+        else if (keys[SDL_SCANCODE_RIGHT] && !keys[SDL_SCANCODE_LEFT])
+            return 2;
+        else
+            return 0;
+
     SDL_Event event;
 
     while(SDL_PollEvent(&event)){
@@ -48,19 +56,27 @@ int KeyListener::getKeys(){
         else
             return 0;
     }
+    return 0;
 }
 
 int KeyListener::save(){
 
     const Uint8 *keys = SDL_GetKeyboardState(NULL);
+
+    if(keys[SDL_SCANCODE_L]){
+            return 2;
+        }
+
     SDL_Event event;
-    while(SDL_PollEvent(&event)){
+    if(SDL_PollEvent(&event)){
         if (event.type == SDL_KEYDOWN)
         {
         if (keys[SDL_SCANCODE_S])
             return 1;
-        else if(keys[SDL_SCANCODE_L])
+        else if(keys[SDL_SCANCODE_L]){
+            std::cout << "L was pressed\n";
             return 2;
+        }
         }
     }
     return 0;

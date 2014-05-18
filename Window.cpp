@@ -2,6 +2,7 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <SDL2/SDL.h>
+#include <iostream>
 
 Window::Window(int width, int height, std::string title){
 
@@ -52,6 +53,9 @@ Window::Window(int width, int height, std::string title){
     //glEnable(GL_TEXTURE_2D);
     glLoadIdentity();
 
+    //std::cout << "Refresh Interval is set at... " << SDL_GL_GetSwapInterval() << "\n";
+    //SDL_GL_SetSwapInterval(0);
+    //std::cout << "Refresh Interval is set at... " << SDL_GL_GetSwapInterval() << "\n";
 }
 
 Window::~Window(){

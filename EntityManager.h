@@ -12,6 +12,8 @@
 #include "MapManager.h"
 #include "DataReader.h"
 #include "Shader.h"
+#include "PlayerControl.h"
+#include "KeyListener.h"
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <vector>
@@ -28,6 +30,7 @@ protected:
     DataReader* parser;
     PhysicsManager* einstein;
     Shader* shader;
+    PlayerControl* controller;
 
 public:
     std::string mapname;
@@ -46,6 +49,7 @@ public:
     void loadMap();
     void saveMap();
     void setMap(std::string arr);
+    void setControllerListener(KeyListener* pkl);
 };
 
 
