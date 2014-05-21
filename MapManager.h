@@ -11,7 +11,7 @@ protected:
 public:
     MapManager();
     ~MapManager();
-    void loadMap(const char* fname);
+    void loadMap(std::string fname);
     void saveMap(const char* fname);
     std::vector<std::string>* getMapData();
     std::string getMapName();

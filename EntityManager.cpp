@@ -56,19 +56,17 @@ void EntityManager::clearObjects()
     groundList.erase(groundList.begin(), groundList.end());
 }
 
-void EntityManager::addGrd(float x, float y, float sz)
+void EntityManager::addGrd(float x, float y, float sz, std::string &texname)
 {
     groundList.push_back(new Ground(x, y, sz));
-    std::string s = "ground.png";
-    (groundList.back())->setTexName(s);
+    (groundList.back())->setTexName(texname);
     (groundList.back())->setTexture(resman->getTexture((groundList.back())->getTexName()));
 }
 
-void EntityManager::addChar(float x, float y, float sz)
+void EntityManager::addChar(float x, float y, float sz, std::string &texname)
 {
     characterList.push_back(new Character(x, y, sz));
-    std::string s = "tex_potion.xpm";
-    (characterList.back())->setTexName(s);
+    (characterList.back())->setTexName(texname);
     (characterList.back())->setTexture(resman->getTexture((characterList.back())->getTexName()));
 }
 
@@ -149,23 +147,21 @@ void EntityManager::loadMap()
         pstring = parser->getValue("size");
         float sz = (float)atof(pstring.c_str());
         pstring = parser->getValue("entity_type");
-        parser->closeObj();
-
-
 
         if(!strcmp(pstring.c_str(),"Character"))
         {
-            std::string s = "tex_potion.xpm";
+            std::string s = parser->getValue("texture");
             resman->loadTexture(s);
-            addChar(x,y,sz);
+            addChar(x,y,sz,s);
         }
         else if(!strcmp(pstring.c_str(),"Ground"))
         {
-            std::string s = "ground.png";
+            std::string s = parser->getValue("texture");
             resman->loadTexture(s);
-            addGrd(x,y,sz);
+            addGrd(x,y,sz,s);
         }
 
+        parser->closeObj();
         delete[] cstr;
     }
     std::cout << "Number of Ground Objects: " << groundList.size() << " \nNumber of Character Objects: " << characterList.size() << "\n\n";

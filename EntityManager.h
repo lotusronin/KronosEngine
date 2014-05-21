@@ -36,8 +36,8 @@ public:
     std::string mapname;
     EntityManager();
     ~EntityManager();
-    void addChar(float x, float y, float sz);
-    void addGrd(float x, float y, float sz);
+    void addChar(float x, float y, float sz, std::string &texname);
+    void addGrd(float x, float y, float sz, std::string &texname);
     void clearObjects();
     void deleteObj();
     void draw();

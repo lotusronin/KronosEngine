@@ -46,7 +46,7 @@ Sound::Sound(std::string fname) : listenerOri {0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0
         alGenBuffers((ALuint)1, &buffer);
 
         //load sound file
-        alutLoadWAVFile((ALbyte *)("res/"+fname).c_str(), &format, &data, &sz, &freq, &loop);
+        alutLoadWAVFile((ALbyte *)("res/sound/"+fname).c_str(), &format, &data, &sz, &freq, &loop);
 
         alBufferData(buffer, format, data, sz, freq);
 

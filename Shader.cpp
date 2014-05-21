@@ -85,6 +85,7 @@ void Shader::compile()
 
 std::string Shader::load(std::string filename)
 {
+    filename = "./shaders/"+filename;
     std::string s, temp;
     std::ifstream vsf (filename);
 	if(vsf.is_open()){

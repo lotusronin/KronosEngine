@@ -61,8 +61,9 @@ std::string MapManager::getMapName()
     return currentMap;
 }
 
-void MapManager::loadMap(const char* fname)
+void MapManager::loadMap(std::string fname)
 {
+    fname = "./res/map/" + fname;
     std::cout << "Loading File: " << fname << "\n";
     std::ifstream ifs(fname, std::ios::binary);
     std::string s;

@@ -10,7 +10,7 @@ Texture::Texture(const std::string& texname)
     FIBITMAP* texture;
     FREE_IMAGE_FORMAT fif;
 
-    const char* path = ("res/"+texname).c_str();
+    const char* path = ("res/texture/"+texname).c_str();
 
     fif = FreeImage_GetFileType(path,0);
     if( FreeImage_FIFSupportsReading(fif))
