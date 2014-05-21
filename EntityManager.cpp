@@ -45,9 +45,12 @@ void EntityManager::clearObjects()
     std::cout << "Clearing objects from map...\n";
     for(std::vector<Ground*>::iterator it = groundList.begin(); it != groundList.end(); it++){
             delete (*it);
+
     }
     for(std::vector<Character*>::iterator it = characterList.begin(); it != characterList.end(); it++){
             delete (*it);
+
+
     }
     characterList.erase(characterList.begin(), characterList.end());
     groundList.erase(groundList.begin(), groundList.end());
@@ -104,7 +107,7 @@ void EntityManager::loadMap()
 {
     clearObjects();
 
-    if(mapname != "")
+    if(mapname.compare(""))
     {
         //std::cout << mapname << '\n';
         mapman->loadMap(mapname.c_str());
@@ -165,6 +168,7 @@ void EntityManager::loadMap()
 
         delete[] cstr;
     }
+    std::cout << "Number of Ground Objects: " << groundList.size() << " \nNumber of Character Objects: " << characterList.size() << "\n\n";
     //resman->getMusic();
     controller->setCharacter((*characterList.begin()));
 }

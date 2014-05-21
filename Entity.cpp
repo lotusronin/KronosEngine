@@ -32,15 +32,16 @@ Entity::Entity(float x, float y, float sz)
     std::cout << verts.at(8) << " =x " << verts.at(9) << " =y\n";
     std::cout << verts.at(12) << " =x " << verts.at(13) << " =y\n";*/
 
+
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, verts.size()*sizeof(float), &verts[0], GL_STATIC_DRAW);
 
 
-    GLenum e = glGetError();
+    e = glGetError();
     if(e != GL_NO_ERROR)
     {
-        std::cout << "There was an error binding the data!!!!!\n" << e << "\n";
+        std::cout << "Error with Binding Buffers!\n" << e << "\n";
     }
 }
 
@@ -65,6 +66,10 @@ void Entity::draw(Shader* s)
 {
     glActiveTexture(GL_TEXTURE0);
 
+    /*  There is something From this point down the the error check that is wrong causing opengl to
+    **  throw an GL_INVALID_OPERATION error but the drawing seems fine. Need to find which function(s) causes this?
+    */
+
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat), 0);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat), (void*)(sizeof(GLfloat)*2));
@@ -83,9 +88,20 @@ void Entity::draw(Shader* s)
 	glUniform1f(loc, 0); //location of uniform, value (texture unit (GL_TEXTURE"0+n"))
 
 	glDrawArrays(GL_QUADS, 0, 4);
+	e = glGetError();
+    if(e != GL_NO_ERROR)
+    {
+        //std::cout << "Error with Drawing!\n" << e << "\n";
+    }
 }
 
 Entity::~Entity()
 {
     delete ptransmat;
+    glDeleteBuffers(1, &vbo);
+    e = glGetError();
+    if(e != GL_NO_ERROR)
+    {
+        std::cout << "Error with glDeleteBuffers()!\n" << e << "\n";
+    }
 }

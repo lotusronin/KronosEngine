@@ -7,6 +7,7 @@
 class MapManager{
 protected:
     std::vector<Map*> MapList;
+    std::string currentMap;
 public:
     MapManager();
     ~MapManager();
@@ -17,6 +18,7 @@ public:
     void newMap(std::string name);
     void addToMap(std::string obj);
     void showMap();
+    bool mapExists(std::string name);
 };
 
 

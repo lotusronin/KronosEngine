@@ -20,6 +20,7 @@ protected:
     std::vector<float> stats; //Will contain: size, radius, mass, hspeed, vspeed etc
     GLuint texture, vbo;
     std::string texname;
+    GLenum e;
 public:
     void setTexture(GLuint img);
     void draw(Shader* s);

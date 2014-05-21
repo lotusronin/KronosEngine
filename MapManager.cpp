@@ -17,22 +17,48 @@ MapManager::~MapManager()
 
 void MapManager::newMap(std::string name)
 {
-    MapList.push_back(new Map(name));
+
+    bool exists = false;
+    for(std::vector<Map*>::iterator it = MapList.begin(); it != MapList.end(); it++){
+            if((*it)->getMapName().compare(name) == 0){
+                exists = true;
+            }
+    }
+
+    if(!exists)
+    {
+        MapList.push_back(new Map(name));
+    }
 }
 
 void MapManager::addToMap(std::string obj)
 {
-    (*MapList.begin())->addToMap(obj);
+    Map* temp;
+    for(std::vector<Map*>::iterator it = MapList.begin(); it != MapList.end(); it++){
+            if((*it)->getMapName().compare(currentMap) == 0){
+                temp = (*it);
+            }
+    }
+    temp->addToMap(obj);
+    //(*MapList.begin())->addToMap(obj);
 }
 
 std::vector<std::string>* MapManager::getMapData()
 {
-    return (*MapList.begin())->getMap();
+    for(std::vector<Map*>::iterator it = MapList.begin(); it != MapList.end(); it++){
+            if((*it)->getMapName().compare(currentMap) == 0){
+                return (*it)->getMap();
+            }
+    }
+
+    return nullptr;
+    //return (*MapList.begin())->getMap();
 }
 
 std::string MapManager::getMapName()
 {
-    return (*MapList.begin())->getMapName();
+    //return (*MapList.begin())->getMapName();
+    return currentMap;
 }
 
 void MapManager::loadMap(const char* fname)
@@ -41,12 +67,16 @@ void MapManager::loadMap(const char* fname)
     std::ifstream ifs(fname, std::ios::binary);
     std::string s;
     ifs >> s;
-    newMap(s);
-    ifs >> s;
-    while(s.compare("mapend")){
-        //std::cout<< s << "\n";
-        addToMap(s);
+    if(!mapExists(s))
+    {
+        newMap(s);
+        currentMap = s;
         ifs >> s;
+        while(s.compare("mapend")){
+            //std::cout<< s << "\n";
+            addToMap(s);
+            ifs >> s;
+        }
     }
     ifs.close();
     std::cout << "File Loaded \n";
@@ -74,4 +104,14 @@ void MapManager::saveMap(const char* fname)
 void MapManager::showMap()
 {
     (*MapList.begin())->showData();
+}
+
+bool MapManager::mapExists(std::string name)
+{
+    for(std::vector<Map*>::iterator it = MapList.begin(); it != MapList.end(); it++){
+            if((*it)->getMapName().compare(name) == 0){
+                return true;
+            }
+    }
+    return false;
 }
