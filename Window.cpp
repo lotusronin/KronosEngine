@@ -4,7 +4,8 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
-Window::Window(int width, int height, std::string title){
+Window::Window(int width, int height, std::string title)
+{
 
     // initialize SDL video
     if ( SDL_Init( SDL_INIT_VIDEO ) < 0 )
@@ -58,7 +59,8 @@ Window::Window(int width, int height, std::string title){
     //std::cout << "Refresh Interval is set at... " << SDL_GL_GetSwapInterval() << "\n";
 }
 
-Window::~Window(){
+Window::~Window()
+{
     SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(screen);
     SDL_Quit();

@@ -5,31 +5,38 @@
 #include <fstream>
 #include <iostream>
 
-MapManager::MapManager(){};
+MapManager::MapManager()
+{}
 
-MapManager::~MapManager(){
+MapManager::~MapManager()
+{
     for(std::vector<Map*>::iterator it = MapList.begin(); it != MapList.end(); it++){
         delete (*it);
     }
 }
 
-void MapManager::newMap(std::string name){
-MapList.push_back(new Map(name));
+void MapManager::newMap(std::string name)
+{
+    MapList.push_back(new Map(name));
 }
 
-void MapManager::addToMap(std::string obj){
-(*MapList.begin())->addToMap(obj);
+void MapManager::addToMap(std::string obj)
+{
+    (*MapList.begin())->addToMap(obj);
 }
 
-std::vector<std::string>* MapManager::getMapData(){
+std::vector<std::string>* MapManager::getMapData()
+{
     return (*MapList.begin())->getMap();
 }
 
-std::string MapManager::getMapName(){
+std::string MapManager::getMapName()
+{
     return (*MapList.begin())->getMapName();
 }
 
-void MapManager::loadMap(const char* fname){
+void MapManager::loadMap(const char* fname)
+{
     std::cout << "Loading File: " << fname << "\n";
     std::ifstream ifs(fname, std::ios::binary);
     std::string s;
@@ -46,7 +53,8 @@ void MapManager::loadMap(const char* fname){
 }
 
 
-void MapManager::saveMap(const char* fname){
+void MapManager::saveMap(const char* fname)
+{
     std::cout << "Generating a new Map file\n";
 	std::ofstream ofs(fname, std::ios::binary);
 	std::cout << "Writing to file...\n";
@@ -63,6 +71,7 @@ void MapManager::saveMap(const char* fname){
 }
 
 
-void MapManager::showMap(){
-(*MapList.begin())->showData();
+void MapManager::showMap()
+{
+    (*MapList.begin())->showData();
 }

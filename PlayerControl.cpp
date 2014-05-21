@@ -1,8 +1,10 @@
 #include "PlayerControl.h"
 
-PlayerControl::PlayerControl(){}
+PlayerControl::PlayerControl()
+{}
 
-PlayerControl::~PlayerControl(){}
+PlayerControl::~PlayerControl()
+{}
 
 void PlayerControl::setKeyListener(KeyListener* plistener)
 {
@@ -44,6 +46,7 @@ void PlayerControl::moveCharacter()
     }
     else
     {
+        //Not moving left or right
         playerchar->pSquare->setVeloc(0.0, vy);
     }
 

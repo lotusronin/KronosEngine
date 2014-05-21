@@ -42,9 +42,6 @@ public:
     void deleteObj();
     void draw();
     void applyPhysics();
-    void applyPhysics(int dir);
-    void moveObjects();
-    void updateObjs();
     void updateCam();
     void loadMap();
     void saveMap();

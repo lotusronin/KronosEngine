@@ -3,9 +3,11 @@
 #include <fstream>
 #include <iostream>
 
-DataReader::DataReader(){};
+DataReader::DataReader()
+{}
 
-DataReader::~DataReader(){};
+DataReader::~DataReader()
+{}
 
 void DataReader::loadObj(std::string obj)
 {
@@ -22,11 +24,12 @@ void DataReader::loadObj(std::string obj)
     }
 }
 
-void DataReader::closeObj(){
-if(ifs.is_open()){
-    ifs.close();
-    std::cout << "File Closed\n";
-}
+void DataReader::closeObj()
+{
+    if(ifs.is_open()){
+        ifs.close();
+        std::cout << "File Closed\n";
+    }
 }
 
 std::string DataReader::getValue(std::string s)

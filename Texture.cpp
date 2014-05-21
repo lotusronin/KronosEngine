@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <string>
 
-Texture::Texture(const std::string& texname){
+Texture::Texture(const std::string& texname)
+{
     name = texname;
     FIBITMAP* texture;
     FREE_IMAGE_FORMAT fif;
@@ -37,10 +38,12 @@ Texture::Texture(const std::string& texname){
     }
 }
 
-GLuint Texture::getTexture(){
+GLuint Texture::getTexture()
+{
     return t;
 }
 
-std::string Texture::getName(){
+std::string Texture::getName()
+{
     return name;
 }

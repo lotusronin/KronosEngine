@@ -5,7 +5,8 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
-Shader::Shader(){
+Shader::Shader()
+{
 
     vs ="";
 	fs = "";
@@ -21,17 +22,20 @@ Shader::Shader(){
 Shader::~Shader()
 {}
 
-void Shader::disable(){
+void Shader::disable()
+{
     glUseProgram(0);
 }
 
-void Shader::enable(){
+void Shader::enable()
+{
     glUseProgram(shaderProgram);
     glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 }
 
-void Shader::compile(){
+void Shader::compile()
+{
     vShader = glCreateShader(GL_VERTEX_SHADER);
 	fShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(vShader, 1, &vert_src, 0);

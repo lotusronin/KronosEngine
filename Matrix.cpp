@@ -152,7 +152,7 @@ TranslationMatrix TranslationMatrix::operator=(const Matrix& other)
 
 
 OrthoMatrix::OrthoMatrix() : Matrix()
-{
-}
+{}
 
-OrthoMatrix::~OrthoMatrix(){}
+OrthoMatrix::~OrthoMatrix()
+{}

@@ -8,12 +8,14 @@
 #include <iostream>
 #include <sys/time.h>
 
-GameManager::GameManager(){}
+GameManager::GameManager()
+{}
 
-GameManager::~GameManager(){
-delete listener;
-delete entityman;
-delete win_main;
+GameManager::~GameManager()
+{
+    delete listener;
+    delete entityman;
+    delete win_main;
 }
 
 void GameManager::setMap(std::string arr)
@@ -36,7 +38,8 @@ void GameManager::LoadMap()
 
 }
 
-void GameManager::init(){
+void GameManager::init()
+{
     win_main = new Window(640, 480, "Platform");
     glewInit();
     listener = new KeyListener();
@@ -49,13 +52,14 @@ void GameManager::init(){
     entityman->setControllerListener(listener);
 }
 
-int GameManager::run(){
+int GameManager::run()
+{
     // program main loop
     int done = 0;
     int save = 0;
     int loaded = 0;
     int i = 0;
-    //entityman->loadMap();
+
     //entityman->makeObj();
 
     while (!done)
@@ -77,8 +81,6 @@ int GameManager::run(){
         }
 
         if(loaded){
-        //entityman->applyPhysics(listener->getKeys());
-        //entityman->moveObjects();
 
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //glLoadIdentity();
@@ -115,7 +117,8 @@ int GameManager::run(){
     return 0;
 }
 
-void GameManager::calcfps(){
+void GameManager::calcfps()
+{
     double dt = (t2-t1);
     //std::cout << dt << "\n";
     std::cout << 1/dt << "\n";

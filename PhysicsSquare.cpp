@@ -53,13 +53,11 @@ float PhysicsSquare::getSize()
 
 float PhysicsSquare::getVelx()
 {
-    //return (float)velocity[0]*cos(velocity[1]*PI/180);
     return velocity[0];
 }
 
 float PhysicsSquare::getVely()
 {
-    //return (float)velocity[0]*sin(velocity[1]*PI/180);
     return velocity[1];
 }
 
@@ -70,7 +68,6 @@ void PhysicsSquare::addVeloc(float vx, float vy)
     velocity[0] += vx;
     velocity[1] += vy;
     //std::cout << "Velocityx: " << velocity[0] << " Velocityy: " << velocity[1] << "\n";
-    //std::cout << "yvelocity is: "<< velocity[1] << "\n";
 }
 
 void PhysicsSquare::setVeloc(float vx, float vy)

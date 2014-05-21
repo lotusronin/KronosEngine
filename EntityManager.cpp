@@ -4,7 +4,8 @@
 #include <string>
 #include <fstream>
 
-EntityManager::EntityManager(){
+EntityManager::EntityManager()
+{
     gravity = new Vec2(0, 5);
     cam = new Camera(320, 240);
     resman = new ResourceManager();
@@ -19,7 +20,8 @@ EntityManager::EntityManager(){
     controller = new PlayerControl();
 }
 
-EntityManager::~EntityManager(){
+EntityManager::~EntityManager()
+{
 
     for(std::vector<Character*>::iterator it = characterList.begin(); it != characterList.end(); it++){
             delete (*it);
@@ -51,26 +53,30 @@ void EntityManager::clearObjects()
     groundList.erase(groundList.begin(), groundList.end());
 }
 
-void EntityManager::addGrd(float x, float y, float sz){
-groundList.push_back(new Ground(x, y, sz));
-std::string s = "ground.png";
-(groundList.back())->setTexName(s);
-(groundList.back())->setTexture(resman->getTexture((groundList.back())->getTexName()));
+void EntityManager::addGrd(float x, float y, float sz)
+{
+    groundList.push_back(new Ground(x, y, sz));
+    std::string s = "ground.png";
+    (groundList.back())->setTexName(s);
+    (groundList.back())->setTexture(resman->getTexture((groundList.back())->getTexName()));
 }
 
-void EntityManager::addChar(float x, float y, float sz){
-characterList.push_back(new Character(x, y, sz));
-std::string s = "tex_potion.xpm";
-(characterList.back())->setTexName(s);
-(characterList.back())->setTexture(resman->getTexture((characterList.back())->getTexName()));
+void EntityManager::addChar(float x, float y, float sz)
+{
+    characterList.push_back(new Character(x, y, sz));
+    std::string s = "tex_potion.xpm";
+    (characterList.back())->setTexName(s);
+    (characterList.back())->setTexture(resman->getTexture((characterList.back())->getTexName()));
 }
 
-void EntityManager::updateCam(){
-//Update the camera here
+void EntityManager::updateCam()
+{
+    //Update the camera here
     cam->UpdateView((*characterList.begin())->getCenterX(), (*characterList.begin())->getCenterY());
 }
 
-void EntityManager::draw(){
+void EntityManager::draw()
+{
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -89,15 +95,13 @@ void EntityManager::draw(){
     shader->disable();
 }
 
-void EntityManager::moveObjects(){
-    //player->moveobj();
-}
-
-void EntityManager::saveMap(){
+void EntityManager::saveMap()
+{
     mapman->saveMap("debug.map");
 }
 
-void EntityManager::loadMap(){
+void EntityManager::loadMap()
+{
     clearObjects();
 
     if(mapname != "")
@@ -165,19 +169,10 @@ void EntityManager::loadMap(){
     controller->setCharacter((*characterList.begin()));
 }
 
-
 void EntityManager::applyPhysics()
 {
     controller->moveCharacter();
     einstein->applyPhysics(&characterList, &groundList);
-    //updateObjs();
-}
-
-void EntityManager::updateObjs()
-{
-    for(std::vector<Character*>::iterator it = characterList.begin(); it != characterList.end(); it++){
-        (*it)->update();
-    }
 }
 
 void EntityManager::setControllerListener(KeyListener* pkl)
