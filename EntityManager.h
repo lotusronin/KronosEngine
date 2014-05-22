@@ -33,7 +33,7 @@ protected:
     PlayerControl* controller;
 
 public:
-    std::string mapname;
+    //std::string mapname;
     EntityManager();
     ~EntityManager();
     void addChar(float x, float y, float sz, std::string &texname);
@@ -43,7 +43,7 @@ public:
     void draw();
     void applyPhysics();
     void updateCam();
-    void loadMap();
+    void loadMap(std::string name);
     void saveMap();
     void setMap(std::string arr);
     void setControllerListener(KeyListener* pkl);

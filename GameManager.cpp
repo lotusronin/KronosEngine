@@ -27,6 +27,7 @@ void GameManager::setMap(std::string arr)
 
 void GameManager::LoadMap()
 {
+    //std::cout << "Current Map Name is : " << entityman->mapname << "\n";
     s = "";
     while(!s.compare(""))
     {
@@ -34,7 +35,8 @@ void GameManager::LoadMap()
         std::cin >> s;
     }
     std::cout << "The map name you entered is: " << s << "\n\n";
-    entityman->mapname = s + ".map";
+    s += ".map";
+    //entityman->mapname = s + ".map";
 
 }
 
@@ -44,11 +46,11 @@ void GameManager::init()
     glewInit();
     listener = new KeyListener();
     entityman = new EntityManager();
-    if(s != "")
+    /*if(s != "")
     {
         //std::cout << s << "\n";
         entityman->mapname = s;
-    }
+    }*/
     entityman->setControllerListener(listener);
 }
 
@@ -75,7 +77,7 @@ int GameManager::run()
         else if(save == 2)
         {
             LoadMap();
-            entityman->loadMap();
+            entityman->loadMap(s);
             save = 0;
             loaded = 1;
         }

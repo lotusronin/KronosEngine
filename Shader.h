@@ -8,7 +8,7 @@
 
 class Shader{
 public:
-    Shader();
+    Shader(const std::string& vert, const std::string& frag);
     ~Shader();
     const char* vert_src;
     const char* frag_src;

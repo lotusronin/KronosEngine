@@ -13,10 +13,12 @@ EntityManager::EntityManager()
     mapman = new MapManager();
     parser = new DataReader();
     einstein = new PhysicsManager();
-    mapname = "";
     //mapman->newMap("Debug");
-    shader = new Shader();
+    shader = new Shader("simpleshader.vert", "simpleshader.frag");
     shader->compile();
+    //guishader = new Shader("simpleshader.vert", "simpleshader.frag");
+    //guishader->compile();
+
     controller = new PlayerControl();
 }
 
@@ -36,8 +38,8 @@ EntityManager::~EntityManager()
 
 void EntityManager::setMap(std::string arr)
 {
-    //std::cout << arr << '\n';
-    mapname = arr;
+    std::cout << arr << '\n';
+    //mapname = arr;
 }
 
 void EntityManager::clearObjects()
@@ -101,22 +103,24 @@ void EntityManager::saveMap()
     mapman->saveMap("debug.map");
 }
 
-void EntityManager::loadMap()
+void EntityManager::loadMap(std::string name)
 {
     clearObjects();
 
-    if(mapname.compare(""))
+    if(name.compare("") != 0)
     {
-        //std::cout << mapname << '\n';
-        mapman->loadMap(mapname.c_str());
+        std::cout << "Loading new map: " << name << "\n";
+        mapman->loadMap(name.c_str());
 
     }
     else
     {
+        std::cout << "Mapname not found, Loading debug.map\n";
         mapman->loadMap("debug.map");
     }
 
     //mapman->showMap();
+    //std::cout << "Getting Map Data for: " << mapname.substr(0, mapname.find(".map")) << "\n";
     std::vector<std::string>* currentMap = mapman->getMapData();
 
     //Parse the String

@@ -5,15 +5,15 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
-Shader::Shader()
+Shader::Shader(const std::string& vert, const std::string& frag)
 {
 
     vs ="";
 	fs = "";
     //Load vertex shader
-    vs = load("simpleshader.vert");
+    vs = load(vert);
     //Load fragment shader
-    fs = load("simpleshader.frag");
+    fs = load(frag);
 
 	vert_src = vs.c_str();
 	frag_src = fs.c_str();

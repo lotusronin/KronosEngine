@@ -68,16 +68,20 @@ void MapManager::loadMap(std::string fname)
     std::ifstream ifs(fname, std::ios::binary);
     std::string s;
     ifs >> s;
+    currentMap = s;
     if(!mapExists(s))
     {
         newMap(s);
-        currentMap = s;
         ifs >> s;
         while(s.compare("mapend")){
             //std::cout<< s << "\n";
             addToMap(s);
             ifs >> s;
         }
+    }
+    else
+    {
+        std::cout << "Map Already exists!!!!\n";
     }
     ifs.close();
     std::cout << "File Loaded \n";
