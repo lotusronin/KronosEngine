@@ -87,6 +87,9 @@ void EntityManager::draw()
 	//std::cout << "Beginning to draw entities...\n";
     //player->draw();
 
+    GLint cameraloc = glGetUniformLocation(shader->shaderProgram, "camera");
+    glUniformMatrix4fv(cameraloc, 1, GL_FALSE, cam->GetTransform()->mat);
+
     for(std::vector<Character*>::iterator it = characterList.begin(); it != characterList.end(); it++){
             (*it)->draw(shader);
     }

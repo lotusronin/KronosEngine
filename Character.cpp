@@ -18,12 +18,16 @@ Character::~Character()
 
 float Character::getCenterX()
 {
-    return ((verts.at(2) - verts.at(0))/2 + verts[0]);
+    std::vector<float>* coords = pSquare->getCoords();
+    return ((coords->at(2) - coords->at(0))/2 + coords->at(0));
+    //return ((verts.at(2) - verts.at(0))/2 + verts[0]);
 }
 
 float Character::getCenterY()
 {
-    return ((verts.at(5) - verts.at(3))/2 + verts[3]);
+    std::vector<float>* coords = pSquare->getCoords();
+    //return ((verts.at(5) - verts.at(3))/2 + verts[3]);
+    return ((coords->at(5) - coords->at(3))/2 + coords->at(3));
 }
 
 PhysicsSquare* Character::getObj()

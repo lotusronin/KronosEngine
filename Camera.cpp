@@ -3,18 +3,26 @@
 #include <GL/gl.h>
 #include <iostream>
 
-Camera::Camera(int a, int b)
+Camera::Camera(float a, float b) : x(a), y(b)
 {
-    x = a;
-    y = b;
+    pCameraTransform = new TranslationMatrix();
 }
 
-void Camera::UpdateView(int dx, int dy)
+void Camera::UpdateView(float dx, float dy)
 {
     float diffx = x - dx;
     x -= diffx;
     float diffy = y - dy;
     y -= diffy;
+
+    TranslationMatrix temp = TranslationMatrix(diffx, diffy, 0.0f);
+    //pCameraTransform->SetTranslation(diffx, diffy, 0.0f);
+    (*pCameraTransform) = (*pCameraTransform)*temp;
     //glMatrixMode (GL_MODELVIEW);
-    glTranslatef(diffx, diffy, 0);
+    //glTranslatef(diffx, diffy, 0);
+}
+
+TranslationMatrix* Camera::GetTransform()
+{
+    return pCameraTransform;
 }

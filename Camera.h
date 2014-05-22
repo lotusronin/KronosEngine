@@ -3,14 +3,16 @@
 
 #include <GL/glew.h>
 #include <GL/gl.h>
+#include "Matrix.h"
 
 class Camera{
 protected:
-    int x, y;
+    float x, y;
+    TranslationMatrix* pCameraTransform;
 public:
-    Camera(int a, int b);
-    void UpdateView(int dx, int dy);
-
+    Camera(float a, float b);
+    void UpdateView(float dx, float dy);
+    TranslationMatrix* GetTransform();
 };
 
 #endif

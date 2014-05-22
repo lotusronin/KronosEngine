@@ -3,6 +3,7 @@ attribute vec2 pos;
 attribute vec2 texCoord;
 varying vec2 vTexCoord;
 uniform mat4 transformation;
+uniform mat4 camera;
 
 //glOrtho(0, width, height, 0, 1, -1);
 
@@ -22,5 +23,5 @@ mat4 ortho = mat4(
 
 void main(){
 	vTexCoord = texCoord;
-	gl_Position = gl_ProjectionMatrix*gl_ModelViewMatrix*transformation*vec4(pos, 0.0, 1.0);
+	gl_Position = gl_ProjectionMatrix*camera*gl_ModelViewMatrix*transformation*vec4(pos, 0.0, 1.0);
 }
