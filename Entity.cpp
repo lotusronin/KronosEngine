@@ -7,7 +7,7 @@ Entity::Entity(float x, float y, float sz)
 {
     //initial values
     float u=0, v=0;
-    ptransmat = new TranslationMatrix();
+    ptransmat = new Matrix();
 
     verts.push_back(x); //0
     verts.push_back(y); //1

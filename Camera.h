@@ -8,11 +8,11 @@
 class Camera{
 protected:
     float x, y;
-    TranslationMatrix* pCameraTransform;
+    Matrix* pCameraTransform;
 public:
     Camera(float a, float b);
     void UpdateView(float dx, float dy);
-    TranslationMatrix* GetTransform();
+    Matrix* GetTransform();
 };
 
 #endif

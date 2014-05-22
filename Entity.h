@@ -30,7 +30,7 @@ public:
     virtual ~Entity();
 
     //Translation Matrix
-    TranslationMatrix* ptransmat;
+    Matrix* ptransmat;
 };
 
 #endif // ENTITY_H

@@ -10,7 +10,7 @@
 
 class PhysicsManager{
 private:
-    TranslationMatrix mat;
+    Matrix mat;
 public:
     PhysicsManager();
     ~PhysicsManager();

@@ -12,39 +12,10 @@ public:
    Matrix operator*(const Matrix& other);
    Matrix operator+(const Matrix& other);
    Matrix operator=(const Matrix& other);
+
+   void setTranslation(float x, float y, float z);
+   void setScale(float x, float y, float z);
+   void setIdentity();
 };
 
-class RotationMatrix: public Matrix
-{
-public:
-    RotationMatrix();
-    ~RotationMatrix();
-};
-
-class ScaleMatrix: public Matrix
-{
-public:
-    ScaleMatrix();
-    ScaleMatrix(float x, float y, float z);
-    ~ScaleMatrix();
-};
-
-class TranslationMatrix: public Matrix
-{
-public:
-    TranslationMatrix();
-    TranslationMatrix(float x, float y, float z);
-    void SetTranslation(float x, float y, float z);
-    ~TranslationMatrix();
-    TranslationMatrix operator*(const Matrix& other);
-    TranslationMatrix operator+(const Matrix& other);
-    TranslationMatrix operator=(const Matrix& other);
-};
-
-class OrthoMatrix: public Matrix
-{
-public:
-    OrthoMatrix();
-    ~OrthoMatrix();
-};
 #endif // MATRIX_H

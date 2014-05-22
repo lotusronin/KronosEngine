@@ -6,7 +6,7 @@
 
 PhysicsManager::PhysicsManager()
 {
-    mat = TranslationMatrix();
+    mat = Matrix();
 }
 
 PhysicsManager::~PhysicsManager()
@@ -58,7 +58,7 @@ void PhysicsManager::applyPhysics(std::vector<Character*> *cvect, std::vector<Gr
         char a;
         std::cin >> a;
         std::cout << a << "\n\n";*/
-        mat.SetTranslation(dx, dy, 0);
+        mat.setTranslation(dx, dy, 0);
         (*(*it)->ptransmat) = (*(*it)->ptransmat)*mat;
         //(*it)->update();
     }

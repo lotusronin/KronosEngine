@@ -5,7 +5,7 @@
 
 Camera::Camera(float a, float b) : x(a), y(b)
 {
-    pCameraTransform = new TranslationMatrix();
+    pCameraTransform = new Matrix();
 }
 
 void Camera::UpdateView(float dx, float dy)
@@ -15,14 +15,15 @@ void Camera::UpdateView(float dx, float dy)
     float diffy = y - dy;
     y -= diffy;
 
-    TranslationMatrix temp = TranslationMatrix(diffx, diffy, 0.0f);
+    Matrix temp = Matrix();
+    temp.setTranslation(diffx, diffy, 0.0f);
     //pCameraTransform->SetTranslation(diffx, diffy, 0.0f);
     (*pCameraTransform) = (*pCameraTransform)*temp;
     //glMatrixMode (GL_MODELVIEW);
     //glTranslatef(diffx, diffy, 0);
 }
 
-TranslationMatrix* Camera::GetTransform()
+Matrix* Camera::GetTransform()
 {
     return pCameraTransform;
 }
