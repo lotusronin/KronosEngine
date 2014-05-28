@@ -16,10 +16,11 @@ EntityManager::EntityManager()
     //mapman->newMap("Debug");
     shader = new Shader("simpleshader.vert", "simpleshader.frag");
     shader->compile();
-    //guishader = new Shader("simpleshader.vert", "simpleshader.frag");
-    //guishader->compile();
+    textshader = new Shader("textshader.vert", "textshader.frag");
+    textshader->compile();
 
     controller = new PlayerControl();
+    ffactory = new FontFactory();
 }
 
 EntityManager::~EntityManager()
@@ -99,6 +100,16 @@ void EntityManager::draw()
     }
 
     shader->disable();
+
+    //To test font rendering **Move out to another class soon
+    textshader->enable();
+    std::string NameToPrint = mapman->getMapName();
+    for(int i = 0; i < NameToPrint.size(); i++)
+    {
+        ffactory->renderLetter(NameToPrint.at(i), 0.0f+i, 0.0f);
+    }
+    textshader->disable();
+    //End of font testing
 }
 
 void EntityManager::saveMap()

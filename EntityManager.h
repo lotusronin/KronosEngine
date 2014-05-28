@@ -14,6 +14,7 @@
 #include "Shader.h"
 #include "PlayerControl.h"
 #include "KeyListener.h"
+#include "FontFactory.h"
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <vector>
@@ -30,7 +31,9 @@ protected:
     DataReader* parser;
     PhysicsManager* einstein;
     Shader* shader;
+    Shader* textshader;
     PlayerControl* controller;
+    FontFactory* ffactory;
 
 public:
     //std::string mapname;

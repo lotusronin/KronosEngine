@@ -32,6 +32,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-I/usr/include/SDL2" />
+			<Add option="-I/usr/include/freetype2" />
 		</Compiler>
 		<Linker>
 			<Add option="-lSDL2" />
@@ -40,6 +41,7 @@
 			<Add option="-lGLEW" />
 			<Add option="-lalut" />
 			<Add option="-lopenal" />
+			<Add option="-lfreetype" />
 		</Linker>
 		<Unit filename="Camera.cpp" />
 		<Unit filename="Camera.h" />
@@ -52,8 +54,12 @@
 		<Unit filename="Entity.h" />
 		<Unit filename="EntityManager.cpp" />
 		<Unit filename="EntityManager.h" />
+		<Unit filename="FontFactory.cpp" />
+		<Unit filename="FontFactory.h" />
 		<Unit filename="GameManager.cpp" />
 		<Unit filename="GameManager.h" />
+		<Unit filename="Glyph.cpp" />
+		<Unit filename="Glyph.h" />
 		<Unit filename="Ground.cpp" />
 		<Unit filename="Ground.h" />
 		<Unit filename="Item.h" />
@@ -84,7 +90,6 @@
 		<Unit filename="Window.cpp" />
 		<Unit filename="Window.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="res/tex_ground.xpm" />
 		<Extensions>
 			<envvars />
 			<code_completion />

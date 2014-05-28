@@ -3,6 +3,7 @@
 #include "Sound.h"
 #include <iostream>
 #include <string>
+#include <FreeImage.h>
 
 ResourceManager::ResourceManager()
 {}
@@ -28,8 +29,29 @@ void ResourceManager::loadTexture(const std::string& texname)
     }
 
     if(!exists){
-        tvec.push_back(new Texture(texname));
-    }else{
+
+        FIBITMAP* texture;
+        FREE_IMAGE_FORMAT fif;
+        int imgWidth;
+        int imgHeight;
+
+        const char* path = ("res/texture/"+texname).c_str();
+
+        fif = FreeImage_GetFileType(path,0);
+
+        if( FreeImage_FIFSupportsReading(fif)){
+            texture = FreeImage_Load(fif, path);
+            imgWidth = FreeImage_GetWidth(texture);
+            imgHeight = FreeImage_GetHeight(texture);
+            tvec.push_back(new Texture(texname));
+            tvec.back()->FITexture(imgWidth, imgHeight, texture);
+            FreeImage_Unload(texture);
+        }
+        else{
+            std::cout << "File not supported!\n";
+        }
+    }
+    else{
         std::cout << "Texture Already loaded!\n";
     }
 }
