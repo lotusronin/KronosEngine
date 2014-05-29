@@ -23,7 +23,7 @@ FontFactory::FontFactory()
         std::cout << "There was an error setting the character size!\n";
     }*/
 
-    FT_Set_Pixel_Sizes(face, 0, 16);
+    FT_Set_Pixel_Sizes(face, 0, 18);
 
 
     std::cout << "FontFactory initialized!!\n";
@@ -31,6 +31,19 @@ FontFactory::FontFactory()
 
 FontFactory::~FontFactory()
 {
+    for(std::vector<Glyph*>::iterator it = alphabet.begin(); it != alphabet.end(); it++)
+    {
+        delete (*it);
+    }
+    for(std::vector<Texture*>::iterator it = fontTexture.begin(); it != fontTexture.end(); it++)
+    {
+        delete (*it);
+    }
+    alphabet.erase(alphabet.begin(), alphabet.end());
+    fontTexture.erase(fontTexture.begin(), fontTexture.end());
+
+    FT_Done_Face(face);
+    FT_Done_FreeType(library);
 }
 
 Glyph* FontFactory::getLetter(char letter)
@@ -68,6 +81,8 @@ void FontFactory::makeLetter(char letter)
         s.push_back(letter);
         fontTexture.push_back(new Texture(s));
         fontTexture.back()->FontTexture(w, h, alphabet.back()->getBuffer());
+
+        alphabet.back()->setTexture(fontTexture.back()->getTexture());
     }
     catch(std::bad_alloc& ba)
     {
@@ -78,10 +93,10 @@ void FontFactory::makeLetter(char letter)
     //std::cout << "Finished making letter " << letter << "\n";
 }
 
-void FontFactory::renderLetter(char letter, float x, float y)
+void FontFactory::renderLetter(char letter, float x, float y, Shader* s)
 {
     Glyph* g = getLetter(letter);
     //std::cout << "beginning to render letter " << letter << "\n";
     //std::cout << "Glyph* g letter = " << g->getName() << "\n";
-    g->render(x, y);
+    g->render(x, y, s);
 }

@@ -11,6 +11,7 @@ protected:
     Matrix* pCameraTransform;
 public:
     Camera(float a, float b);
+    ~Camera();
     void UpdateView(float dx, float dy);
     Matrix* GetTransform();
 };

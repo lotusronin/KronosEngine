@@ -7,6 +7,7 @@
 #include FT_FREETYPE_H
 #include "Glyph.h"
 #include "Texture.h"
+#include "Shader.h"
 
 class FontFactory
 {
@@ -23,7 +24,7 @@ public:
     ~FontFactory();
     Glyph* getLetter(char letter);
     void makeLetter(char letter);
-    void renderLetter(char letter, float x, float y);
+    void renderLetter(char letter, float x, float y, Shader* s);
 };
 
 #endif // FONTFACTORY_H

@@ -11,6 +11,7 @@ protected:
     std::string name;
 public:
     Texture(const std::string& texname);
+    ~Texture();
     GLuint getTexture();
     std::string getName();
     void FITexture(int imgWidth, int imgHeight, FIBITMAP* texture);

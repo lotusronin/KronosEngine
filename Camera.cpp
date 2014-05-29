@@ -8,6 +8,11 @@ Camera::Camera(float a, float b) : x(a), y(b)
     pCameraTransform = new Matrix();
 }
 
+Camera::~Camera()
+{
+    delete pCameraTransform;
+}
+
 void Camera::UpdateView(float dx, float dy)
 {
     float diffx = x - dx;

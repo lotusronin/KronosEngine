@@ -87,11 +87,14 @@ int GameManager::run()
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //glLoadIdentity();
 
-        if(i == 100)
+        if(i == 50)
         {
             gettimeofday(&t, NULL);
             t1 = t.tv_sec + t.tv_usec/1000000.00;
         }
+
+        gettimeofday(&t, NULL);
+        t1 = t.tv_sec + t.tv_usec/1000000.00;
 
         entityman->applyPhysics();
         entityman->updateCam();
@@ -102,11 +105,11 @@ int GameManager::run()
         //SDL_GL_SwapBuffers();
         SDL_GL_SwapWindow(win_main->screen);
 
-        if(i == 100)
+        if(i == 50)
         {
             gettimeofday(&t, NULL);
             t2 = t.tv_sec + t.tv_usec/1000000.00;
-            //calcfps();
+            calcfps();
             i = 0;
         }
         else
@@ -123,7 +126,8 @@ void GameManager::calcfps()
 {
     double dt = (t2-t1);
     //std::cout << dt << "\n";
-    std::cout << 1/dt << "\n";
+    //std::cout << 1/dt << "\n";
+    entityman->fpsVal = std::to_string(float(1/dt));
 /*
 
 1 frame / x ms = y frames / second

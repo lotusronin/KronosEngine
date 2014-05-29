@@ -28,7 +28,7 @@ public:
     void setTexName(const std::string& n);
     Entity(float x, float y, float sz);
     virtual ~Entity();
-
+    void checkError(std::string s);
     //Translation Matrix
     Matrix* ptransmat;
 };

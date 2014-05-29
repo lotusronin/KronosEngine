@@ -5,6 +5,7 @@
 #include <vector>
 #include <GL/glew.h>
 #include <GL/gl.h>
+#include "Shader.h"
 
 class Glyph
 {
@@ -22,7 +23,9 @@ public:
     unsigned char* getBuffer();
     int getHeight();
     int getWidth();
-    void render(float x, float y);
+    void render(float x, float y, Shader* s);
+    void setTexture(GLuint n);
+    void setPos(float x, float y, float sz);
 };
 
 #endif // GLYPH_H

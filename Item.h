@@ -1,8 +1,8 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-
 #include "Entity.h"
+#include "PhysicsSquare.h"
 #include <cstdlib>
 #include <vector>
 #include <GL/gl.h>
@@ -20,8 +20,11 @@
 
 class Item : public Entity{
 public:
-    Item();
+    Item(float x, float y, float sz);
     ~Item();
+    PhysicsSquare* getObj();
+protected:
+    PhysicsSquare* pSquare;
 };
 
 #endif // ITEM_H

@@ -62,6 +62,7 @@
 		<Unit filename="Glyph.h" />
 		<Unit filename="Ground.cpp" />
 		<Unit filename="Ground.h" />
+		<Unit filename="Item.cpp" />
 		<Unit filename="Item.h" />
 		<Unit filename="KeyListener.cpp" />
 		<Unit filename="KeyListener.h" />

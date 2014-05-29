@@ -20,7 +20,11 @@ Shader::Shader(const std::string& vert, const std::string& frag)
 }
 
 Shader::~Shader()
-{}
+{
+    glDeleteProgram(shaderProgram);
+    glDeleteShader(vShader);
+    glDeleteShader(fShader);
+}
 
 void Shader::disable()
 {
@@ -56,7 +60,7 @@ void Shader::compile()
     }
     else
     {
-        std::cout << "vertex shader compiled successfully!\n";
+        //std::cout << "vertex shader compiled successfully!\n";
     }
 
     error = 0;
@@ -70,7 +74,7 @@ void Shader::compile()
     }
     else
     {
-        std::cout << "fragment shader compiled successfully!\n";
+        //std::cout << "fragment shader compiled successfully!\n";
     }
 
     shaderProgram = glCreateProgram();

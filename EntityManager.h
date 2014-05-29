@@ -5,7 +5,7 @@
 #include "Entity.h"
 #include "Character.h"
 #include "Ground.h"
-#include "Vector.h"
+#include "Item.h"
 #include "Camera.h"
 #include "ResourceManager.h"
 #include "PhysicsManager.h"
@@ -21,10 +21,9 @@
 
 class EntityManager{
 protected:
-    //std::vector<Object*> active_obj_list;
     std::vector<Ground*> groundList;
     std::vector<Character*> characterList;
-    Vec2* gravity;
+    std::vector<Item*> itemList;
     Camera* cam;
     ResourceManager* resman;
     MapManager* mapman;
@@ -41,6 +40,7 @@ public:
     ~EntityManager();
     void addChar(float x, float y, float sz, std::string &texname);
     void addGrd(float x, float y, float sz, std::string &texname);
+    void addItem(float x, float y, float sz, std::string &texname);
     void clearObjects();
     void deleteObj();
     void draw();
@@ -50,8 +50,7 @@ public:
     void saveMap();
     void setMap(std::string arr);
     void setControllerListener(KeyListener* pkl);
+    std::string fpsVal;
 };
-
-
 
 #endif

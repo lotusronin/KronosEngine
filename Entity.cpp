@@ -76,32 +76,88 @@ void Entity::draw(Shader* s)
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-
     //s->enable();
     GLint loc = glGetUniformLocation(s->shaderProgram, "myTexture");
     GLint transloc = glGetUniformLocation(s->shaderProgram, "transformation");
     //std::cout << "\nDrawing Entity...\nTexName: " << texname << "\nTextureID: " << texture << "\n";
 
     glUniformMatrix4fv(transloc, 1, GL_FALSE, ptransmat->mat);
-
 	glBindTexture(GL_TEXTURE_2D, texture);
-	glUniform1f(loc, 0); //location of uniform, value (texture unit (GL_TEXTURE"0+n"))
 
-	glDrawArrays(GL_QUADS, 0, 4);
-	e = glGetError();
+    /*
+    ** OpenGL error if glUniform1i isn't called for samplers
+    */
+	glUniform1i(loc, 0); //location of uniform, value (texture unit (GL_TEXTURE"0+n"))
+
+    /*e = glGetError();
     if(e != GL_NO_ERROR)
     {
-        //std::cout << "Error with Drawing!\n" << e << "\n";
-    }
+        std::cout << "Error after glUnifrom!\n" << e << "\n";
+    }*/
+
+	glDrawArrays(GL_QUADS, 0, 4);
+	/*e = glGetError();
+    if(e != GL_NO_ERROR)
+    {
+        std::cout << "Error with Drawing!\n" << e << "\n";
+    }*/
 }
 
 Entity::~Entity()
 {
     delete ptransmat;
     glDeleteBuffers(1, &vbo);
-    e = glGetError();
+    /*e = glGetError();
     if(e != GL_NO_ERROR)
     {
         std::cout << "Error with glDeleteBuffers()!\n" << e << "\n";
+    }*/
+}
+
+void Entity::checkError(std::string s)
+{
+    e = glGetError();
+    /*if(e != GL_NO_ERROR)
+    {
+        std::cout << "Error with Drawing!\n" << e << "\n";
+    }*/
+    switch(e)
+    {
+    case 0:
+        break;
+    case GL_INVALID_ENUM:
+        std::cout << "OGL error, INVALID_ENUM\nFunction: " << s << "\n";
+        break;
+    case GL_INVALID_VALUE:
+        std::cout << "OGL error, INVALID_VALUE\nFunction: " << s << "\n";
+        break;
+    case GL_INVALID_OPERATION:
+        std::cout << "OGL error, INVALID_OPERATION\nFunction: " << s << "\n";
+        break;
+    default:
+        break;
     }
 }
+
+/*void checkError(std::string s)
+{
+    GLuint e = glGetError();
+
+    switch(e)
+    {
+    case 0:
+        std::cout << "All good, no error with:\n" << s << "\n";
+        break;
+    case GL_INVALID_ENUM:
+        std::cout << "\nOGL error, INVALID_ENUM\nFunction: " << s << "\n";
+        break;
+    case GL_INVALID_VALUE:
+        std::cout << "\nOGL error, INVALID_VALUE\nFunction: " << s << "\n";
+        break;
+    case GL_INVALID_OPERATION:
+        std::cout << "\nOGL error, INVALID_OPERATION\nFunction: " << s << "\n";
+        break;
+    default:
+        break;
+    }
+}*/

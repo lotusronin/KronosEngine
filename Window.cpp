@@ -49,10 +49,12 @@ Window::Window(int width, int height, std::string title)
 
     glOrtho(0, width, 0, height, 1, -1);
 
-    glMatrixMode(GL_MODELVIEW);
+    //glMatrixMode(GL_MODELVIEW);
 
     //glEnable(GL_TEXTURE_2D);
-    glLoadIdentity();
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    //glLoadIdentity();
 
     //std::cout << "Refresh Interval is set at... " << SDL_GL_GetSwapInterval() << "\n";
     //SDL_GL_SetSwapInterval(0);

@@ -14,9 +14,21 @@ ResourceManager::~ResourceManager()
             delete (*it);
     }
 
+    /*GLuint e = glGetError();
+    if(e != GL_NO_ERROR)
+    {
+        std::cout << "Error with Texture Clean-up!\n" << e << "\n";
+    }
+    else
+    {
+        std::cout << "Textures all cleaned up nicely!\n";
+    }*/
+
     for(std::vector<Sound*>::iterator it = svec.begin(); it != svec.end(); it++){
             delete (*it);
     }
+    tvec.erase(tvec.begin(), tvec.end());
+    svec.erase(svec.begin(), svec.end());
 }
 
 void ResourceManager::loadTexture(const std::string& texname)
