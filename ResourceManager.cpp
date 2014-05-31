@@ -53,6 +53,7 @@ void ResourceManager::loadTexture(const std::string& texname)
 
         if( FreeImage_FIFSupportsReading(fif)){
             texture = FreeImage_Load(fif, path);
+            texture = FreeImage_ConvertTo32Bits(texture);
             imgWidth = FreeImage_GetWidth(texture);
             imgHeight = FreeImage_GetHeight(texture);
             tvec.push_back(new Texture(texname));

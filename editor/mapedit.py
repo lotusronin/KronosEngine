@@ -8,6 +8,7 @@ import objedit
 import mapclass
 import guimenus
 import guisettings
+import texturemanager
 
 """
 Map Editor To-Do:
@@ -43,7 +44,7 @@ class MapEditor:
 
 	def get_value(self, name, value):
 		"""Gets the value of any entity."""
-		name = "./data/"+name
+		name = "./data/"+name+".dat"
 		f = open(name, 'r')
 		for line in f:
 			if(value in line):
@@ -78,9 +79,13 @@ class MapEditor:
 		'''Adds a new object to the map object list.'''
 		idx = self.obj_select.get_active()
 		strname = self.obj_select.get_model()[idx][0]
-		self.map1.add_obj(self.mousexy[0], self.mousexy[1], strname)
+		strname = strname[:-4]
+		tx = self.get_value(strname, 'texture')
+		sz = self.get_value(strname, 'size')
+		texture = self.texman.getTexture(tx, sz)
+		print(self.mousexy[0],", ",self.mousexy[1])
+		self.map1.add_obj(self.mousexy[0], self.mousexy[1], strname, texture)
 		self.drawing_area.queue_draw()
-		# self.draw_map()
 
 	def save(self, widget, data=None):
 		'''Opens up a Save dialog for saving the current map.'''
@@ -96,7 +101,7 @@ class MapEditor:
 		
 		if self.response == Gtk.ResponseType.OK:
 			self.map1.set_name(self.saver.get_filename().replace(self.saver.get_current_folder()+'/', ''))
-			self.map1.save()
+			self.map1.save(self.saver.get_filename())
 		else:
 			print("No file saved")
 
@@ -104,20 +109,23 @@ class MapEditor:
 
 	def draw_map(self, cr):
 		'''Draws all objects stored in the current map onto the drawing area.'''
-		# if(self.cr == None):
-		# self.cr = self.drawing_area.get_window().cairo_create()
-	
-		# cr.set_source_rgb(0.5, 0.5, 0.5)
-		# cr.fill()
+		
+		sizes = self.map1.get_size()
+
+		cr.identity_matrix()
+		cr.scale(2,2)
+		cr.set_source_rgb(0.0, 0.0, 0.0)
+		cr.rectangle(0,0,sizes[0],sizes[1])
+		cr.fill()
+		cr.set_source_rgb(1.0,0.0,0.0)
+		cr.rectangle((sizes[0]/2 )- 2,(sizes[1]/2 )-2,5,5)
+		cr.fill()
 
 		ol = self.map1.get_objs()
 		for o in ol:
-			n = o.getName()
-			sz = self.get_value(n, 'size')
-			tx = self.get_value(n, 'texture')
-			pixb = GdkPixbuf.Pixbuf.new_from_file_at_size(tx, int(sz)*10, int(sz)*10)
-			Gdk.cairo_set_source_pixbuf(cr, pixb, int(o.getx()), int(o.gety()))
+			Gdk.cairo_set_source_pixbuf(cr, o.getTexture(), int(o.getx()), int(o.gety()))
 			cr.paint()
+
 
 	def load(self, widget, data=None):
 		'''Opens up a Load Dialog for all Map files. Not fully implemented yet.'''
@@ -138,6 +146,9 @@ class MapEditor:
 		self.hidden = True
 
 		self.map1 = mapclass.Map("newmap")
+
+		#Texture Manager
+		self.texman = texturemanager.TextureManager()
 
 		#Window Setup
 		self.map_window = Gtk.Window()
@@ -162,7 +173,6 @@ class MapEditor:
 		self.toolbar = self.menus.getToolbar()
 		self.menubar = self.menus.getMenu()
 		
-		self.cr = None
 		self.drawing_area = Gtk.DrawingArea()
 		self.drawing_area.connect("draw", self.expose)
 		self.drawing_area.set_size_request(640, 480)

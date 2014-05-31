@@ -33,7 +33,7 @@ void Texture::FITexture(int imgWidth, int imgHeight, FIBITMAP* texture)
     glBindTexture( GL_TEXTURE_2D, t );
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imgWidth, imgHeight, 0, GL_BGR, GL_UNSIGNED_BYTE, (void*)FreeImage_GetBits(texture));
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imgWidth, imgHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, (void*)FreeImage_GetBits(texture));
 
     //std::cout << "Image file is good\n";
     std::cout << "Loaded: " << name << "\n";

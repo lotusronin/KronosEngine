@@ -30,8 +30,16 @@ class MapEntity:
 	def setName(self, strname):
 		self.name = strname
 
-	def __init__(self, xarg, yarg, namearg):
+	def getTexture(self):
+		return self.texture
+
+	def setTexture(self, t):
+		self.texture = t.getImage()
+
+	def __init__(self, xarg, yarg, namearg, t):
 		self.x = xarg
 		self.y = yarg
+		#print("Object at: ",xarg,", ",yarg)
 		self.name = namearg
+		self.setTexture(t)
 		return

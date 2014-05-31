@@ -49,6 +49,8 @@ class SettingsGui:
 		self.settingslabelname.set_text(self.settingsname.get_text())
 		w = int(self.settingswidth.get_text())
 		h = int(self.settingsheight.get_text())
+		parent.map1.set_size(w,h)
+
 		parent.drawing_area.set_size_request(w,h)
 		self.settingslabelwidth.set_text("Width: "+self.settingswidth.get_text())
 		self.settingslabelheight.set_text("Height: "+self.settingsheight.get_text())

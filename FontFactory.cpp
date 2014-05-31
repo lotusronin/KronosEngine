@@ -11,7 +11,7 @@ FontFactory::FontFactory()
         std::cout << "There was an error initializing the font library!\n";
     }
 
-    error = FT_New_Face(library, "/usr/share/fonts/TTF/HT_Hylian.ttf", 0, &face);
+    error = FT_New_Face(library, "/usr/share/fonts/TTF/arial.ttf", 0, &face);
     if(error)
     {
         std::cout << "There was an error opening the font file!\n";
