@@ -61,6 +61,7 @@ class Menus:
 		action_group.add_action(action_filequit)
 
 	def add_toolbar_actions(self, action_group, widget):
+
 		action_addobj = Gtk.Action("AddObj", "New Object", "New Object", Gtk.STOCK_ADD)
 		action_addobj.connect("activate", widget.newobj)
 		action_group.add_action(action_addobj)

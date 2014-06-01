@@ -12,12 +12,17 @@ class Map:
 		self.height = 480
 		return
 
-	def add_obj(self,x,y,n,t):
+	def add_obj(self,x,y,s,n,t):
 		# n = n.replace("./data/", '')
 		# print(n)
-		me = mapentity.MapEntity(x,y,n,t)
+		me = mapentity.MapEntity(x,y,s,n,t)
 		self.obj_list.append(me)
 
+	def delete_obj(self, obj):
+		for o in self.obj_list:
+			if(o == obj):
+				self.obj_list.remove(o)
+				
 	def get_objs(self):
 		return self.obj_list
 
@@ -44,3 +49,14 @@ class Map:
 		f.close()
 
 		return
+
+	def objExists(self, x, y):
+		for o in self.obj_list:
+			a = o.getCoords()
+			s = float(o.getsz())
+
+			if(a[0] <= x and a[0]+s >= x):
+				if(a[1] <= y and a[1]+s >= y):
+					#print("Clicked on an object!")
+					return o
+		return None

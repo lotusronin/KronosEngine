@@ -1,15 +1,9 @@
 #!/usr/bin/python
 # File: mapentity.py
 
-# import pygtk
-# pygtk.require('2.0')
 from gi.repository import Gtk, Gdk
 
 class MapEntity:
-	# self.x = None
-	# self.y = None
-	# self.name = None
-	# self.texture = None
 
 	def getCoords(self):
 		return self.x,self.y
@@ -19,6 +13,9 @@ class MapEntity:
 
 	def gety(self):
 		return self.y
+
+	def getsz(self):
+		return self.sz
 
 	def setCoords(self,xcoord,ycoord):
 		self.x = xcoord
@@ -36,10 +33,17 @@ class MapEntity:
 	def setTexture(self, t):
 		self.texture = t.getImage()
 
-	def __init__(self, xarg, yarg, namearg, t):
+	def setSelected(self, selected):
+		self.selected = selected
+
+	def getSelected(self):
+		return self.selected
+
+	def __init__(self, xarg, yarg, sarg, namearg, t):
 		self.x = xarg
 		self.y = yarg
-		#print("Object at: ",xarg,", ",yarg)
+		self.sz = sarg
 		self.name = namearg
 		self.setTexture(t)
+		self.selected = False
 		return
