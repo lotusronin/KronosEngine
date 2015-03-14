@@ -56,6 +56,8 @@
 		<Unit filename="EntityManager.h" />
 		<Unit filename="FontFactory.cpp" />
 		<Unit filename="FontFactory.h" />
+		<Unit filename="GUIManager.cpp" />
+		<Unit filename="GUIManager.h" />
 		<Unit filename="GameManager.cpp" />
 		<Unit filename="GameManager.h" />
 		<Unit filename="Glyph.cpp" />

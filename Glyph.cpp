@@ -8,6 +8,7 @@ Glyph::Glyph(char letter, FT_GlyphSlot gs) : glyph_name(letter)
     int sz = width*height;
     top = gs->bitmap_top;
     left = gs->bitmap_left;
+    advance = gs->advance.x;
 
     for(int i = 0; i < sz; i++)
     {

@@ -100,3 +100,13 @@ void FontFactory::renderLetter(char letter, float x, float y, Shader* s)
     //std::cout << "Glyph* g letter = " << g->getName() << "\n";
     g->render(x, y, s);
 }
+
+void FontFactory::renderString(std::string str, float x, float y, Shader* s)
+{
+    for(int i = 0; i < str.length(); i++)
+    {
+        renderLetter(str.at(i), x+(i*0.08f), y, s);
+        if(i >= 6)
+            break;
+    }
+}

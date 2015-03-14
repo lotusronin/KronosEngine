@@ -15,6 +15,7 @@
 #include "PlayerControl.h"
 #include "KeyListener.h"
 #include "FontFactory.h"
+#include "GUIManager.h"
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <vector>
@@ -32,6 +33,7 @@ protected:
     Shader* shader;
     Shader* textshader;
     PlayerControl* controller;
+    GUIManager* guiman;
     FontFactory* ffactory;
 
 public:

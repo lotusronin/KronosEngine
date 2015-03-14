@@ -13,6 +13,7 @@ private:
     char glyph_name;
     std::vector<unsigned char> buffer;
     int height, width;
+    int advance;
     FT_Int top, left;
     GLuint texture;
     GLuint vbo;
