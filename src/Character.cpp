@@ -34,3 +34,15 @@ PhysicsSquare* Character::getObj()
 {
     return pSquare;
 }
+
+void Character::addScript(Script* script) {
+    m_scripts.push_back(script);
+}
+
+void Character::executeScripts() {
+    m_scripts.back()->execute(this);
+}
+
+void Character::executeScripts(Character* p) {
+    m_scripts.back()->execute(this, p);
+}

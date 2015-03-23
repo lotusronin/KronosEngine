@@ -93,19 +93,19 @@ void FontFactory::makeLetter(char letter)
     //std::cout << "Finished making letter " << letter << "\n";
 }
 
-void FontFactory::renderLetter(char letter, float x, float y, Shader* s)
+void FontFactory::renderLetter(char letter, float x, float adv, float y, Shader* s)
 {
     Glyph* g = getLetter(letter);
     //std::cout << "beginning to render letter " << letter << "\n";
     //std::cout << "Glyph* g letter = " << g->getName() << "\n";
-    g->render(x, y, s);
+    g->render(x+adv, y, s);
 }
 
 void FontFactory::renderString(std::string str, float x, float y, Shader* s)
 {
     for(int i = 0; i < str.length(); i++)
     {
-        renderLetter(str.at(i), x+(i*0.08f), y, s);
+        renderLetter(str.at(i), x, (i*0.08f), y, s);
         if(i >= 6)
             break;
     }

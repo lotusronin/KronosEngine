@@ -9,6 +9,7 @@
 #include "Camera.h"
 #include "ResourceManager.h"
 #include "PhysicsManager.h"
+#include "ScriptManager.h"
 #include "MapManager.h"
 #include "DataReader.h"
 #include "Shader.h"
@@ -35,6 +36,7 @@ protected:
     PlayerControl* controller;
     GUIManager* guiman;
     FontFactory* ffactory;
+    ScriptManager* scriptman;
 
 public:
     //std::string mapname;

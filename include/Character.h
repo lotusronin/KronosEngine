@@ -4,6 +4,8 @@
 
 #include "Entity.h"
 #include "PhysicsSquare.h"
+#include "Script.h"
+#include "ScriptManager.h"
 #include <cstdlib>
 #include <vector>
 #include <GL/glew.h>
@@ -23,6 +25,12 @@ public:
     float getCenterX();
     float getCenterY();
     PhysicsSquare* getObj();
+    void addScript(Script* script);
+    void executeScripts();
+    void executeScripts(Character* p);
+
+private:
+    std::vector<Script*> m_scripts;
 };
 
 #endif // CHARACTER_H

@@ -24,7 +24,7 @@ public:
     ~FontFactory();
     Glyph* getLetter(char letter);
     void makeLetter(char letter);
-    void renderLetter(char letter, float x, float y, Shader* s);
+    void renderLetter(char letter, float x, float adv, float y, Shader* s);
     void renderString(std::string str, float x, float y, Shader* s);
 };
 

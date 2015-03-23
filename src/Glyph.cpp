@@ -92,10 +92,15 @@ void Glyph::setTexture(GLuint n)
 
 void Glyph::setPos(float x, float y, float sz)
 {
-    float arr[16] = {x,y,0,1,
+    /*float arr[16] = {x,y,0,1,
                      x+sz,y,1,1,
                      x+sz,y+sz,1,0,
-                     x,y+sz,0,0};
+                     x,y+sz,0,0};*/
+    float arr[16] = {x,y,0,1,
+                     x+width*.06/14,y,1,1,
+                     x+width*.06/14,y+height*.06/14,1,0,
+                     x,y+height*.06/14,0,0};
+
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(arr), arr, GL_DYNAMIC_DRAW);
 }

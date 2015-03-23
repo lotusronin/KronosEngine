@@ -21,6 +21,8 @@ EntityManager::EntityManager()
     controller = new PlayerControl();
     ffactory = new FontFactory();
     guiman = new GUIManager();
+    scriptman = new ScriptManager();
+    scriptman->execute();
     fpsVal = "0";
 }
 
@@ -43,6 +45,7 @@ EntityManager::~EntityManager()
     delete shader;
     delete textshader;
     delete guiman;
+    delete scriptman;
 }
 
 void EntityManager::setMap(std::string arr)
@@ -128,36 +131,16 @@ void EntityManager::draw()
     //To test font rendering **Move out to another class soon
     textshader->enable();
 
-    /*ffactory->renderLetter('m',-1,-0.9, textshader);
-    ffactory->renderLetter('a',-0.92,-0.9, textshader);
-    ffactory->renderLetter('p',-0.84,-0.9, textshader);*/
     std::string m = "map";
     ffactory->renderString(m, -1, -0.9f, textshader);
 
     std::string NameToPrint = mapman->getMapName();
     ffactory->renderString(NameToPrint, -0.7f, -0.9f, textshader);
-    /*
-    for(int i = 0; i < NameToPrint.size(); i++)
-    {
-        ffactory->renderLetter(NameToPrint.at(i), -0.7f+i*(0.08f), -0.9f, textshader);
-    }*/
 
     std::string f = "fps";
     ffactory->renderString(f, -1, -1, textshader);
-    //There was an ogl error with the font rendering
-    //ffactory->renderLetter('M', 0.0f, 0.0f, textshader);
-    /*ffactory->renderLetter('f',-1,-1, textshader);
-    ffactory->renderLetter('p',-0.92,-1, textshader);
-    ffactory->renderLetter('s',-0.84,-1, textshader);*/
 
     ffactory->renderString(fpsVal, -0.68f,-1.0f, textshader);
-    /*
-    for(int i = 0; i < fpsVal.length(); i++)
-    {
-        ffactory->renderLetter(fpsVal.at(i),-0.68+(i*0.08f),-1, textshader);
-        if(i >= 6)
-            break;
-    }*/
 
     textshader->disable();
     //End of font testing
@@ -243,11 +226,35 @@ void EntityManager::loadMap(std::string name)
     "\nNumber of Item Objects: " << itemList.size() << "\n\n";
     //resman->getMusic();
     controller->setCharacter((*characterList.begin()));
+    
+    //Script Test!!!
+    std::string scriptName = "EntityMethodTest";
+    Script* temp = scriptman->loadScript(scriptName);
+    temp->execute(*groundList.begin());
+ 
+    //Script Test 2!!!
+    /*
+    scriptName = "MoveForwardTest";
+    temp = scriptman->loadScript(scriptName);
+    characterList.back()->addScript(temp);
+    characterList.back()->executeScripts();*/
+
+    //Script Test 3!!!
+    /*scriptName = "FollowCharacterTest";
+    temp = scriptman->loadScript(scriptName);
+    characterList.back()->addScript(temp);
+    Character* player = *characterList.begin();
+    characterList.back()->executeScripts(player);*/
 }
 
 void EntityManager::applyPhysics()
 {
     controller->moveCharacter();
+    
+    //Script Test 3!!!
+    /*Character* player = *characterList.begin();
+    characterList.back()->executeScripts(player);*/
+
     einstein->applyPhysics(&characterList, &groundList);
 }
 

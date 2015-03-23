@@ -13,7 +13,7 @@ private:
     char glyph_name;
     std::vector<unsigned char> buffer;
     int height, width;
-    int advance;
+    //int advance;
     FT_Int top, left;
     GLuint texture;
     GLuint vbo;
@@ -27,6 +27,7 @@ public:
     void render(float x, float y, Shader* s);
     void setTexture(GLuint n);
     void setPos(float x, float y, float sz);
+    int advance;
 };
 
 #endif // GLYPH_H
