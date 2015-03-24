@@ -68,6 +68,10 @@ void ScriptManager::registerTypes(asIScriptEngine* engine) {
     r = engine->RegisterObjectType("PhysicsSquare", 0, asOBJ_REF | asOBJ_NOCOUNT); assert(r >= 0);
     r = engine->RegisterObjectMethod("PhysicsSquare", "void setVeloc(float vx, float vy)", asMETHOD(PhysicsSquare, setVeloc), asCALL_THISCALL);
     assert(r >= 0);
+    r = engine->RegisterObjectMethod("PhysicsSquare", "float getVelx()", asMETHOD(PhysicsSquare, getVelx), asCALL_THISCALL);
+    assert(r >= 0);
+    r = engine->RegisterObjectMethod("PhysicsSquare", "float getVely()", asMETHOD(PhysicsSquare, getVely), asCALL_THISCALL);
+    assert(r >= 0);
     r = engine->RegisterObjectType("Character", 0, asOBJ_REF | asOBJ_NOCOUNT); assert(r >= 0);
     r = engine->RegisterObjectMethod("Character", "PhysicsSquare& getObj()", asMETHOD(Character, getObj), asCALL_THISCALL);
     assert(r >= 0);

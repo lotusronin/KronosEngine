@@ -105,7 +105,10 @@ void FontFactory::renderString(std::string str, float x, float y, Shader* s)
 {
     for(int i = 0; i < str.length(); i++)
     {
-        renderLetter(str.at(i), x, (i*0.08f), y, s);
+       // renderLetter(str.at(i), x, (i*0.08f), y, s);
+       renderLetter(str.at(i), x, 0, y, s);
+       int xadv = getLetter(str.at(i))->advance;
+       x += (xadv >> 6)*SCX;
         if(i >= 6)
             break;
     }

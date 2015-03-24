@@ -30,4 +30,8 @@ public:
     int advance;
 };
 
+//Move these to a global file!
+extern float SCX;
+extern float SCY;
+
 #endif // GLYPH_H

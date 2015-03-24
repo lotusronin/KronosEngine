@@ -132,15 +132,15 @@ void EntityManager::draw()
     textshader->enable();
 
     std::string m = "map";
-    ffactory->renderString(m, -1, -0.9f, textshader);
+    ffactory->renderString(m, -1, -0.8f, textshader);
 
     std::string NameToPrint = mapman->getMapName();
-    ffactory->renderString(NameToPrint, -0.7f, -0.9f, textshader);
+    ffactory->renderString(NameToPrint, -0.87f, -0.8f, textshader);
 
     std::string f = "fps";
-    ffactory->renderString(f, -1, -1, textshader);
+    ffactory->renderString(f, -1, -0.9f, textshader);
 
-    ffactory->renderString(fpsVal, -0.68f,-1.0f, textshader);
+    ffactory->renderString(fpsVal, -0.9f,-0.9f, textshader);
 
     textshader->disable();
     //End of font testing
