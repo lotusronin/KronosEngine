@@ -10,8 +10,8 @@ ResourceManager::ResourceManager()
 
 ResourceManager::~ResourceManager()
 {
-    for(std::vector<Texture*>::iterator it = tvec.begin(); it != tvec.end(); it++){
-            delete (*it);
+    for(auto it : tvec){
+            delete it;
     }
 
     /*GLuint e = glGetError();
@@ -24,17 +24,26 @@ ResourceManager::~ResourceManager()
         std::cout << "Textures all cleaned up nicely!\n";
     }*/
 
-    for(std::vector<Sound*>::iterator it = svec.begin(); it != svec.end(); it++){
+    for(auto it = svec.begin(); it != svec.end(); it++){
             delete (*it);
     }
     tvec.erase(tvec.begin(), tvec.end());
     svec.erase(svec.begin(), svec.end());
+    
+
+    /*
+     *  Clean up openal
+     */
+    alcMakeContextCurrent(NULL);
+	alcDestroyContext(m_context);
+	alcCloseDevice(m_device);
+	std::cout << "OpenAL all cleaned up!\n";
 }
 
 void ResourceManager::loadTexture(const std::string& texname)
 {
     bool exists = false;
-    for(std::vector<Texture*>::iterator it = tvec.begin(); it != tvec.end(); it++){
+    for(auto it = tvec.begin(); it != tvec.end(); it++){
             if((*it)->getName().compare(texname) == 0){
                 exists = true;
             }
@@ -72,14 +81,15 @@ void ResourceManager::loadTexture(const std::string& texname)
 void ResourceManager::loadMusic(const std::string& musname)
 {
     bool exists = false;
-    for(std::vector<Sound*>::iterator it = svec.begin(); it != svec.end(); it++){
+    for(auto it = svec.begin(); it != svec.end(); it++){
             if((*it)->getName().compare(musname) == 0){
                 exists = true;
             }
     }
 
     if(!exists){
-        svec.push_back(new Sound(musname));
+        loadOgg(musname);
+        //svec.push_back(new Sound(musname, m_device, m_context, m_alError));
     }else{
         std::cout << "Sound Already loaded!\n";
     }
@@ -98,7 +108,7 @@ void ResourceManager::getMusic()
 GLuint ResourceManager::getTexture(const std::string& texname)
 {
 
-    for(std::vector<Texture*>::iterator it = tvec.begin(); it != tvec.end(); it++){
+    for(auto it = tvec.begin(); it != tvec.end(); it++){
             if((*it)->getName().compare(texname) == 0){
                 return (*it)->getTexture();
             }
@@ -109,3 +119,56 @@ GLuint ResourceManager::getTexture(const std::string& texname)
 
 void ResourceManager::getSFX()
 {}
+
+void ResourceManager::initSound() {
+    m_alError = false;
+    m_device = alcOpenDevice(NULL);
+	if(!m_device)
+	{
+		std::cout << "Error opening sound device!!!\n";
+		m_alError = true;
+	}
+
+	m_context = alcCreateContext(m_device, NULL);
+
+	if(!alcMakeContextCurrent(m_context))
+	{
+		std::cout << "Error setting up context!!!\n";
+		m_alError = true;
+	}
+
+    if(m_alError) {
+        std::cout << "Error with openAL!!\n";
+    }
+}
+
+void ResourceManager::loadOgg(const std::string& filename) {
+    std::cout << "TOO IMPLEMENT!!!\n";
+
+    vorbis_info* pInfo;
+    OggVorbis_File oggFile;
+
+    ov_fopen(("res/sound/"+filename).c_str(), &oggFile);
+
+    pInfo = ov_info(&oggFile, -1);
+    ALenum format;
+    if(pInfo->channels == 1) {
+       format = AL_FORMAT_MONO16; 
+    } else {
+        format = AL_FORMAT_STEREO16;
+    }
+
+    ALsizei freq = pInfo->rate;
+
+    std::vector<char> musicBuffer;
+    char buffer[4096];
+    int bitstream;
+    long bytes;
+    while((bytes = ov_read(&oggFile, buffer, 4096, 0, 2, 1, &bitstream)) > 0) {
+        musicBuffer.insert(musicBuffer.end(), buffer, buffer+bytes);
+    }
+
+    ov_clear(&oggFile);
+
+    svec.push_back(new Sound(filename, m_alError, format, (ALvoid*)&musicBuffer[0], (ALsizei) musicBuffer.size(), freq));
+}

@@ -31,11 +31,11 @@ FontFactory::FontFactory()
 
 FontFactory::~FontFactory()
 {
-    for(std::vector<Glyph*>::iterator it = alphabet.begin(); it != alphabet.end(); it++)
+    for(auto it = alphabet.begin(); it != alphabet.end(); it++)
     {
         delete (*it);
     }
-    for(std::vector<Texture*>::iterator it = fontTexture.begin(); it != fontTexture.end(); it++)
+    for(auto it = fontTexture.begin(); it != fontTexture.end(); it++)
     {
         delete (*it);
     }
@@ -49,7 +49,7 @@ FontFactory::~FontFactory()
 Glyph* FontFactory::getLetter(char letter)
 {
     //If it exists, return Glyph*
-    for(std::vector<Glyph*>::iterator it = alphabet.begin(); it != alphabet.end(); it++)
+    for(auto it = alphabet.begin(); it != alphabet.end(); it++)
     {
         if((*it)->getName() == letter)
         {

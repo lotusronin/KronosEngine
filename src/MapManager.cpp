@@ -10,7 +10,7 @@ MapManager::MapManager()
 
 MapManager::~MapManager()
 {
-    for(std::vector<Map*>::iterator it = MapList.begin(); it != MapList.end(); it++){
+    for(auto it = MapList.begin(); it != MapList.end(); it++){
         delete (*it);
     }
 }
@@ -19,7 +19,7 @@ void MapManager::newMap(std::string name)
 {
 
     bool exists = false;
-    for(std::vector<Map*>::iterator it = MapList.begin(); it != MapList.end(); it++){
+    for(auto it = MapList.begin(); it != MapList.end(); it++){
             if((*it)->getMapName().compare(name) == 0){
                 exists = true;
             }
@@ -34,7 +34,7 @@ void MapManager::newMap(std::string name)
 void MapManager::addToMap(std::string obj)
 {
     Map* temp;
-    for(std::vector<Map*>::iterator it = MapList.begin(); it != MapList.end(); it++){
+    for(auto it = MapList.begin(); it != MapList.end(); it++){
             if((*it)->getMapName().compare(currentMap) == 0){
                 temp = (*it);
             }
@@ -45,7 +45,7 @@ void MapManager::addToMap(std::string obj)
 
 std::vector<std::string>* MapManager::getMapData()
 {
-    for(std::vector<Map*>::iterator it = MapList.begin(); it != MapList.end(); it++){
+    for(auto it = MapList.begin(); it != MapList.end(); it++){
             if((*it)->getMapName().compare(currentMap) == 0){
                 return (*it)->getMap();
             }
@@ -96,7 +96,7 @@ void MapManager::saveMap(const char* fname)
 	std::string MapName = getMapName();
 	ofs << MapName << " ";
 	std::vector<std::string>* pMapData = getMapData();
-    for(std::vector<std::string>::iterator it = (*pMapData).begin(); it != (*pMapData).end(); it++){
+    for(auto it = (*pMapData).begin(); it != (*pMapData).end(); it++){
         ofs << (*it);
         ofs << " ";
     }
@@ -113,7 +113,7 @@ void MapManager::showMap()
 
 bool MapManager::mapExists(std::string name)
 {
-    for(std::vector<Map*>::iterator it = MapList.begin(); it != MapList.end(); it++){
+    for(auto it = MapList.begin(); it != MapList.end(); it++){
             if((*it)->getMapName().compare(name) == 0){
                 return true;
             }

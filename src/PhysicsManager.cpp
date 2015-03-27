@@ -17,7 +17,7 @@ void PhysicsManager::applyPhysics(std::vector<Character*> *cvect, std::vector<Gr
 {
     //std::cout << "Beginning Physics calculations...\n";
     //Apply Gravity to all character entities
-    for(std::vector<Character*>::iterator it = (*cvect).begin(); it != (*cvect).end(); it++)
+    for(auto it = (*cvect).begin(); it != (*cvect).end(); it++)
     {
         //(*it)->pSquare->addForce(0, (*it)->pSquare->getMass()*10);
         (*it)->pSquare->addVeloc(0.0f, -0.2f);
@@ -25,9 +25,9 @@ void PhysicsManager::applyPhysics(std::vector<Character*> *cvect, std::vector<Gr
 
 
     //Check for collisions
-    for(std::vector<Character*>::iterator it = (*cvect).begin(); it != (*cvect).end(); it++)
+    for(auto it = (*cvect).begin(); it != (*cvect).end(); it++)
     {
-        for(std::vector<Ground*>::iterator it2 = (*gvect).begin(); it2 != (*gvect).end(); it2++)
+        for(auto it2 = (*gvect).begin(); it2 != (*gvect).end(); it2++)
         {
             std::vector<float> *coords1 = (*it)->pSquare->getCoords();
             std::vector<float> *coords2 = (*it2)->pSquare->getCoords();
@@ -48,7 +48,7 @@ void PhysicsManager::applyPhysics(std::vector<Character*> *cvect, std::vector<Gr
     std::cout << "\n\nWould Update Matrix now...\n";*/
 
     //Update the translation matrices for every character object based on their velocity
-    for(std::vector<Character*>::iterator it = (*cvect).begin(); it != (*cvect).end(); it++)
+    for(auto it = (*cvect).begin(); it != (*cvect).end(); it++)
     {
         float dx, dy;
         dx = (*it)->pSquare->getVelx();
@@ -64,7 +64,7 @@ void PhysicsManager::applyPhysics(std::vector<Character*> *cvect, std::vector<Gr
     }
 
 
-    //for(std::vector<Ground*>::iterator it2 = (*gvect).begin(); it2 != (*gvect).end(); it2++)
+    //for(auto it2 = (*gvect).begin(); it2 != (*gvect).end(); it2++)
       //  (*it2)->update();
 }
 

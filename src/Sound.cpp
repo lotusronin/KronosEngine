@@ -1,30 +1,15 @@
 #include "Sound.h"
 #include <AL/al.h>
 #include <AL/alc.h>
-#include <AL/alut.h>
 #include <iostream>
 
-Sound::Sound(std::string fname) : listenerOri {0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f}
+
+Sound::Sound(std::string fname, bool _error, ALenum _fmt, ALvoid* _data, ALsizei _sz, ALsizei _freq) : listenerOri {0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f}
 {
     name = fname;
     loop = AL_FALSE;
-    Error = false;
-
-	device = alcOpenDevice(NULL);
-	if(!device)
-	{
-		std::cout << "Error opening sound device!!!\n";
-		Error = true;
-	}
-
-	context = alcCreateContext(device, NULL);
-
-	if(!alcMakeContextCurrent(context))
-	{
-		std::cout << "Error setting up context!!!\n";
-		Error = true;
-	}
-
+    Error = _error;
+    
 
     if(!Error)
     {
@@ -46,8 +31,10 @@ Sound::Sound(std::string fname) : listenerOri {0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0
         alGenBuffers((ALuint)1, &buffer);
 
         //load sound file
-        alutLoadWAVFile((ALbyte *)("res/sound/"+fname).c_str(), &format, &data, &sz, &freq, &loop);
-
+        format = _fmt;
+        data = _data;
+        sz = _sz;
+        freq = _freq;
         alBufferData(buffer, format, data, sz, freq);
 
         //Bind source
@@ -59,11 +46,6 @@ Sound::~Sound()
 {
     alDeleteSources(1, &source);
 	alDeleteBuffers(1, &buffer);
-	device = alcGetContextsDevice(context);
-	alcMakeContextCurrent(NULL);
-	alcDestroyContext(context);
-	alcCloseDevice(device);
-	std::cout << "OpenAL all cleaned up!\n";
 }
 
 void Sound::Play()
@@ -75,12 +57,7 @@ void Sound::Play()
 bool Sound::isPlaying()
 {
     alGetSourcei(source, AL_SOURCE_STATE, &source_state);
-    if(source_state == AL_PLAYING)
-    {
-        return true;
-    }
-    else
-        return false;
+    return (source_state == AL_PLAYING);
 }
 
 std::string Sound::getName()

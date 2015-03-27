@@ -8,7 +8,8 @@ EntityManager::EntityManager()
 {
     cam = new Camera(320, 240);
     resman = new ResourceManager();
-    resman->loadMusic("test.wav");
+    resman->initSound();
+    resman->loadMusic("test.ogg");
     mapman = new MapManager();
     parser = new DataReader();
     einstein = new PhysicsManager();
@@ -29,10 +30,10 @@ EntityManager::EntityManager()
 EntityManager::~EntityManager()
 {
 
-    for(std::vector<Character*>::iterator it = characterList.begin(); it != characterList.end(); it++){
+    for(auto it = characterList.begin(); it != characterList.end(); it++){
             delete (*it);
     }
-    for(std::vector<Ground*>::iterator it = groundList.begin(); it != groundList.end(); it++){
+    for(auto it = groundList.begin(); it != groundList.end(); it++){
             delete (*it);
     }
     delete resman;
@@ -57,16 +58,16 @@ void EntityManager::setMap(std::string arr)
 void EntityManager::clearObjects()
 {
     std::cout << "Clearing objects from map...\n";
-    for(std::vector<Ground*>::iterator it = groundList.begin(); it != groundList.end(); it++){
+    for(auto it = groundList.begin(); it != groundList.end(); it++){
             delete (*it);
 
     }
-    for(std::vector<Character*>::iterator it = characterList.begin(); it != characterList.end(); it++){
+    for(auto it = characterList.begin(); it != characterList.end(); it++){
             delete (*it);
 
 
     }
-    for(std::vector<Item*>::iterator it = itemList.begin(); it != itemList.end(); it++){
+    for(auto it = itemList.begin(); it != itemList.end(); it++){
             delete (*it);
 
 
@@ -114,15 +115,15 @@ void EntityManager::draw()
 
     glUniformMatrix4fv(cameraloc, 1, GL_FALSE, cam->GetTransform()->mat);
 
-    for(std::vector<Character*>::iterator it = characterList.begin(); it != characterList.end(); it++){
+    for(auto it = characterList.begin(); it != characterList.end(); it++){
             (*it)->draw(shader);
     }
     //shader->enable();
-    for(std::vector<Ground*>::iterator it = groundList.begin(); it != groundList.end(); it++){
+    for(auto it = groundList.begin(); it != groundList.end(); it++){
             (*it)->draw(shader);
     }
 
-    for(std::vector<Item*>::iterator it = itemList.begin(); it != itemList.end(); it++){
+    for(auto it = itemList.begin(); it != itemList.end(); it++){
             (*it)->draw(shader);
     }
 
@@ -172,7 +173,7 @@ void EntityManager::loadMap(std::string name)
     std::vector<std::string>* currentMap = mapman->getMapData();
 
     //Parse the String
-    std::vector<std::string>::iterator it = (*currentMap).begin();
+    auto it = (*currentMap).begin();
     std::cout << "Map Name: "<< mapman->getMapName() << "\n";
 
     for(it; it != (*currentMap).end(); it++){
@@ -224,7 +225,7 @@ void EntityManager::loadMap(std::string name)
     }
     std::cout << "Number of Ground Objects: " << groundList.size() << " \nNumber of Character Objects: " << characterList.size() <<
     "\nNumber of Item Objects: " << itemList.size() << "\n\n";
-    //resman->getMusic();
+    resman->getMusic();
     controller->setCharacter((*characterList.begin()));
     
     //Script Test!!!

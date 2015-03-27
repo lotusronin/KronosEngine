@@ -11,5 +11,5 @@ set(MY_SOURCES main.cpp Camera.cpp Character.cpp DataReader.cpp Entity.cpp
     angelscript/scriptarray/scriptarray.cpp)
 
 add_executable(Platformer ${MY_SOURCES})
-target_link_libraries(Platformer SDL2 GL freeimage GLEW alut openal freetype
-    angelscript pthread)
+target_link_libraries(Platformer SDL2 GL freeimage GLEW openal freetype
+    angelscript pthread vorbisfile)

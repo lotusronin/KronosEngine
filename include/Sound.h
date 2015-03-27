@@ -3,13 +3,10 @@
 
 #include <AL/al.h>
 #include <AL/alc.h>
-#include <AL/alut.h>
 #include <string>
 
 class Sound{
 protected:
-    ALCdevice* device;
-	ALCcontext* context;
 	ALfloat listenerOri[6];
 	ALuint source, buffer;
 	ALint source_state;
@@ -22,7 +19,7 @@ protected:
 	bool Error;
 	std::string name;
 public:
-    Sound(std::string fname);
+    Sound(std::string fname, bool _error, ALenum _fmt, ALvoid* _data, ALsizei _sz, ALsizei _freq);
     ~Sound();
     void Play();
     void Pause();

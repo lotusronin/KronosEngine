@@ -7,6 +7,7 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <string>
+#include <vorbis/vorbisfile.h>
 
 class ResourceManager {
 protected:
@@ -18,10 +19,17 @@ public:
     ~ResourceManager();
     void loadTexture(const std::string& texname);
     GLuint getTexture(const std::string& texname);
+    void initSound();
     void loadMusic(const std::string& musname);
     void getMusic();
     void loadSFX();
     void getSFX();
+    void loadOgg(const std::string& filename);
+private:
+    //OpenAL specific
+    ALCdevice* m_device;
+    ALCcontext* m_context;
+    bool m_alError;
 };
 
 

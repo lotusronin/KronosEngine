@@ -87,7 +87,7 @@ void PhysicsSquare::addForce(float fx, float fy)
 void PhysicsSquare::update()
 {
     int counter = 0;
-    for(std::vector<float>::iterator it = coords.begin(); it != coords.end(); it++)
+    for(auto it = coords.begin(); it != coords.end(); it++)
     {
         if(counter%2 == 0)
         {
