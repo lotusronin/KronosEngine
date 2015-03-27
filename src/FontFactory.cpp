@@ -31,13 +31,13 @@ FontFactory::FontFactory()
 
 FontFactory::~FontFactory()
 {
-    for(auto it = alphabet.begin(); it != alphabet.end(); it++)
+    for(auto it : alphabet)
     {
-        delete (*it);
+        delete it;
     }
-    for(auto it = fontTexture.begin(); it != fontTexture.end(); it++)
+    for(auto it : fontTexture)
     {
-        delete (*it);
+        delete it;
     }
     alphabet.erase(alphabet.begin(), alphabet.end());
     fontTexture.erase(fontTexture.begin(), fontTexture.end());
@@ -49,11 +49,11 @@ FontFactory::~FontFactory()
 Glyph* FontFactory::getLetter(char letter)
 {
     //If it exists, return Glyph*
-    for(auto it = alphabet.begin(); it != alphabet.end(); it++)
+    for(auto it : alphabet)
     {
-        if((*it)->getName() == letter)
+        if(it->getName() == letter)
         {
-            return *it;
+            return it;
         }
     }
     //else call make letter if glyph isn't already made

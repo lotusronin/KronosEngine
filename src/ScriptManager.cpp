@@ -16,8 +16,8 @@ ScriptManager::ScriptManager() {
 
 
 ScriptManager::~ScriptManager() {
-    for(auto it = m_scripts.begin(); it != m_scripts.end(); it++) {
-        delete *it;
+    for(auto it : m_scripts) {
+        delete it;
     }
     engine->ShutDownAndRelease();
 }

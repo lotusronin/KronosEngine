@@ -26,7 +26,7 @@ std::vector<std::string>* Map::getMap()
 
 void Map::showData()
 {
-    for(auto it = layout.begin(); it != layout.end(); it++){
-            std::cout << (*it) << "\n";
+    for(auto it : layout){
+            std::cout << it << "\n";
     }
 }

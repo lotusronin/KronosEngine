@@ -10,8 +10,8 @@ MapManager::MapManager()
 
 MapManager::~MapManager()
 {
-    for(auto it = MapList.begin(); it != MapList.end(); it++){
-        delete (*it);
+    for(auto it : MapList){
+        delete it;
     }
 }
 
@@ -19,8 +19,8 @@ void MapManager::newMap(std::string name)
 {
 
     bool exists = false;
-    for(auto it = MapList.begin(); it != MapList.end(); it++){
-            if((*it)->getMapName().compare(name) == 0){
+    for(auto it : MapList){
+            if(it->getMapName().compare(name) == 0){
                 exists = true;
             }
     }
@@ -34,9 +34,9 @@ void MapManager::newMap(std::string name)
 void MapManager::addToMap(std::string obj)
 {
     Map* temp;
-    for(auto it = MapList.begin(); it != MapList.end(); it++){
-            if((*it)->getMapName().compare(currentMap) == 0){
-                temp = (*it);
+    for(auto it : MapList){
+            if(it->getMapName().compare(currentMap) == 0){
+                temp = it;
             }
     }
     temp->addToMap(obj);
@@ -45,9 +45,9 @@ void MapManager::addToMap(std::string obj)
 
 std::vector<std::string>* MapManager::getMapData()
 {
-    for(auto it = MapList.begin(); it != MapList.end(); it++){
-            if((*it)->getMapName().compare(currentMap) == 0){
-                return (*it)->getMap();
+    for(auto it : MapList){
+            if(it->getMapName().compare(currentMap) == 0){
+                return it->getMap();
             }
     }
 
@@ -96,8 +96,8 @@ void MapManager::saveMap(const char* fname)
 	std::string MapName = getMapName();
 	ofs << MapName << " ";
 	std::vector<std::string>* pMapData = getMapData();
-    for(auto it = (*pMapData).begin(); it != (*pMapData).end(); it++){
-        ofs << (*it);
+    for(auto it : (*pMapData)){
+        ofs << it;
         ofs << " ";
     }
     ofs << "mapend";
@@ -113,8 +113,8 @@ void MapManager::showMap()
 
 bool MapManager::mapExists(std::string name)
 {
-    for(auto it = MapList.begin(); it != MapList.end(); it++){
-            if((*it)->getMapName().compare(name) == 0){
+    for(auto it : MapList){
+            if(it->getMapName().compare(name) == 0){
                 return true;
             }
     }

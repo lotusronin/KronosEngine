@@ -30,11 +30,11 @@ EntityManager::EntityManager()
 EntityManager::~EntityManager()
 {
 
-    for(auto it = characterList.begin(); it != characterList.end(); it++){
-            delete (*it);
+    for(auto it : characterList){
+            delete it;
     }
-    for(auto it = groundList.begin(); it != groundList.end(); it++){
-            delete (*it);
+    for(auto it : groundList){
+            delete it;
     }
     delete resman;
     delete mapman;
@@ -58,17 +58,17 @@ void EntityManager::setMap(std::string arr)
 void EntityManager::clearObjects()
 {
     std::cout << "Clearing objects from map...\n";
-    for(auto it = groundList.begin(); it != groundList.end(); it++){
-            delete (*it);
+    for(auto it : groundList){
+            delete it;
 
     }
-    for(auto it = characterList.begin(); it != characterList.end(); it++){
-            delete (*it);
+    for(auto it : characterList){
+            delete it;
 
 
     }
-    for(auto it = itemList.begin(); it != itemList.end(); it++){
-            delete (*it);
+    for(auto it : itemList){
+            delete it;
 
 
     }
@@ -115,16 +115,16 @@ void EntityManager::draw()
 
     glUniformMatrix4fv(cameraloc, 1, GL_FALSE, cam->GetTransform()->mat);
 
-    for(auto it = characterList.begin(); it != characterList.end(); it++){
-            (*it)->draw(shader);
+    for(auto it : characterList){
+            it->draw(shader);
     }
     //shader->enable();
-    for(auto it = groundList.begin(); it != groundList.end(); it++){
-            (*it)->draw(shader);
+    for(auto it : groundList){
+            it->draw(shader);
     }
 
-    for(auto it = itemList.begin(); it != itemList.end(); it++){
-            (*it)->draw(shader);
+    for(auto it : itemList){
+            it->draw(shader);
     }
 
     shader->disable();
@@ -173,12 +173,11 @@ void EntityManager::loadMap(std::string name)
     std::vector<std::string>* currentMap = mapman->getMapData();
 
     //Parse the String
-    auto it = (*currentMap).begin();
     std::cout << "Map Name: "<< mapman->getMapName() << "\n";
 
-    for(it; it != (*currentMap).end(); it++){
-        char *cstr = new char[(*it).length() + 1];
-        std::strcpy (cstr, (*it).c_str());
+    for(auto it : (*currentMap)){
+        char *cstr = new char[it.length() + 1];
+        std::strcpy (cstr, it.c_str());
         char * p = std::strtok (cstr,",");
         //std::cout << p << "\n";
         float x = (float)atof(p);

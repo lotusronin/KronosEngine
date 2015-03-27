@@ -24,8 +24,8 @@ ResourceManager::~ResourceManager()
         std::cout << "Textures all cleaned up nicely!\n";
     }*/
 
-    for(auto it = svec.begin(); it != svec.end(); it++){
-            delete (*it);
+    for(auto it : svec){
+            delete it;
     }
     tvec.erase(tvec.begin(), tvec.end());
     svec.erase(svec.begin(), svec.end());
@@ -43,8 +43,8 @@ ResourceManager::~ResourceManager()
 void ResourceManager::loadTexture(const std::string& texname)
 {
     bool exists = false;
-    for(auto it = tvec.begin(); it != tvec.end(); it++){
-            if((*it)->getName().compare(texname) == 0){
+    for(auto it : tvec){
+            if(it->getName().compare(texname) == 0){
                 exists = true;
             }
     }
@@ -81,8 +81,8 @@ void ResourceManager::loadTexture(const std::string& texname)
 void ResourceManager::loadMusic(const std::string& musname)
 {
     bool exists = false;
-    for(auto it = svec.begin(); it != svec.end(); it++){
-            if((*it)->getName().compare(musname) == 0){
+    for(auto it : svec){
+            if(it->getName().compare(musname) == 0){
                 exists = true;
             }
     }
@@ -108,9 +108,9 @@ void ResourceManager::getMusic()
 GLuint ResourceManager::getTexture(const std::string& texname)
 {
 
-    for(auto it = tvec.begin(); it != tvec.end(); it++){
-            if((*it)->getName().compare(texname) == 0){
-                return (*it)->getTexture();
+    for(auto it : tvec){
+            if(it->getName().compare(texname) == 0){
+                return it->getTexture();
             }
     }
     return 0;

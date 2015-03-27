@@ -17,26 +17,26 @@ void PhysicsManager::applyPhysics(std::vector<Character*> *cvect, std::vector<Gr
 {
     //std::cout << "Beginning Physics calculations...\n";
     //Apply Gravity to all character entities
-    for(auto it = (*cvect).begin(); it != (*cvect).end(); it++)
+    for(auto it : (*cvect))
     {
         //(*it)->pSquare->addForce(0, (*it)->pSquare->getMass()*10);
-        (*it)->pSquare->addVeloc(0.0f, -0.2f);
+        it->pSquare->addVeloc(0.0f, -0.2f);
     }
 
 
     //Check for collisions
-    for(auto it = (*cvect).begin(); it != (*cvect).end(); it++)
+    for(auto it : (*cvect))
     {
-        for(auto it2 = (*gvect).begin(); it2 != (*gvect).end(); it2++)
+        for(auto it2 : (*gvect))
         {
-            std::vector<float> *coords1 = (*it)->pSquare->getCoords();
-            std::vector<float> *coords2 = (*it2)->pSquare->getCoords();
+            std::vector<float> *coords1 = it->pSquare->getCoords();
+            std::vector<float> *coords2 = it2->pSquare->getCoords();
             //float velx = (*it)->pSquare->getVelx();
             //float vely = (*it)->pSquare->getVely();
             //std::cout << "The velocity from pSquare is... " << vely << "\n";
             //int x =
             //std::cout << (*it)->pSquare << "\n";
-            edgeCollide( coords1, coords2, (*it)->pSquare, (*it2)->pSquare);
+            edgeCollide( coords1, coords2, it->pSquare, it2->pSquare);
         }
         //(*it)->pSquare->update();
     }
@@ -48,18 +48,18 @@ void PhysicsManager::applyPhysics(std::vector<Character*> *cvect, std::vector<Gr
     std::cout << "\n\nWould Update Matrix now...\n";*/
 
     //Update the translation matrices for every character object based on their velocity
-    for(auto it = (*cvect).begin(); it != (*cvect).end(); it++)
+    for(auto it : (*cvect))
     {
         float dx, dy;
-        dx = (*it)->pSquare->getVelx();
-        dy = (*it)->pSquare->getVely();
-        (*it)->pSquare->update();
+        dx = it->pSquare->getVelx();
+        dy = it->pSquare->getVely();
+        it->pSquare->update();
         /*std::cout << "dx: " << dx << " dy: " << dy <<"\n";
         char a;
         std::cin >> a;
         std::cout << a << "\n\n";*/
         mat.setTranslation(dx, dy, 0);
-        (*(*it)->ptransmat) = (*(*it)->ptransmat)*mat;
+        (*it->ptransmat) = (*it->ptransmat)*mat;
         //(*it)->update();
     }
 
