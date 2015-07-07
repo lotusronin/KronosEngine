@@ -62,9 +62,13 @@ int GameManager::run()
     int loaded = 0;
     int i = 0;
 
+    int targetFPS = 1000/60;
+    int currentTime, frameTime;
+
 
     while (!done)
     {
+        currentTime = SDL_GetTicks();
 
         done = listener->query();
         save = listener->save();
@@ -114,6 +118,12 @@ int GameManager::run()
             i++;
         }
 
+        }
+        
+        //Fix Frame skipping
+        frameTime = SDL_GetTicks() - currentTime;
+        if(frameTime < targetFPS) {
+            SDL_Delay(targetFPS-frameTime);
         }
     } // end main loop
     return 0;
