@@ -24,8 +24,6 @@ void Camera::UpdateView(float dx, float dy)
     temp.setTranslation(diffx, diffy, 0.0f);
     //pCameraTransform->SetTranslation(diffx, diffy, 0.0f);
     (*pCameraTransform) = (*pCameraTransform)*temp;
-    //glMatrixMode (GL_MODELVIEW);
-    //glTranslatef(diffx, diffy, 0);
 }
 
 Matrix* Camera::GetTransform()

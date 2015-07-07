@@ -87,15 +87,15 @@ void PhysicsSquare::addForce(float fx, float fy)
 void PhysicsSquare::update()
 {
     int counter = 0;
-    for(auto it = coords.begin(); it != coords.end(); it++)
+    for(auto &it : coords)
     {
         if(counter%2 == 0)
         {
-            (*it) += velocity[0];
+            it += velocity[0];
         }
         else
         {
-            (*it) += velocity[1];
+            it += velocity[1];
         }
 
         counter++;

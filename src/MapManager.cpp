@@ -57,7 +57,6 @@ std::vector<std::string>* MapManager::getMapData()
 
 std::string MapManager::getMapName()
 {
-    //return (*MapList.begin())->getMapName();
     return currentMap;
 }
 

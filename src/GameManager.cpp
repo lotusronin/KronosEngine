@@ -62,7 +62,6 @@ int GameManager::run()
     int loaded = 0;
     int i = 0;
 
-    //entityman->makeObj();
 
     while (!done)
     {
@@ -85,7 +84,6 @@ int GameManager::run()
         if(loaded){
 
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        //glLoadIdentity();
 
         if(i == 50)
         {
@@ -102,7 +100,6 @@ int GameManager::run()
 
 
 
-        //SDL_GL_SwapBuffers();
         SDL_GL_SwapWindow(win_main->screen);
 
         if(i == 50)

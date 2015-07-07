@@ -38,13 +38,9 @@ void PhysicsManager::applyPhysics(std::vector<Character*> *cvect, std::vector<Gr
             //std::cout << (*it)->pSquare << "\n";
             edgeCollide( coords1, coords2, it->pSquare, it2->pSquare);
         }
-        //(*it)->pSquare->update();
     }
 
-    /*std::cout << "\n\nEnter a char: ";
-    char a;
-    std::cin >> a;
-    std::cout << a;
+    /*
     std::cout << "\n\nWould Update Matrix now...\n";*/
 
     //Update the translation matrices for every character object based on their velocity
@@ -54,13 +50,8 @@ void PhysicsManager::applyPhysics(std::vector<Character*> *cvect, std::vector<Gr
         dx = it->pSquare->getVelx();
         dy = it->pSquare->getVely();
         it->pSquare->update();
-        /*std::cout << "dx: " << dx << " dy: " << dy <<"\n";
-        char a;
-        std::cin >> a;
-        std::cout << a << "\n\n";*/
         mat.setTranslation(dx, dy, 0);
         (*it->ptransmat) = (*it->ptransmat)*mat;
-        //(*it)->update();
     }
 
 

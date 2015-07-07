@@ -3,6 +3,7 @@
 #include <cstring>
 #include <string>
 #include <fstream>
+#include "defer.h"
 
 EntityManager::EntityManager()
 {
@@ -177,6 +178,7 @@ void EntityManager::loadMap(std::string name)
 
     for(auto it : (*currentMap)){
         char *cstr = new char[it.length() + 1];
+        defer { delete[] cstr; };
         std::strcpy (cstr, it.c_str());
         char * p = std::strtok (cstr,",");
         //std::cout << p << "\n";
@@ -196,6 +198,8 @@ void EntityManager::loadMap(std::string name)
         std::cout << "\n" << pstring << " at " << x << "," << y << "\n";
 
         parser->loadObj(pstring);
+        defer { parser->closeObj(); };
+
         pstring = parser->getValue("size");
         float sz = (float)atof(pstring.c_str());
         pstring = parser->getValue("entity_type");
@@ -219,8 +223,8 @@ void EntityManager::loadMap(std::string name)
             addItem(x,y,sz,s);
         }
 
-        parser->closeObj();
-        delete[] cstr;
+        //parser->closeObj();
+        //delete[] cstr;
     }
     std::cout << "Number of Ground Objects: " << groundList.size() << " \nNumber of Character Objects: " << characterList.size() <<
     "\nNumber of Item Objects: " << itemList.size() << "\n\n";

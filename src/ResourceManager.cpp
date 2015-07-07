@@ -1,4 +1,5 @@
 #include "ResourceManager.h"
+#include "defer.h"
 #include "Texture.h"
 #include "Sound.h"
 #include <iostream>
@@ -89,7 +90,6 @@ void ResourceManager::loadMusic(const std::string& musname)
 
     if(!exists){
         loadOgg(musname);
-        //svec.push_back(new Sound(musname, m_device, m_context, m_alError));
     }else{
         std::cout << "Sound Already loaded!\n";
     }
@@ -143,12 +143,12 @@ void ResourceManager::initSound() {
 }
 
 void ResourceManager::loadOgg(const std::string& filename) {
-    std::cout << "TOO IMPLEMENT!!!\n";
 
     vorbis_info* pInfo;
     OggVorbis_File oggFile;
 
     ov_fopen(("res/sound/"+filename).c_str(), &oggFile);
+    defer { ov_clear(&oggFile);};
 
     pInfo = ov_info(&oggFile, -1);
     ALenum format;
@@ -167,8 +167,6 @@ void ResourceManager::loadOgg(const std::string& filename) {
     while((bytes = ov_read(&oggFile, buffer, 4096, 0, 2, 1, &bitstream)) > 0) {
         musicBuffer.insert(musicBuffer.end(), buffer, buffer+bytes);
     }
-
-    ov_clear(&oggFile);
-
+    
     svec.push_back(new Sound(filename, m_alError, format, (ALvoid*)&musicBuffer[0], (ALsizei) musicBuffer.size(), freq));
 }

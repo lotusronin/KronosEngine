@@ -9,15 +9,13 @@ Glyph::Glyph(char letter, FT_GlyphSlot gs) : glyph_name(letter)
     top = gs->bitmap_top;
     left = gs->bitmap_left;
     advance = gs->advance.x;
-
+    
+    //Should change to memcopy and just a simple array
     for(int i = 0; i < sz; i++)
     {
-        //std::cout << gs->bitmap.buffer[i] << " ";
         buffer.push_back(gs->bitmap.buffer[i]);
     }
-    //std::cout << "\n";
-    //int a;
-    //std::cin >> a;
+    
     //ogl stuff
     glGenBuffers(1, &vbo);
     /*float arr[16] = {0,0.3f,0,1,

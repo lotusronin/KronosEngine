@@ -89,15 +89,11 @@ void FontFactory::makeLetter(char letter)
         std::cout << "Error making glyph " << letter << "\n";
         exit(1);
     }
-    //std::cout << "makeLetter() Finished\n";
-    //std::cout << "Finished making letter " << letter << "\n";
 }
 
 void FontFactory::renderLetter(char letter, float x, float adv, float y, Shader* s)
 {
     Glyph* g = getLetter(letter);
-    //std::cout << "beginning to render letter " << letter << "\n";
-    //std::cout << "Glyph* g letter = " << g->getName() << "\n";
     g->render(x+adv, y, s);
 }
 
