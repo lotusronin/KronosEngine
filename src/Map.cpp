@@ -30,3 +30,11 @@ void Map::showData()
             std::cout << it << "\n";
     }
 }
+
+void Map::addMusictoMap(std::string music) {
+    music_name = music;
+}
+
+std::string Map::getMusicName() {
+    return music_name;
+}

@@ -10,7 +10,6 @@ EntityManager::EntityManager()
     cam = new Camera(320, 240);
     resman = new ResourceManager();
     resman->initSound();
-    resman->loadMusic("test.ogg");
     mapman = new MapManager();
     parser = new DataReader();
     einstein = new PhysicsManager();
@@ -175,6 +174,8 @@ void EntityManager::loadMap(std::string name)
 
     //Parse the String
     std::cout << "Map Name: "<< mapman->getMapName() << "\n";
+    std::cout << "Map Music: " << mapman->getMusicName() << "\n";
+    resman->loadMusic(mapman->getMusicName());
 
     for(auto it : (*currentMap)){
         char *cstr = new char[it.length() + 1];

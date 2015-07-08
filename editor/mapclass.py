@@ -10,6 +10,7 @@ class Map:
 		self.name = n
 		self.width = 640
 		self.height = 480
+		self.music = ""
 		return
 
 	def add_obj(self,x,y,s,n,t):
@@ -39,9 +40,17 @@ class Map:
 	def get_size(self):
 		return self.width,self.height
 
+
+	def get_music(self):
+		return music
+
+	def set_music(self, m):
+		self.music = m
+
 	def save(self, path):
 		f = open(path+'.map', 'w')
-		f.write(self.name+' ')
+		f.write(self.name+'\n')
+		f.write('music='+self.music+'\n')
 		for o in self.obj_list:
 			a=o.getCoords()
 			f.write(str( float(a[0]) - float(self.width)/2)+','+str( -1*(float(a[1])-float(self.height)/2) )+','+o.getName()+' ')

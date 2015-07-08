@@ -19,6 +19,8 @@ public:
     void addToMap(std::string obj);
     void showMap();
     bool mapExists(std::string name);
+    void addMusictoMap(std::string music);
+    std::string getMusicName();
 };
 
 

@@ -43,6 +43,9 @@ ResourceManager::~ResourceManager()
 
 void ResourceManager::loadTexture(const std::string& texname)
 {
+    if(texname.compare("") == 0) {
+        return;
+    }
     bool exists = false;
     for(auto it : tvec){
             if(it->getName().compare(texname) == 0){
@@ -81,6 +84,9 @@ void ResourceManager::loadTexture(const std::string& texname)
 
 void ResourceManager::loadMusic(const std::string& musname)
 {
+    if(musname.compare("") == 0) {
+        return;
+    }
     bool exists = false;
     for(auto it : svec){
             if(it->getName().compare(musname) == 0){
@@ -100,6 +106,9 @@ void ResourceManager::loadSFX()
 
 void ResourceManager::getMusic()
 {
+    if(svec.size() == 0) {
+        return;
+    }
     if(!(*svec.begin())->isPlaying()){
         (*svec.begin())->Play();
     }

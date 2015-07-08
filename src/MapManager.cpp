@@ -72,6 +72,12 @@ void MapManager::loadMap(std::string fname)
     {
         newMap(s);
         ifs >> s;
+        if(s.compare(0,5,"music") == 0) {
+            addMusictoMap(s.substr(6));
+            ifs >> s;
+        } else {
+            addMusictoMap("");
+        }
         while(s.compare("mapend")){
             //std::cout<< s << "\n";
             addToMap(s);
@@ -118,4 +124,24 @@ bool MapManager::mapExists(std::string name)
             }
     }
     return false;
+}
+
+void MapManager::addMusictoMap(std::string music) {
+    Map* temp;
+    for(auto it : MapList){
+            if(it->getMapName().compare(currentMap) == 0){
+                temp = it;
+            }
+    }
+    temp->addMusictoMap(music);
+}
+
+std::string MapManager::getMusicName() {
+    for(auto it : MapList){
+            if(it->getMapName().compare(currentMap) == 0){
+                return it->getMusicName();
+            }
+    }
+
+    return "";
 }
