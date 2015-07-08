@@ -1,6 +1,8 @@
 #include "ScriptManager.h"
 #include <assert.h>
 
+#define NOTE(x) std::cout << "Registered " << #x << std::endl;
+
 ScriptManager::ScriptManager() {
     engine = asCreateScriptEngine(ANGELSCRIPT_VERSION);
     int r = engine->SetMessageCallback(asFUNCTION(MsgCallbk), 0, asCALL_CDECL);
@@ -79,6 +81,17 @@ void ScriptManager::registerTypes(asIScriptEngine* engine) {
     assert(r >= 0);
     r = engine->RegisterObjectMethod("Character", "float getCenterY()", asMETHOD(Character, getCenterY), asCALL_THISCALL);
     assert(r >= 0);
+
+    NOTE(Entity)
+    NOTE(getTexName)
+    NOTE(PhysicsSquare)
+    NOTE(setVeloc)
+    NOTE(getVelx)
+    NOTE(getVely)
+    NOTE(Character)
+    NOTE(getObj)
+    NOTE(getCenterX)
+    NOTE(getCenterY)
 
 
 }
