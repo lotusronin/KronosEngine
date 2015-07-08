@@ -22,8 +22,6 @@ Shader::Shader(const std::string& vert, const std::string& frag)
 Shader::~Shader()
 {
     glDeleteProgram(shaderProgram);
-    glDeleteShader(vShader);
-    glDeleteShader(fShader);
 }
 
 void Shader::disable()
@@ -85,6 +83,12 @@ void Shader::compile()
     glBindAttribLocation(shaderProgram, 1, "texCoord");
 
     glLinkProgram(shaderProgram);
+    
+    //Properly cleanup post shader compilation
+    glDetachShader(shaderProgram, vShader);
+    glDetachShader(shaderProgram, fShader);
+    glDeleteShader(vShader);
+    glDeleteShader(fShader);
 }
 
 std::string Shader::load(std::string filename)
