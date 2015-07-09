@@ -8,22 +8,11 @@
 EntityManager::EntityManager()
 {
     cam = new Camera(320, 240);
-    resman = new ResourceManager();
-    resman->initSound();
-    mapman = new MapManager();
-    parser = new DataReader();
     einstein = new PhysicsManager();
     //mapman->newMap("Debug");
-    shader = new Shader("simpleshader.vert", "simpleshader.frag");
-    shader->compile();
-    textshader = new Shader("textshader.vert", "textshader.frag");
-    textshader->compile();
-
+    
     controller = new PlayerControl();
     ffactory = new FontFactory();
-    guiman = new GUIManager();
-    scriptman = new ScriptManager();
-    scriptman->execute();
     fpsVal = "0";
 }
 
@@ -36,17 +25,10 @@ EntityManager::~EntityManager()
     for(auto it : groundList){
             delete it;
     }
-    delete resman;
-    delete mapman;
-    delete parser;
     delete ffactory;
     delete einstein;
     delete cam;
     delete controller;
-    delete shader;
-    delete textshader;
-    delete guiman;
-    delete scriptman;
 }
 
 void EntityManager::setMap(std::string arr)
@@ -104,7 +86,7 @@ void EntityManager::updateCam()
     cam->UpdateView((*characterList.begin())->getCenterX(), (*characterList.begin())->getCenterY());
 }
 
-void EntityManager::draw()
+void EntityManager::draw(Shader* shader, Shader* textshader, MapManager* mapman)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -147,109 +129,9 @@ void EntityManager::draw()
     //End of font testing
 }
 
-void EntityManager::saveMap()
+void EntityManager::saveMap(MapManager* mapman)
 {
     mapman->saveMap("debug.map");
-}
-
-void EntityManager::loadMap(std::string name)
-{
-    clearObjects();
-
-    if(name.compare("") != 0)
-    {
-        std::cout << "Loading new map: " << name << "\n";
-        mapman->loadMap(name.c_str());
-
-    }
-    else
-    {
-        std::cout << "Mapname not found, Loading debug.map\n";
-        mapman->loadMap("debug.map");
-    }
-
-    //mapman->showMap();
-    //std::cout << "Getting Map Data for: " << mapname.substr(0, mapname.find(".map")) << "\n";
-    std::vector<std::string>* currentMap = mapman->getMapData();
-
-    //Parse the String
-    std::cout << "Map Name: "<< mapman->getMapName() << "\n";
-    std::cout << "Map Music: " << mapman->getMusicName() << "\n";
-    resman->loadMusic(mapman->getMusicName());
-
-    for(auto it : (*currentMap)){
-        char *cstr = new char[it.length() + 1];
-        defer { delete[] cstr; };
-        std::strcpy (cstr, it.c_str());
-        char * p = std::strtok (cstr,",");
-        //std::cout << p << "\n";
-        float x = (float)atof(p);
-        //std::cout << "The value of x is: " << x << "\n";
-
-
-        p = std::strtok(NULL,",");
-        //std::cout << p << "\n";
-        float y = (float)atof(p);
-        //std::cout << "The value of y is: " << y << "\n";
-
-        p = std::strtok(NULL,",");
-        //std::cout << p << "\n";
-
-        std::string pstring = p;
-        std::cout << "\n" << pstring << " at " << x << "," << y << "\n";
-
-        parser->loadObj(pstring);
-        defer { parser->closeObj(); };
-
-        pstring = parser->getValue("size");
-        float sz = (float)atof(pstring.c_str());
-        pstring = parser->getValue("entity_type");
-
-        if(!strcmp(pstring.c_str(),"Character"))
-        {
-            std::string s = parser->getValue("texture");
-            resman->loadTexture(s);
-            addChar(x,y,sz,s);
-        }
-        else if(!strcmp(pstring.c_str(),"Ground"))
-        {
-            std::string s = parser->getValue("texture");
-            resman->loadTexture(s);
-            addGrd(x,y,sz,s);
-        }
-        else if(!strcmp(pstring.c_str(), "Item"))
-        {
-            std::string s = parser->getValue("texture");
-            resman->loadTexture(s);
-            addItem(x,y,sz,s);
-        }
-
-        //parser->closeObj();
-        //delete[] cstr;
-    }
-    std::cout << "Number of Ground Objects: " << groundList.size() << " \nNumber of Character Objects: " << characterList.size() <<
-    "\nNumber of Item Objects: " << itemList.size() << "\n\n";
-    resman->getMusic();
-    controller->setCharacter((*characterList.begin()));
-    
-    //Script Test!!!
-    std::string scriptName = "EntityMethodTest";
-    Script* temp = scriptman->loadScript(scriptName);
-    temp->execute(*groundList.begin());
- 
-    //Script Test 2!!!
-    /*
-    scriptName = "MoveForwardTest";
-    temp = scriptman->loadScript(scriptName);
-    characterList.back()->addScript(temp);
-    characterList.back()->executeScripts();*/
-
-    //Script Test 3!!!
-    /*scriptName = "FollowCharacterTest";
-    temp = scriptman->loadScript(scriptName);
-    characterList.back()->addScript(temp);
-    Character* player = *characterList.begin();
-    characterList.back()->executeScripts(player);*/
 }
 
 void EntityManager::applyPhysics()
@@ -258,7 +140,7 @@ void EntityManager::applyPhysics()
     
     //Script Test 3!!!
     /*Character* player = *characterList.begin();
-    characterList.back()->executeScripts(player);*/
+    characterList.back()->executeScripts(;player);*/
 
     einstein->applyPhysics(&characterList, &groundList);
 }
@@ -269,5 +151,16 @@ void EntityManager::setControllerListener(KeyListener* pkl)
 }
 
 
+void EntityManager::setResourceManager(ResourceManager* prm) {
+    resman = prm;
+}
 
+void EntityManager::setScriptManager(ScriptManager* psm) {
+    scriptman = psm;
+}
 
+void EntityManager::showInfo() {
+    std::cout << "Number of Ground Objects: " << groundList.size() << " \nNumber of Character Objects: " << characterList.size() <<
+    "\nNumber of Item Objects: " << itemList.size() << "\n\n";
+    controller->setCharacter((*characterList.begin()));
+}

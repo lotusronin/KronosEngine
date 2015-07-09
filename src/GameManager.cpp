@@ -3,19 +3,28 @@
 #include "Window.h"
 #include "KeyListener.h"
 #include "EntityManager.h"
+#include "defer.h"
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <iostream>
 #include <sys/time.h>
+#include <cstring>
+#include <string>
 
 GameManager::GameManager()
 {}
 
 GameManager::~GameManager()
 {
+    delete shader;
+    delete textshader;
+    delete scriptman;
+    delete resman;
+    delete parser;
     delete listener;
     delete entityman;
     delete win_main;
+    delete mapman;
 }
 
 void GameManager::setMap(std::string arr)
@@ -37,6 +46,101 @@ void GameManager::LoadMap()
     std::cout << "The map name you entered is: " << s << "\n\n";
     s += ".map";
     //entityman->mapname = s + ".map";
+    
+    //Fill In!
+    std::string name = s;
+    entityman->clearObjects();
+    if(name.compare("") != 0)
+    {
+        std::cout << "Loading new map: " << name << "\n";
+        mapman->loadMap(name.c_str());
+
+    }
+    else
+    {
+        std::cout << "Mapname not found, Loading debug.map\n";
+        mapman->loadMap("debug.map");
+    }
+
+    std::vector<std::string>* currentMap = mapman->getMapData();
+
+    //Parse the String
+    std::cout << "Map Name: "<< mapman->getMapName() << "\n";
+    std::cout << "Map Music: " << mapman->getMusicName() << "\n";
+    resman->loadMusic(mapman->getMusicName());
+
+    for(auto it : (*currentMap)){
+        char *cstr = new char[it.length() + 1];
+        defer { delete[] cstr; };
+        std::strcpy (cstr, it.c_str());
+        char * p = std::strtok (cstr,",");
+        //std::cout << p << "\n";
+        float x = (float)atof(p);
+        //std::cout << "The value of x is: " << x << "\n";
+
+
+        p = std::strtok(NULL,",");
+        //std::cout << p << "\n";
+        float y = (float)atof(p);
+        //std::cout << "The value of y is: " << y << "\n";
+
+        p = std::strtok(NULL,",");
+        //std::cout << p << "\n";
+
+        std::string pstring = p;
+        std::cout << "\n" << pstring << " at " << x << "," << y << "\n";
+
+        parser->loadObj(pstring);
+        defer { parser->closeObj(); };
+
+        pstring = parser->getValue("size");
+        float sz = (float)atof(pstring.c_str());
+        pstring = parser->getValue("entity_type");
+
+        if(!strcmp(pstring.c_str(),"Character"))
+        {
+            std::string s = parser->getValue("texture");
+            resman->loadTexture(s);
+            entityman->addChar(x,y,sz,s);
+        }
+        else if(!strcmp(pstring.c_str(),"Ground"))
+        {
+            std::string s = parser->getValue("texture");
+            resman->loadTexture(s);
+            entityman->addGrd(x,y,sz,s);
+        }
+        else if(!strcmp(pstring.c_str(), "Item"))
+        {
+            std::string s = parser->getValue("texture");
+            resman->loadTexture(s);
+            entityman->addItem(x,y,sz,s);
+        }
+    }
+    
+    entityman->showInfo();
+    resman->getMusic();
+    //FIXME Script tests.
+    
+    //Script Test!!!
+    /*
+    std::string scriptName = "EntityMethodTest";
+    Script* temp = scriptman->loadScript(scriptName);
+    temp->execute(*groundList.begin());
+    */
+ 
+    //Script Test 2!!!
+    /*
+    scriptName = "MoveForwardTest";
+    temp = scriptman->loadScript(scriptName);
+    characterList.back()->addScript(temp);
+    characterList.back()->executeScripts();*/
+
+    //Script Test 3!!!
+    /*scriptName = "FollowCharacterTest";
+    temp = scriptman->loadScript(scriptName);
+    characterList.back()->addScript(temp);
+    Character* player = *characterList.begin();
+    characterList.back()->executeScripts(player);*/
 
 }
 
@@ -52,6 +156,21 @@ void GameManager::init()
         entityman->mapname = s;
     }*/
     entityman->setControllerListener(listener);
+    resman = new ResourceManager();
+    resman->initSound();
+    shader = new Shader("simpleshader.vert", "simpleshader.frag");
+    shader->compile();
+    textshader = new Shader("textshader.vert", "textshader.frag");
+    textshader->compile();
+    scriptman = new ScriptManager();
+    scriptman->execute();
+    parser = new DataReader();
+    mapman = new MapManager();
+
+    
+    // TODO pull out functionality from EntityManager!!!
+    entityman->setResourceManager(resman);
+    entityman->setScriptManager(scriptman);
 }
 
 int GameManager::run()
@@ -74,13 +193,13 @@ int GameManager::run()
         save = listener->save();
         if(save == 1)
         {
-            entityman->saveMap();
+            entityman->saveMap(mapman);
             save = 0;
         }
         else if(save == 2)
         {
             LoadMap();
-            entityman->loadMap(s);
+            //entityman->loadMap(s);
             save = 0;
             loaded = 1;
         }
@@ -100,7 +219,7 @@ int GameManager::run()
 
         entityman->applyPhysics();
         entityman->updateCam();
-        entityman->draw();
+        entityman->draw(shader, textshader, mapman);
 
 
 

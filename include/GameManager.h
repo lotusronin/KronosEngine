@@ -4,6 +4,10 @@
 #include "KeyListener.h"
 #include "EntityManager.h"
 #include "ResourceManager.h"
+#include "ScriptManager.h"
+#include "MapManager.h"
+#include "DataReader.h"
+#include "Shader.h"
 #include <time.h>
 
 class GameManager{
@@ -15,6 +19,12 @@ public:
     Window* win_main;
     KeyListener* listener;
     EntityManager* entityman;
+    ResourceManager* resman;
+    Shader* shader;
+    Shader* textshader;
+    ScriptManager* scriptman;
+    MapManager* mapman;
+    DataReader* parser;
     GameManager();
     ~GameManager();
     void setMap(std::string arr);
