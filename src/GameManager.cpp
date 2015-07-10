@@ -37,7 +37,6 @@ void GameManager::setMap(std::string arr)
 
 void GameManager::LoadMap()
 {
-    //std::cout << "Current Map Name is : " << entityman->mapname << "\n";
     s = "";
     while(!s.compare(""))
     {
@@ -46,9 +45,7 @@ void GameManager::LoadMap()
     }
     std::cout << "The map name you entered is: " << s << "\n\n";
     s += ".map";
-    //entityman->mapname = s + ".map";
     
-    //Fill In!
     std::string name = s;
     entityman->clearObjects();
     if(name.compare("") != 0)
@@ -66,6 +63,9 @@ void GameManager::LoadMap()
     entityman->showInfo();
     resman->getMusic();
     //FIXME Script tests.
+    std::vector<Character*>* cl = entityman->getCharacterList();
+    Script* temp;
+    std::string scriptName;
     
     //Script Test!!!
     /*
@@ -78,15 +78,15 @@ void GameManager::LoadMap()
     /*
     scriptName = "MoveForwardTest";
     temp = scriptman->loadScript(scriptName);
-    characterList.back()->addScript(temp);
-    characterList.back()->executeScripts();*/
+    (*cl).back()->addScript(temp);
+    (*cl).back()->executeScripts();*/
 
     //Script Test 3!!!
-    /*scriptName = "FollowCharacterTest";
+    scriptName = "FollowCharacterTest";
     temp = scriptman->loadScript(scriptName);
-    characterList.back()->addScript(temp);
-    Character* player = *characterList.begin();
-    characterList.back()->executeScripts(player);*/
+    (*cl).back()->addScript(temp);
+    Character* player = *(*cl).begin();
+    (*cl).back()->executeScripts(player);/**/
 
 }
 

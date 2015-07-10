@@ -1,6 +1,6 @@
 /*
    AngelCode Scripting Library
-   Copyright (c) 2003-2014 Andreas Jonsson
+   Copyright (c) 2003-2015 Andreas Jonsson
 
    This software is provided 'as-is', without any express or implied 
    warranty. In no event will the authors be held liable for any 
@@ -261,6 +261,13 @@ int asCParser::ParsePropertyDeclaration(asCScriptCode *script)
 	scriptNode->AddChildLast(ParseType(true));
 	if( isSyntaxError ) return -1;
 
+	// Allow optional '&' to indicate that the property is indirect, i.e. stored as reference
+	sToken t;
+	GetToken(&t);
+	RewindTo(&t);
+	if( t.type == ttAmp )
+		scriptNode->AddChildLast(ParseToken(ttAmp));
+
 	// Allow optional namespace to be defined before the identifier in case
 	// the declaration is to be used for searching for an existing property
 	ParseOptionalScope(scriptNode);
@@ -269,7 +276,6 @@ int asCParser::ParsePropertyDeclaration(asCScriptCode *script)
 	if( isSyntaxError ) return -1;
 
 	// The declaration should end after the identifier
-	sToken t;
 	GetToken(&t);
 	if( t.type != ttEnd )
 	{
@@ -402,9 +408,11 @@ asCScriptNode *asCParser::ParseType(bool allowConst, bool allowVariableType, boo
 	if( isSyntaxError ) return node;
 
 	// If the datatype is a template type, then parse the subtype within the < >
+	GetToken(&t);
+	RewindTo(&t);
 	asCScriptNode *type = node->lastChild;
 	tempString.Assign(&script->code[type->tokenPos], type->tokenLength);
-	if( engine->IsTemplateType(tempString.AddressOf()) )
+	if( engine->IsTemplateType(tempString.AddressOf()) && t.type == ttLessThan )
 	{
 		GetToken(&t);
 		if( t.type != ttLessThan )
@@ -1104,10 +1112,13 @@ bool asCParser::CheckTemplateType(sToken &t)
 	tempString.Assign(&script->code[t.pos], t.length);
 	if( engine->IsTemplateType(tempString.AddressOf()) )
 	{
-		// Expect the sub type within < >
+		// If the next token is a < then parse the sub-type too
 		GetToken(&t);
 		if( t.type != ttLessThan )
-			return false;
+		{
+			RewindTo(&t);
+			return true;
+		}
 
 		for(;;)
 		{
@@ -1274,13 +1285,15 @@ asCScriptNode *asCParser::ParseExprValue()
 			if( engine->IsTemplateType(tempString.AddressOf()) )
 				isTemplateType = true;
 		}
+
+		GetToken(&t2);
 		
 		// Rewind so the real parsing can be done, after deciding what to parse
 		RewindTo(&t1);
 
 		// Check if this is a construct call
 		if( isDataType && (t.type == ttOpenParanthesis ||  // type()
-			               t.type == ttOpenBracket) )      // type[]()
+			               (t.type == ttOpenBracket && t2.type == ttCloseBracket)) )      // type[]()
 			node->AddChildLast(ParseConstructCall());
 		else if( isTemplateType && t.type == ttLessThan )  // type<t>()
 			node->AddChildLast(ParseConstructCall());
@@ -1618,7 +1631,7 @@ asCScriptNode *asCParser::ParseCondition()
 	return node;
 }
 
-// BNF: EXPR ::= (TYPE '=' INILIST) | (EXPRTERM {EXPROP EXPRTERM})
+// BNF: EXPR ::= (TYPE '=' INITLIST) | (EXPRTERM {EXPROP EXPRTERM})
 asCScriptNode *asCParser::ParseExpression()
 {
 	asCScriptNode *node = CreateNode(snExpression);
@@ -3872,7 +3885,7 @@ asCScriptNode *asCParser::ParseIf()
 	return node;
 }
 
-// BNF: FOR ::= 'for' '(' (VAR | EXPRSTAT) EXPRSTAT [ASSIGN] ')' STATEMENT
+// BNF: FOR ::= 'for' '(' (VAR | EXPRSTAT) EXPRSTAT [ASSIGN {',' ASSIGN}] ')' STATEMENT
 asCScriptNode *asCParser::ParseFor()
 {
 	asCScriptNode *node = CreateNode(snFor);
@@ -3911,18 +3924,27 @@ asCScriptNode *asCParser::ParseFor()
 	{
 		RewindTo(&t);
 
-		asCScriptNode *n = CreateNode(snExpressionStatement);
-		if( n == 0 ) return 0;
-		node->AddChildLast(n);
-		n->AddChildLast(ParseAssignment());
-		if( isSyntaxError ) return node;
-
-		GetToken(&t);
-		if( t.type != ttCloseParanthesis )
+		// Parse N increment statements separated by ,
+		for(;;)
 		{
-			Error(ExpectedToken(")"), &t);
-			Error(InsteadFound(t), &t);
-			return node;
+			asCScriptNode *n = CreateNode(snExpressionStatement);
+			if( n == 0 ) return 0;
+			node->AddChildLast(n);
+			n->AddChildLast(ParseAssignment());
+			if( isSyntaxError ) return node;
+
+			GetToken(&t);
+			if( t.type == ttListSeparator )
+				continue;
+			else if( t.type == ttCloseParanthesis )
+				break;
+			else
+			{
+				const char *tokens[] = {",", ")"};
+				Error(ExpectedOneOf(tokens, 2), &t);
+				Error(InsteadFound(t), &t);
+				return node;
+			}
 		}
 	}
 

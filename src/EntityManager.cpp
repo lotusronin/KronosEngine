@@ -80,8 +80,8 @@ void EntityManager::applyPhysics()
     controller->moveCharacter();
     
     //Script Test 3!!!
-    /*Character* player = *characterList.begin();
-    characterList.back()->executeScripts(;player);*/
+    Character* player = *characterList.begin();
+    characterList.back()->executeScripts(player);
 
     einstein->applyPhysics(&characterList, &groundList);
 }

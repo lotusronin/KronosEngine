@@ -606,10 +606,10 @@ void asCReader::ReadUsedFunctions()
 					for( asUINT i = 0; i < module->bindInformations.GetLength(); i++ )
 					{
 						asCScriptFunction *f = module->bindInformations[i]->importedFunctionSignature;
-						if( !func.IsSignatureEqual(f) ||
-							func.objectType != f->objectType ||
+						if( func.objectType != f->objectType ||
 							func.funcType != f->funcType || 
-							func.nameSpace != f->nameSpace )
+							func.nameSpace != f->nameSpace ||
+							!func.IsSignatureEqual(f) )
 							continue;
 
 						usedFunctions[n] = f;
@@ -618,13 +618,16 @@ void asCReader::ReadUsedFunctions()
 				}
 				else
 				{
+					// TODO: optimize: Global functions should be searched for in module->globalFunctions
+					// TODO: optimize: funcdefs should be searched for in module->funcDefs
+					// TODO: optimize: object methods should be searched for directly in the object type
 					for( asUINT i = 0; i < module->scriptFunctions.GetLength(); i++ )
 					{
 						asCScriptFunction *f = module->scriptFunctions[i];
-						if( !func.IsSignatureEqual(f) ||
-							func.objectType != f->objectType ||
+						if( func.objectType != f->objectType ||
 							func.funcType != f->funcType || 
-							func.nameSpace != f->nameSpace )
+							func.nameSpace != f->nameSpace ||
+							!func.IsSignatureEqual(f) )
 							continue;
 
 						usedFunctions[n] = f;
@@ -634,18 +637,88 @@ void asCReader::ReadUsedFunctions()
 			}
 			else
 			{
+#if 0
+				// TODO: optimize: Special functions, such as factstub, _beh_3_, _string_factory, etc should
+				//                 start with $ so that they can easily be identified and skipped. The names 
+				//                 can also be shortened, e.g. $fact, $beh3, $str to reduce size of bytecode.
+				if( func.funcType != asFUNC_FUNCDEF && 
+					func.objectType == 0 && 
+					func.name != "factstub" && 
+					func.name != "_beh_3_" && 
+					func.name != "_beh_4_" )
+				{
+					const asCArray<asUINT> &funcs = engine->registeredGlobalFuncs.GetIndexes(func.nameSpace, func.name);
+					for( asUINT i = 0; i < funcs.GetLength(); i++ )
+					{
+						asCScriptFunction *f = engine->registeredGlobalFuncs.Get(funcs[i]);
+						if( f == 0 ||
+							!func.IsSignatureExceptNameAndObjectTypeEqual(f) )
+							continue;
+
+						usedFunctions[n] = f;
+						break;
+					}
+
+					if( usedFunctions[n] == 0 )
+					{
+						if( func.name == "_string_factory_" && engine->stringFactory &&
+							func.IsSignatureExceptNameAndObjectTypeEqual(engine->stringFactory) )
+							usedFunctions[n] = engine->stringFactory;
+					}
+				}
+				else
+				{
+					if( func.objectType )
+					{
+						// TODO: virtual function is different that implemented method
+						for( asUINT i = 0; i < func.objectType->methods.GetLength(); i++ )
+						{
+							asCScriptFunction *f = engine->scriptFunctions[func.objectType->methods[i]];
+							if( f == 0 ||
+								!func.IsSignatureEqual(f) )
+								continue;
+
+							usedFunctions[n] = f;
+							break;
+						}
+					}
+					
+					if( usedFunctions[n] == 0 )
+					{
+						// TODO: optimize: funcdefs should be searched for in engine->funcDefs 
+						
+						// TODO: optimize: We don't really want to do this, as it does a long linear search  
+						//                 over all the functions in the engine including script functions
+						for( asUINT i = 0; i < engine->scriptFunctions.GetLength(); i++ )
+						{
+							asCScriptFunction *f = engine->scriptFunctions[i];
+							if( f == 0 ||
+								func.objectType != f->objectType ||
+								func.nameSpace != f->nameSpace ||
+								!func.IsSignatureEqual(f) )
+								continue;
+
+							usedFunctions[n] = f;
+							break;
+						}
+					}
+				}
+#else
+				// TODO: optimize: We don't really want to do this, as it does a long linear search  
+				//                 over all the functions in the engine including script functions
 				for( asUINT i = 0; i < engine->scriptFunctions.GetLength(); i++ )
 				{
 					asCScriptFunction *f = engine->scriptFunctions[i];
 					if( f == 0 ||
-						!func.IsSignatureEqual(f) ||
 						func.objectType != f->objectType ||
-						func.nameSpace != f->nameSpace )
+						func.nameSpace != f->nameSpace ||
+						!func.IsSignatureEqual(f) )
 						continue;
 
 					usedFunctions[n] = f;
 					break;
 				}
+#endif
 			}
 
 			// Set the type to dummy so it won't try to release the id
@@ -2293,7 +2366,8 @@ void asCReader::TranslateFunction(asCScriptFunction *func)
 		}
 		else if( c == asBC_CALL ||
 				 c == asBC_CALLINTF ||
-				 c == asBC_CALLSYS )
+				 c == asBC_CALLSYS ||
+				 c == asBC_Thiscall1 )
 		{
 			// Translate the index to the func id
 			int *fid = (int*)&bc[n+1];
@@ -2800,7 +2874,8 @@ void asCReader::CalculateStackNeeded(asCScriptFunction *func)
 		{
 			// Determine the true delta from the instruction arguments
 			if( bc == asBC_CALL ||
-			    bc == asBC_CALLSYS ||
+				bc == asBC_CALLSYS ||
+				bc == asBC_Thiscall1 ||
 				bc == asBC_CALLBND ||
 				bc == asBC_ALLOC ||
 				bc == asBC_CALLINTF ||
@@ -3030,6 +3105,7 @@ asCScriptFunction *asCReader::GetCalledFunction(asCScriptFunction *func, asDWORD
 
 	if( bc == asBC_CALL ||
 		bc == asBC_CALLSYS ||
+		bc == asBC_Thiscall1 ||
 		bc == asBC_CALLINTF )
 	{
 		// Find the function from the function id in bytecode
@@ -3090,6 +3166,7 @@ int asCReader::AdjustGetOffset(int offset, asCScriptFunction *func, asDWORD prog
 		asBYTE bc = *(asBYTE*)&func->scriptData->byteCode[n];
 		if( bc == asBC_CALL ||
 			bc == asBC_CALLSYS ||
+			bc == asBC_Thiscall1 ||
 			bc == asBC_CALLINTF || 
 			bc == asBC_ALLOC ||
 			bc == asBC_CALLBND ||
@@ -3883,17 +3960,17 @@ void asCWriter::WriteObjectType(asCObjectType* ot)
 				WriteEncodedInt64(ot->templateSubTypes.GetLength());
 				for( asUINT n = 0; n < ot->templateSubTypes.GetLength(); n++ )
 				{
-					if( ot->templateSubTypes[0].IsObject() || ot->templateSubTypes[0].IsEnumType() )
+					if( ot->templateSubTypes[n].IsObject() || ot->templateSubTypes[n].IsEnumType() )
 					{
 						ch = 's';
 						WriteData(&ch, 1);
-						WriteDataType(&ot->templateSubTypes[0]);
+						WriteDataType(&ot->templateSubTypes[n]);
 					}
 					else
 					{
 						ch = 't';
 						WriteData(&ch, 1);
-						eTokenType t = ot->templateSubTypes[0].GetTokenType();
+						eTokenType t = ot->templateSubTypes[n].GetTokenType();
 						WriteEncodedInt64(t);
 					}
 				}
@@ -4058,6 +4135,7 @@ int asCWriter::AdjustGetOffset(int offset, asCScriptFunction *func, asDWORD prog
 		asBYTE bc = *(asBYTE*)&func->scriptData->byteCode[n];
 		if( bc == asBC_CALL ||
 			bc == asBC_CALLSYS ||
+			bc == asBC_Thiscall1 ||
 			bc == asBC_CALLINTF )
 		{
 			// Find the function from the function id in bytecode
@@ -4262,7 +4340,8 @@ void asCWriter::WriteByteCode(asCScriptFunction *func)
 		}
 		else if( c == asBC_CALL ||     // DW_ARG
 				 c == asBC_CALLINTF || // DW_ARG
-				 c == asBC_CALLSYS )   // DW_ARG
+				 c == asBC_CALLSYS ||  // DW_ARG
+				 c == asBC_Thiscall1 ) // DW_ARG
 		{
 			// Translate the function id
 			*(int*)(tmp+1) = FindFunctionIndex(engine->scriptFunctions[*(int*)(tmp+1)]);
