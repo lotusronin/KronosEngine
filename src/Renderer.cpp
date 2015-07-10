@@ -6,6 +6,7 @@ Renderer::Renderer(std::string shader_vsf, std::string shader_fsf, std::string t
     textshader = new Shader(text_vsf, text_fsf);
     shader->compile();
     textshader->compile();
+    fpsVal = "0";
 }
 
 Renderer::~Renderer() {
@@ -53,7 +54,7 @@ void Renderer::draw(EntityManager* entityman, MapManager* mapman, FontFactory* f
     std::string f = "fps";
     ffactory->renderString(f, -1, -0.9f, textshader);
 
-    ffactory->renderString(entityman->fpsVal, -0.9f,-0.9f, textshader);
+    ffactory->renderString(fpsVal, -0.9f,-0.9f, textshader);
 
     textshader->disable();
     //End of font testing

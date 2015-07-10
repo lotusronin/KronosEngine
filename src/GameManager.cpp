@@ -111,7 +111,6 @@ void GameManager::init()
     mapman = new MapManager();
     ffactory = new FontFactory();
 
-    
     // TODO pull out functionality from EntityManager!!!
     entityman->setResourceManager(resman);
 }
@@ -148,27 +147,23 @@ int GameManager::run()
 
         if(loaded){
 
-        if(i == 50)
-        {
-            //FIXME Need to find a cross-platform equivalent (SDL_GetTicks maybe?)
-            gettimeofday(&t, NULL);
-            t1 = t.tv_sec + t.tv_usec/1000000.00;
-        }
-
-        gettimeofday(&t, NULL);
-        t1 = t.tv_sec + t.tv_usec/1000000.00;
 
         entityman->applyPhysics();
         entityman->updateCam();
         renderer->draw(entityman, mapman, ffactory);
 
         SDL_GL_SwapWindow(win_main->screen);
+        
+        //Fix Frame skipping
+        frameTime = SDL_GetTicks() - currentTime;
+        if(frameTime < targetFPS) {
+            SDL_Delay(targetFPS-frameTime);
+        }
 
         if(i == 50)
         {
-            gettimeofday(&t, NULL);
-            t2 = t.tv_sec + t.tv_usec/1000000.00;
-            calcfps();
+            //1 frame / x ms = y frames / second
+            renderer->fpsVal = std::to_string(float(1000.0/(SDL_GetTicks() - currentTime)));
             i = 0;
         }
         else
@@ -177,25 +172,8 @@ int GameManager::run()
         }
 
         }
-        
-        //Fix Frame skipping
-        frameTime = SDL_GetTicks() - currentTime;
-        if(frameTime < targetFPS) {
-            SDL_Delay(targetFPS-frameTime);
-        }
+    
     } // end main loop
     return 0;
 }
 
-void GameManager::calcfps()
-{
-    double dt = (t2-t1);
-    //std::cout << dt << "\n";
-    //std::cout << 1/dt << "\n";
-    entityman->fpsVal = std::to_string(float(1/dt));
-/*
-
-1 frame / x ms = y frames / second
-
-*/
-}

@@ -10,7 +10,6 @@ EntityManager::EntityManager()
     cam = new Camera(320, 240);
     einstein = new PhysicsManager();
     controller = new PlayerControl();
-    fpsVal = "0";
 }
 
 EntityManager::~EntityManager()

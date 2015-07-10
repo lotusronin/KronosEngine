@@ -32,7 +32,6 @@ public:
     void init();
     void LoadMap();
     int run();
-    void calcfps();
 };
 
 #endif

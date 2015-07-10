@@ -23,5 +23,6 @@ class Renderer {
         Renderer(std::string shader_vsf, std::string shader_fsf, std::string text_vsf, std::string text_fsf);
         ~Renderer();
         void draw(EntityManager* entityman, MapManager* mapman, FontFactory* ffactory);
+        std::string fpsVal;
 };
 #endif

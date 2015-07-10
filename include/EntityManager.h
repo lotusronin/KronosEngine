@@ -45,7 +45,6 @@ public:
     std::vector<Character*>* getCharacterList();
     std::vector<Item*>* getItemList();
     Camera* getCamera();
-    std::string fpsVal;
 };
 
 #endif
