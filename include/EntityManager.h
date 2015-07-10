@@ -9,12 +9,9 @@
 #include "Camera.h"
 #include "ResourceManager.h"
 #include "PhysicsManager.h"
-#include "ScriptManager.h"
-#include "MapManager.h"
 #include "Shader.h"
 #include "PlayerControl.h"
 #include "KeyListener.h"
-#include "FontFactory.h"
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <vector>
@@ -28,8 +25,6 @@ protected:
     ResourceManager* resman;
     PhysicsManager* einstein;
     PlayerControl* controller;
-    FontFactory* ffactory;
-    ScriptManager* scriptman;
 
 public:
     //std::string mapname;
@@ -40,15 +35,16 @@ public:
     void addItem(float x, float y, float sz, std::string &texname);
     void clearObjects();
     void deleteObj();
-    void draw(Shader* shader, Shader* textshader, MapManager* mapman);
     void applyPhysics();
     void updateCam();
-    void saveMap(MapManager* mapman);
     void setMap(std::string arr);
     void setControllerListener(KeyListener* pkl);
     void setResourceManager(ResourceManager* prm);
-    void setScriptManager(ScriptManager* psm);
     void showInfo();
+    std::vector<Ground*>* getGroundList();
+    std::vector<Character*>* getCharacterList();
+    std::vector<Item*>* getItemList();
+    Camera* getCamera();
     std::string fpsVal;
 };
 

@@ -4,6 +4,8 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <cstring>
+#include "defer.h"
 
 MapManager::MapManager()
 {}
@@ -60,7 +62,7 @@ std::string MapManager::getMapName()
     return currentMap;
 }
 
-void MapManager::loadMap(std::string fname)
+void MapManager::loadMap(std::string fname, ResourceManager* resman, EntityManager* entityman, DataReader* parser)
 {
     fname = "./res/map/" + fname;
     std::cout << "Loading File: " << fname << "\n";
@@ -90,6 +92,62 @@ void MapManager::loadMap(std::string fname)
     }
     ifs.close();
     std::cout << "File Loaded \n";
+
+    //Pulled in from GameManager
+    std::vector<std::string>* currentMap = getMapData();
+
+    //Parse the String
+    std::cout << "Map Name: "<< getMapName() << "\n";
+    std::cout << "Map Music: " << getMusicName() << "\n";
+    resman->loadMusic(getMusicName());
+
+    for(auto it : (*currentMap)){
+        char *cstr = new char[it.length() + 1];
+        defer { delete[] cstr; };
+        std::strcpy (cstr, it.c_str());
+        char * p = std::strtok (cstr,",");
+        //std::cout << p << "\n";
+        float x = (float)atof(p);
+        //std::cout << "The value of x is: " << x << "\n";
+
+
+        p = std::strtok(NULL,",");
+        //std::cout << p << "\n";
+        float y = (float)atof(p);
+        //std::cout << "The value of y is: " << y << "\n";
+
+        p = std::strtok(NULL,",");
+        //std::cout << p << "\n";
+
+        std::string pstring = p;
+        std::cout << "\n" << pstring << " at " << x << "," << y << "\n";
+
+        parser->loadObj(pstring);
+        defer { parser->closeObj(); };
+
+        pstring = parser->getValue("size");
+        float sz = (float)atof(pstring.c_str());
+        pstring = parser->getValue("entity_type");
+
+        if(!strcmp(pstring.c_str(),"Character"))
+        {
+            std::string s = parser->getValue("texture");
+            resman->loadTexture(s);
+            entityman->addChar(x,y,sz,s);
+        }
+        else if(!strcmp(pstring.c_str(),"Ground"))
+        {
+            std::string s = parser->getValue("texture");
+            resman->loadTexture(s);
+            entityman->addGrd(x,y,sz,s);
+        }
+        else if(!strcmp(pstring.c_str(), "Item"))
+        {
+            std::string s = parser->getValue("texture");
+            resman->loadTexture(s);
+            entityman->addItem(x,y,sz,s);
+        }
+    }
 }
 
 

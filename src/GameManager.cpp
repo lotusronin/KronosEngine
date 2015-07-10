@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "KeyListener.h"
 #include "EntityManager.h"
+#include "Renderer.h"
 #include "defer.h"
 #include <GL/glew.h>
 #include <GL/gl.h>
@@ -16,8 +17,6 @@ GameManager::GameManager()
 
 GameManager::~GameManager()
 {
-    delete shader;
-    delete textshader;
     delete scriptman;
     delete resman;
     delete parser;
@@ -25,6 +24,8 @@ GameManager::~GameManager()
     delete entityman;
     delete win_main;
     delete mapman;
+    delete renderer;
+    delete ffactory;
 }
 
 void GameManager::setMap(std::string arr)
@@ -53,68 +54,13 @@ void GameManager::LoadMap()
     if(name.compare("") != 0)
     {
         std::cout << "Loading new map: " << name << "\n";
-        mapman->loadMap(name.c_str());
+        mapman->loadMap(name.c_str(), resman, entityman, parser);
 
     }
     else
     {
         std::cout << "Mapname not found, Loading debug.map\n";
-        mapman->loadMap("debug.map");
-    }
-
-    std::vector<std::string>* currentMap = mapman->getMapData();
-
-    //Parse the String
-    std::cout << "Map Name: "<< mapman->getMapName() << "\n";
-    std::cout << "Map Music: " << mapman->getMusicName() << "\n";
-    resman->loadMusic(mapman->getMusicName());
-
-    for(auto it : (*currentMap)){
-        char *cstr = new char[it.length() + 1];
-        defer { delete[] cstr; };
-        std::strcpy (cstr, it.c_str());
-        char * p = std::strtok (cstr,",");
-        //std::cout << p << "\n";
-        float x = (float)atof(p);
-        //std::cout << "The value of x is: " << x << "\n";
-
-
-        p = std::strtok(NULL,",");
-        //std::cout << p << "\n";
-        float y = (float)atof(p);
-        //std::cout << "The value of y is: " << y << "\n";
-
-        p = std::strtok(NULL,",");
-        //std::cout << p << "\n";
-
-        std::string pstring = p;
-        std::cout << "\n" << pstring << " at " << x << "," << y << "\n";
-
-        parser->loadObj(pstring);
-        defer { parser->closeObj(); };
-
-        pstring = parser->getValue("size");
-        float sz = (float)atof(pstring.c_str());
-        pstring = parser->getValue("entity_type");
-
-        if(!strcmp(pstring.c_str(),"Character"))
-        {
-            std::string s = parser->getValue("texture");
-            resman->loadTexture(s);
-            entityman->addChar(x,y,sz,s);
-        }
-        else if(!strcmp(pstring.c_str(),"Ground"))
-        {
-            std::string s = parser->getValue("texture");
-            resman->loadTexture(s);
-            entityman->addGrd(x,y,sz,s);
-        }
-        else if(!strcmp(pstring.c_str(), "Item"))
-        {
-            std::string s = parser->getValue("texture");
-            resman->loadTexture(s);
-            entityman->addItem(x,y,sz,s);
-        }
+        mapman->loadMap("debug.map", resman, entityman, parser);
     }
     
     entityman->showInfo();
@@ -158,19 +104,16 @@ void GameManager::init()
     entityman->setControllerListener(listener);
     resman = new ResourceManager();
     resman->initSound();
-    shader = new Shader("simpleshader.vert", "simpleshader.frag");
-    shader->compile();
-    textshader = new Shader("textshader.vert", "textshader.frag");
-    textshader->compile();
+    renderer = new Renderer("simpleshader.vert", "simpleshader.frag", "textshader.vert", "textshader.frag");
     scriptman = new ScriptManager();
     scriptman->execute();
     parser = new DataReader();
     mapman = new MapManager();
+    ffactory = new FontFactory();
 
     
     // TODO pull out functionality from EntityManager!!!
     entityman->setResourceManager(resman);
-    entityman->setScriptManager(scriptman);
 }
 
 int GameManager::run()
@@ -193,23 +136,21 @@ int GameManager::run()
         save = listener->save();
         if(save == 1)
         {
-            entityman->saveMap(mapman);
+            mapman->saveMap("debug.map");
             save = 0;
         }
         else if(save == 2)
         {
             LoadMap();
-            //entityman->loadMap(s);
             save = 0;
             loaded = 1;
         }
 
         if(loaded){
 
-        //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
         if(i == 50)
         {
+            //FIXME Need to find a cross-platform equivalent (SDL_GetTicks maybe?)
             gettimeofday(&t, NULL);
             t1 = t.tv_sec + t.tv_usec/1000000.00;
         }
@@ -219,9 +160,7 @@ int GameManager::run()
 
         entityman->applyPhysics();
         entityman->updateCam();
-        entityman->draw(shader, textshader, mapman);
-
-
+        renderer->draw(entityman, mapman, ffactory);
 
         SDL_GL_SwapWindow(win_main->screen);
 

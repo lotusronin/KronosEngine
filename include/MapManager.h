@@ -2,6 +2,9 @@
 #define MAPMANAGER_H
 
 #include "Map.h"
+#include "ResourceManager.h"
+#include "EntityManager.h"
+#include "DataReader.h"
 #include <vector>
 
 class MapManager{
@@ -11,7 +14,7 @@ protected:
 public:
     MapManager();
     ~MapManager();
-    void loadMap(std::string fname);
+    void loadMap(std::string fname, ResourceManager* resman, EntityManager* entityman, DataReader* parser);
     void saveMap(const char* fname);
     std::vector<std::string>* getMapData();
     std::string getMapName();

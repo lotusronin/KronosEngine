@@ -7,7 +7,8 @@
 #include "ScriptManager.h"
 #include "MapManager.h"
 #include "DataReader.h"
-#include "Shader.h"
+#include "Renderer.h"
+#include "FontFactory.h"
 #include <time.h>
 
 class GameManager{
@@ -20,11 +21,11 @@ public:
     KeyListener* listener;
     EntityManager* entityman;
     ResourceManager* resman;
-    Shader* shader;
-    Shader* textshader;
     ScriptManager* scriptman;
     MapManager* mapman;
     DataReader* parser;
+    Renderer* renderer;
+    FontFactory* ffactory;
     GameManager();
     ~GameManager();
     void setMap(std::string arr);
