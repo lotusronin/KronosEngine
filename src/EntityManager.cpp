@@ -53,6 +53,7 @@ void EntityManager::addGrd(float x, float y, float sz, std::string &texname)
     groundList.push_back(new Ground(x, y, sz));
     (groundList.back())->setTexName(texname);
     (groundList.back())->setTexture(resman->getTexture((groundList.back())->getTexName()));
+    (groundList.back())->frameInfo = resman->getTextureFrames(texname);
 }
 
 void EntityManager::addChar(float x, float y, float sz, std::string &texname)
@@ -60,6 +61,7 @@ void EntityManager::addChar(float x, float y, float sz, std::string &texname)
     characterList.push_back(new Character(x, y, sz));
     (characterList.back())->setTexName(texname);
     (characterList.back())->setTexture(resman->getTexture((characterList.back())->getTexName()));
+    (characterList.back())->frameInfo = resman->getTextureFrames(texname);
 }
 
 void EntityManager::addItem(float x, float y, float sz, std::string &texname)
@@ -67,6 +69,7 @@ void EntityManager::addItem(float x, float y, float sz, std::string &texname)
     itemList.push_back(new Item(x, y, sz));
     (itemList.back())->setTexName(texname);
     (itemList.back())->setTexture(resman->getTexture((itemList.back())->getTexName()));
+    (itemList.back())->frameInfo = resman->getTextureFrames(texname);
 }
 
 void EntityManager::updateCam()

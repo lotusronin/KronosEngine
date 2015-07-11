@@ -9,6 +9,8 @@ class Texture{
 protected:
     GLuint t;
     std::string name;
+    float frameInfo[2];
+    int frame;
 public:
     Texture(const std::string& texname);
     ~Texture();
@@ -16,6 +18,8 @@ public:
     std::string getName();
     void FITexture(int imgWidth, int imgHeight, FIBITMAP* texture);
     void FontTexture(int imgWidth, int imgHeight, unsigned char* texture);
+    void incrementFrame();
+    float* getFrameInfo();
 };
 
 #endif // TEXTURE_H

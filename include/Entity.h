@@ -31,6 +31,7 @@ public:
     void checkError(std::string s);
     //Translation Matrix
     Matrix* ptransmat;
+    float* frameInfo;
 };
 
 #endif // ENTITY_H

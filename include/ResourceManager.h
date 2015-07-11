@@ -14,11 +14,14 @@ protected:
 //thinking of vectors for images, music, and sound effects here
 std::vector<Texture*> tvec;
 std::vector<Sound*> svec;
+float backup[2];
 public:
     ResourceManager();
     ~ResourceManager();
     void loadTexture(const std::string& texname);
     GLuint getTexture(const std::string& texname);
+    float* getTextureFrames(const std::string& texname);
+    void incrementFrame();
     void initSound();
     void loadMusic(const std::string& musname);
     void getMusic();

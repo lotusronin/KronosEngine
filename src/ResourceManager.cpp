@@ -7,7 +7,10 @@
 #include <FreeImage.h>
 
 ResourceManager::ResourceManager()
-{}
+{
+    backup[0] = 1.0f;
+    backup[1] = 1.0f;
+}
 
 ResourceManager::~ResourceManager()
 {
@@ -125,6 +128,26 @@ GLuint ResourceManager::getTexture(const std::string& texname)
     return 0;
 
 }
+
+float* ResourceManager::getTextureFrames(const std::string& texname)
+{
+
+    for(auto it : tvec){
+            if(it->getName().compare(texname) == 0){
+                return it->getFrameInfo();
+            }
+    }
+    return backup;
+
+}
+
+void  ResourceManager::incrementFrame()
+{
+    for(auto it : tvec){
+        it->incrementFrame();
+    }
+}
+
 
 void ResourceManager::getSFX()
 {}

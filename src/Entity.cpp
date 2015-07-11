@@ -79,11 +79,15 @@ void Entity::draw(Shader* s)
     //s->enable();
     GLint loc = glGetUniformLocation(s->shaderProgram, "myTexture");
     GLint transloc = glGetUniformLocation(s->shaderProgram, "transformation");
+    GLint animloc = glGetUniformLocation(s->shaderProgram, "animationCoords");
     //std::cout << "\nDrawing Entity...\nTexName: " << texname << "\nTextureID: " << texture << "\n";
 
     glUniformMatrix4fv(transloc, 1, GL_FALSE, ptransmat->mat);
 	glBindTexture(GL_TEXTURE_2D, texture);
 
+    //Animation, send frame info
+    glUniform2f(animloc, frameInfo[0], frameInfo[1]);
+    
     /*
     ** OpenGL error if glUniform1i isn't called for samplers
     */
@@ -138,6 +142,7 @@ void Entity::checkError(std::string s)
         break;
     }
 }
+
 
 /*void checkError(std::string s)
 {
