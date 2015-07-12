@@ -155,7 +155,7 @@ if(MSVC)
     set_target_properties(${ANGELSCRIPT_LIBRARY_NAME} PROPERTIES COMPILE_FLAGS "/MP")
 endif()
 
-set(RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/../../bin)
+#set(RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/../../bin)
 
-add_subdirectory(../../../samples/game/projects/cmake/ ./game)
+#add_subdirectory(../../../samples/game/projects/cmake/ ./game)
 

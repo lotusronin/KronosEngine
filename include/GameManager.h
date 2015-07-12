@@ -9,12 +9,10 @@
 #include "DataReader.h"
 #include "Renderer.h"
 #include "FontFactory.h"
-#include <time.h>
+#include "EventManager.h"
 
 class GameManager{
 private:
-    struct timeval t;
-    double t1, t2;
     std::string s;
 public:
     Window* win_main;
@@ -26,6 +24,7 @@ public:
     DataReader* parser;
     Renderer* renderer;
     FontFactory* ffactory;
+    EventManager* eventman;
     GameManager();
     ~GameManager();
     void setMap(std::string arr);

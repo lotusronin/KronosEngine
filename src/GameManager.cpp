@@ -26,6 +26,7 @@ GameManager::~GameManager()
     delete mapman;
     delete renderer;
     delete ffactory;
+    delete eventman;
 }
 
 void GameManager::setMap(std::string arr)
@@ -110,6 +111,7 @@ void GameManager::init()
     parser = new DataReader();
     mapman = new MapManager();
     ffactory = new FontFactory();
+    eventman = new EventManager();
 
     // TODO pull out functionality from EntityManager!!!
     entityman->setResourceManager(resman);
