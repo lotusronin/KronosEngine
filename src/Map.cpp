@@ -38,3 +38,11 @@ void Map::addMusictoMap(std::string music) {
 std::string Map::getMusicName() {
     return music_name;
 }
+
+void Map::addBkgtoMap(std::string bkg) {
+    m_bkg = bkg;
+}
+
+std::string Map::getBkgName() {
+    return m_bkg;
+}

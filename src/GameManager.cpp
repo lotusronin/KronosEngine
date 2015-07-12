@@ -152,7 +152,7 @@ int GameManager::run()
 
         entityman->applyPhysics();
         entityman->updateCam();
-        renderer->draw(entityman, mapman, ffactory);
+        renderer->draw(entityman, mapman, ffactory, resman);
         resman->incrementFrame();
 
         SDL_GL_SwapWindow(win_main->screen);

@@ -77,8 +77,15 @@ void MapManager::loadMap(std::string fname, ResourceManager* resman, EntityManag
         if(s.compare(0,5,"music") == 0) {
             addMusictoMap(s.substr(6));
             ifs >> s;
-        } else {
+        }  else {
             addMusictoMap("");
+        }
+        std::cout << s << "\n";
+        if(s.compare(0,3,"bkg") == 0) {
+            addBkgtoMap(s.substr(4));
+            ifs >> s;
+        } else {
+            addBkgtoMap("");
         }
         while(s.compare("mapend")){
             //std::cout<< s << "\n";
@@ -99,7 +106,9 @@ void MapManager::loadMap(std::string fname, ResourceManager* resman, EntityManag
     //Parse the String
     std::cout << "Map Name: "<< getMapName() << "\n";
     std::cout << "Map Music: " << getMusicName() << "\n";
+    std::cout << "Map Bkg: " << getBkgName() << "\n";
     resman->loadMusic(getMusicName());
+    resman->loadTexture(getBkgName());
 
     for(auto it : (*currentMap)){
         char *cstr = new char[it.length() + 1];
@@ -198,6 +207,26 @@ std::string MapManager::getMusicName() {
     for(auto it : MapList){
             if(it->getMapName().compare(currentMap) == 0){
                 return it->getMusicName();
+            }
+    }
+
+    return "";
+}
+
+void MapManager::addBkgtoMap(std::string bkg) {
+    Map* temp;
+    for(auto it : MapList){
+            if(it->getMapName().compare(currentMap) == 0){
+                temp = it;
+            }
+    }
+    temp->addBkgtoMap(bkg);
+}
+
+std::string MapManager::getBkgName() {
+    for(auto it : MapList){
+            if(it->getMapName().compare(currentMap) == 0){
+                return it->getBkgName();
             }
     }
 

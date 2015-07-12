@@ -8,6 +8,7 @@ protected:
     std::string map_name;
     std::vector<std::string> layout;
     std::string music_name;
+    std::string m_bkg;
 public:
     Map(std::string _map_name);
     ~Map();
@@ -17,6 +18,8 @@ public:
     void showData();
     void addMusictoMap(std::string music);
     std::string getMusicName();
+    void addBkgtoMap(std::string bkg);
+    std::string getBkgName();
 };
 
 #endif

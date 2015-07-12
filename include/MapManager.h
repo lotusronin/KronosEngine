@@ -23,7 +23,9 @@ public:
     void showMap();
     bool mapExists(std::string name);
     void addMusictoMap(std::string music);
+    void addBkgtoMap(std::string bkg);
     std::string getMusicName();
+    std::string getBkgName();
 };
 
 

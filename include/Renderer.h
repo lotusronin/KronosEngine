@@ -19,10 +19,12 @@ class Renderer {
     private:
         Shader* shader;
         Shader* textshader;
+        GLuint bkgVerts;
+        float bkgvertsuv[16];
     public:
         Renderer(std::string shader_vsf, std::string shader_fsf, std::string text_vsf, std::string text_fsf);
         ~Renderer();
-        void draw(EntityManager* entityman, MapManager* mapman, FontFactory* ffactory);
+        void draw(EntityManager* entityman, MapManager* mapman, FontFactory* ffactory, ResourceManager* resman);
         std::string fpsVal;
 };
 #endif

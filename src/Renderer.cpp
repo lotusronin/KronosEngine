@@ -1,12 +1,16 @@
 #include "Renderer.h"
 #include <iostream>
 
-Renderer::Renderer(std::string shader_vsf, std::string shader_fsf, std::string text_vsf, std::string text_fsf) {
+Renderer::Renderer(std::string shader_vsf, std::string shader_fsf, std::string text_vsf, std::string text_fsf) : bkgvertsuv{ -300.0f, -220.0f, 340.0f, -220.0f, 340.0f, 260.0f, -300.0f, 260.0f, 0, 0, 1, 0, 1, 1, 0, 1} {
     shader = new Shader(shader_vsf, shader_fsf);
     textshader = new Shader(text_vsf, text_fsf);
     shader->compile();
     textshader->compile();
     fpsVal = "0";
+
+    glGenBuffers(1,&bkgVerts);
+    glBindBuffer(GL_ARRAY_BUFFER, bkgVerts);
+    glBufferData(GL_ARRAY_BUFFER, 16*sizeof(float), bkgvertsuv, GL_STATIC_DRAW);
 }
 
 Renderer::~Renderer() {
@@ -14,7 +18,7 @@ Renderer::~Renderer() {
     delete textshader;
 }
 
-void Renderer::draw(EntityManager* entityman, MapManager* mapman, FontFactory* ffactory) {
+void Renderer::draw(EntityManager* entityman, MapManager* mapman, FontFactory* ffactory, ResourceManager* resman) {
     
     //Need, Camera, characterlist, groundlist, itemlist, fontfactory
     std::vector<Ground*>* groundList = entityman->getGroundList();
@@ -27,6 +31,27 @@ void Renderer::draw(EntityManager* entityman, MapManager* mapman, FontFactory* f
 	shader->enable();
     GLint cameraloc = glGetUniformLocation(shader->shaderProgram, "camera");
     glUniformMatrix4fv(cameraloc, 1, GL_FALSE, cam->GetTransform()->mat);
+
+    //Draw Bkg
+    //TODO Clean this up, maybe a function? 
+    std::string bkgname = mapman->getBkgName();
+    if(bkgname.compare("") != 0) {
+        GLuint tex = resman->getTexture(bkgname);
+        glActiveTexture(GL_TEXTURE0);
+        glBindBuffer(GL_ARRAY_BUFFER, bkgVerts);
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(float)*8));
+	    glEnableVertexAttribArray(0);
+	    glEnableVertexAttribArray(1);
+        GLint animloc = glGetUniformLocation(shader->shaderProgram, "animationCoords");
+        GLint transloc = glGetUniformLocation(shader->shaderProgram, "transformation");
+        GLint loc = glGetUniformLocation(shader->shaderProgram, "myTexture");
+	    glBindTexture(GL_TEXTURE_2D, tex);
+        glUniformMatrix4fv(transloc, 1, GL_FALSE, (*characterList->begin())->ptransmat->mat);
+        glUniform2f(animloc, 1, 1);
+	    glUniform1i(loc, 0);
+	    glDrawArrays(GL_QUADS, 0, 4);
+    }
 
     for(auto it : (*characterList)){
             it->draw(shader);
