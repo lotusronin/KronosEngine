@@ -20,6 +20,9 @@ EntityManager::~EntityManager()
     for(auto it : groundList){
             delete it;
     }
+    for(auto it : itemList){
+        delete it;
+    }
     delete einstein;
     delete cam;
     delete controller;

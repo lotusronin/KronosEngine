@@ -59,6 +59,7 @@ void ResourceManager::loadTexture(const std::string& texname)
     if(!exists){
 
         FIBITMAP* texture;
+        FIBITMAP* temp;
         FREE_IMAGE_FORMAT fif;
         int imgWidth;
         int imgHeight;
@@ -68,13 +69,14 @@ void ResourceManager::loadTexture(const std::string& texname)
         fif = FreeImage_GetFileType(path,0);
 
         if( FreeImage_FIFSupportsReading(fif)){
-            texture = FreeImage_Load(fif, path);
-            texture = FreeImage_ConvertTo32Bits(texture);
+            temp = FreeImage_Load(fif, path);
+            texture = FreeImage_ConvertTo32Bits(temp);
             imgWidth = FreeImage_GetWidth(texture);
             imgHeight = FreeImage_GetHeight(texture);
             tvec.push_back(new Texture(texname));
             tvec.back()->FITexture(imgWidth, imgHeight, texture);
             FreeImage_Unload(texture);
+            FreeImage_Unload(temp);
         }
         else{
             std::cout << "File not supported!\n";
