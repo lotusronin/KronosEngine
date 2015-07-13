@@ -27,6 +27,7 @@ GameManager::~GameManager()
     delete renderer;
     delete ffactory;
     delete eventman;
+    delete filewatcher;
 }
 
 void GameManager::setMap(std::string arr)
@@ -53,6 +54,7 @@ void GameManager::LoadMap()
     {
         std::cout << "Loading new map: " << name << "\n";
         mapman->loadMap(name.c_str(), resman, entityman, parser);
+        filewatcher->addMapFile(name);
 
     }
     else
@@ -112,6 +114,7 @@ void GameManager::init()
     mapman = new MapManager();
     ffactory = new FontFactory();
     eventman = new EventManager();
+    filewatcher = new FileWatcher();
 
     // TODO pull out functionality from EntityManager!!!
     entityman->setResourceManager(resman);
@@ -145,6 +148,11 @@ int GameManager::run()
             LoadMap();
             save = 0;
             loaded = 1;
+        }
+        
+        if(done == 2) {
+                done = 0;
+                filewatcher->checkFiles();
         }
 
         if(loaded){

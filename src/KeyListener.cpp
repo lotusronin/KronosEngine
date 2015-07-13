@@ -32,6 +32,14 @@ int KeyListener::query(){
                         return 1;
                 break;
             }
+            case SDL_WINDOWEVENT:
+            {
+                switch (event.window.event) {
+                    case SDL_WINDOWEVENT_FOCUS_GAINED:
+                        return 2;
+                        break;
+                }
+            }
         } // end switch
     } // end of message processing
     return 0;

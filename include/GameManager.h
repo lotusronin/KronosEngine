@@ -10,6 +10,7 @@
 #include "Renderer.h"
 #include "FontFactory.h"
 #include "EventManager.h"
+#include "FileWatcher.h"
 
 class GameManager{
 private:
@@ -25,6 +26,7 @@ public:
     Renderer* renderer;
     FontFactory* ffactory;
     EventManager* eventman;
+    FileWatcher* filewatcher;
     GameManager();
     ~GameManager();
     void setMap(std::string arr);
